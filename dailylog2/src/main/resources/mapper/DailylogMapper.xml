@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rc.dailylog2.domain.dailylog.DailylogMapper" >
+
+<select id="selectTeamDailylogDetail" parameterType="hashmap" resultType="Dailylog">
+        select
+        a.dailylogno
+        ,a.deptcode
+        ,a.workerid
+        ,b.username
+        ,a.workingday
+        ,a.part
+        ,content1
+        ,content2
+        ,content3
+        ,content4
+        ,overtimestart
+        ,overtimeend
+        ,overtimecontent
+        ,tag
+        from t_dailylog a
+        inner join t_user b
+        on a.workerid = b.userid
+        where 1=1
+        and workingday =#{dailylog.workingday}
+        and a.deptcode =#{dailylog.deptcode}
+        order by positioncode, workerid
+</select>
+
+</mapper>

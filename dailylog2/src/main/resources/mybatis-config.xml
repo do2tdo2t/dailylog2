@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- db 정보 로드
+    <properties resource="application-oracle.properties" /> -->
+    <!-- 데이터 소스 관리는 Spring Boot에서 하기 때문에 여기에 작성하지 않는다. -->
+    <settings>
+        <!-- 오라클 필드 속성이 READ_COUNT 처럼 언더 스코어가 있을 때 VO 의 readCount 처럼 카멜 케이스로 변환 되게 합니다. -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.rc.dailylog2.domain.dailylog.Dailylog" alias="Dailylog"/>
+    </typeAliases>
+
+
+    <mappers>
+        <mapper resource="mapper/DailylogMapper.xml"/>
+    </mappers>
+
+
+</configuration>
