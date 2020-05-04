@@ -73,11 +73,12 @@ public class Dailylog extends BaseTimeEntity {
     private String updatepgm;
 
     @Builder
-    public Dailylog(String deptcode, String workerid, String workingday, String part
+    public Dailylog(Long dailylogno,String deptcode, String workerid, String workingday, String part
     , String content1, String content2, String content3, String content4, String overtimestart,
                     String overtimeend, String overtimecontent, String tag,
                     String enterid, String entername, String enterpgm,
                      String updateid, String updatename, String updatepgm){
+        this.dailylogno = dailylogno;
         this.deptcode = deptcode;
         this.workerid = workerid;
         this.workingday = workingday;

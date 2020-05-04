@@ -1,0 +1,145 @@
+.common-calendar > *{
+    font-family: 'Nanum Gothic', sans-serif;
+    text-align:center;
+}
+
+.common-calendar{
+    margin:20px auto;
+    /* border: solid 0.5px grey; */
+    background-color: white;
+    width:100%;
+    height:90%;
+   /* border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px gray; */
+}
+#common-calendar-move{
+    width:100%;
+    height:60px;
+    padding:auto;
+}
+
+.calendar-header{
+    height:10%;
+    width:100%;
+    margin:0px;
+    min-height: 60px;
+    font-size:20px;
+    border-radius: 10px;
+}
+
+.calendar-yoil{
+    height:10%;
+    width:100%;
+    margin:0px;
+    min-height: 60px;
+    font-size:20px;
+    border-radius: 10px;
+}
+.yoil{
+    width:16%;
+    font-size:17px;
+    padding-top: 40px;
+    margin:auto 0;
+    text-align:center;
+    color: #1e80d7;
+    font-weight: 700;
+}
+
+.calendar-main{
+    height:80%;
+    width:100%;
+}
+.calendar-main > .row{
+    min-height:16%;
+    margin:0px;
+    width:100%;
+    border-top:solid lightgrey 0.5px;
+}
+
+#yyyymm{
+    margin:auto 0;
+    vertical-align:middle;
+    font-weight: 700;
+    font-size:20px;
+}
+
+#next-arrow, #before-arrow{
+    height: 50px;
+    font-size:30px;
+    padding-top:10px;
+}
+
+.day{
+    text-align:center;
+    font-size: 13px;
+    font-weight: 600;
+    max-height:100%;
+}
+
+.invalid{
+    opacity:0.3;
+}
+
+.event-click{
+    cursor:pointer;
+}
+
+/* button */
+.dailylog{
+    font-size: x-small;
+    padding:0px;
+    margin:0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.today{
+    /*background-color: rgb(231, 231, 231);*/
+    border-color: gainsboro;
+}
+
+/* button */
+.holiday{
+    font-size: x-small;
+    padding: 0px;
+    margin:0px;
+    height:inherit;
+    width:inherit;
+}
+
+/*********************** 주간달력 *********************/
+.weekly-calendar-th-style1 :hover{
+    cursor: pointer;
+}
+.weekly-content-form-style1{
+    height:fit-content;
+    font-size:small;
+    text-align:left;
+}
+.weekly-calendar-header-style1{
+    padding:15px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.weekly-content-style1{
+    font:0.7em;
+    font-weight: 500;
+
+}
+
+.weekly-calendar-border-style1{
+    border:solid 0.5px grey;
+}
+
+.nanum-font{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.font-small{
+    font:small;
+}
+
+.display-none{
+    display:none;
+}

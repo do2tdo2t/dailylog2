@@ -17,6 +17,11 @@ public interface DailylogRepository extends JpaRepository<Dailylog, Long> {
                                              @Param("startdate") String startdate,
                                              @Param("enddate") String enddate);
 
+    //상세 내용 가져오기
+    public Dailylog findByWorkeridAndWorkingday(String workerid, String workingday);
+
+    public Dailylog findByDailylogno(Long dailylogno);
+
     //해당월의 팀 전체 업무일지 가져오기
     public List<Dailylog> findByDeptcodeAndWorkingdayBetween(String deptcode, String startdate, String enddate);
 
