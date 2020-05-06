@@ -20,7 +20,7 @@ public class Dailylog extends BaseTimeEntity {
             , generator="seq") //PK auto_increment 속성
     private Long dailylogno;
 
-    @Column(nullable = false, columnDefinition="default ''")
+    //@Column(nullable = false, columnDefinition="default ''")
     private String deptcode;
 
     // @OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
@@ -34,7 +34,7 @@ public class Dailylog extends BaseTimeEntity {
     @Column(name= "workingday" ,nullable = false , columnDefinition="DATE")
     private String workingday;
 
-    @Column(nullable = false , columnDefinition="default 'H'")
+    //@Column(nullable = false , columnDefinition="default 'H'")
     private String part;
 
     @Lob

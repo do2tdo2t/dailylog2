@@ -21,16 +21,16 @@ public class Weeklylog extends BaseTimeEntity implements Serializable {
             , generator="seq") //PK auto_increment 속성
     private Long weeklylogno;
 
-    @Column(nullable = false, columnDefinition = "default ''")
+    //@Column(nullable = false, columnDefinition = "default ''")
     private String deptcode;
 
-    @Column(nullable = false, columnDefinition = "default ''")
+    //@Column(nullable = false, columnDefinition = "default ''")
     private String workerid;
 
-    @Column(columnDefinition = "DATE default sysdate", nullable = false)
+    //@Column(columnDefinition = "DATE default sysdate", nullable = false)
     private String workingday;
 
-    @Column(nullable = false, columnDefinition = "default 'H'")
+    //@Column(nullable = false, columnDefinition = "default 'H'")
     private String part;
 
     @Lob

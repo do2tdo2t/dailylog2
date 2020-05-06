@@ -27,10 +27,10 @@ public class User extends BaseTimeEntity{
 
     private String deptcode;
 
-    @Column(nullable = false , columnDefinition="default 'H'")
+    //@Column(nullable = false , columnDefinition="default 'H'")
     private String part;
 
-    @Column(nullable = false,  columnDefinition="default '0'")
+    //@Column(nullable = false,  columnDefinition="default '0'")
     private String userstatecode;
 
     private String acceptadminyn;
@@ -50,13 +50,13 @@ public class User extends BaseTimeEntity{
 
     private String loginip;
 
-    @Column(columnDefinition="default 0")
+    //@Column(columnDefinition="default 0")
     private Integer logincount;
 
-    @Column(columnDefinition="default 0")
+    //@Column(columnDefinition="default 0")
     private Integer loginfailcnt;
 
-    @Column(columnDefinition="default 'N'")
+    //@Column(columnDefinition="default 'N'")
     private String lockyn;
 
     private String positioncode;

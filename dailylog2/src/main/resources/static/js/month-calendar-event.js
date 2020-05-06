@@ -1,4 +1,47 @@
 /** prototype으로 구현 */
+/* ajax */
+
+/** 개인 업무일지 캘린더 그리기 */
+function drawMonthCalendar(date){
+    /* parameter */
+    var dailylog = {};
+    dailylog["startdate"] = "2020-05-01";
+    dailylog["enddate"] = "2020-05-30";
+    dailylog["userid"] = "R2020001";
+
+    $.ajax({
+        url:'/api/search/dailylog/member/month',
+        dataType:'json',
+        type:'POST',
+        contentType: "application/json;charset=UTF-8",
+        data : JSON.stringify(dailylog),
+        success:function(jsonData){
+            console.log(jsonData);
+
+            calendar = new CommonCalendar();
+            //1. render
+            calendar.render(date,'calendar');
+            calendar.markTodate(date.getDate());
+            calendar.markDailylog(jsonData.dailylogList);
+            calendar.markHoliday();
+        },
+        fail:function(xhr,status,errorThrown){
+            console.log(errorThrown);
+
+        }
+    })
+}
+
+/** 팀 업무일지 캘린더 그리기 */
+function drawTeamMonthCalendar(date){
+    calendar = new CommonCalendar();
+    //1. render
+    calendar.render(date,'calendar');
+    calendar.markTodate(date.getDate());
+    calendar.markTeamDailylog();
+    calendar.markHoliday();
+}
+
 function CommonCalendar(){
 
     this.header ='<div class="row calendar-header" >'
@@ -34,7 +77,8 @@ CommonCalendar.prototype.render = function(date, id){
     var calendarHtml = this.header;
     var calendarMain ="<div class='calendar-main' id='month-calendar'>";
     var rowHeadHtml = "<div class='row'>";
-    var colHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'><div class='dd'>{{day}}</div></div>";
+    var colHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>" +
+                       "<div class='dd'>{{day}}</div></div>";
     var divEndHtml = "</div>";
     
     var startDay = ( firstYoil == 0 ? 1 : lastDateOfBeforeMonth - firstYoil + 1 ) ;
@@ -109,18 +153,47 @@ CommonCalendar.prototype.markHoliday = function(){
         element.insertAdjacentHTML('beforeend',holidayHtml);
     }
 }
-
-CommonCalendar.prototype.markDailylog = function(){
+//jsonData -> responseJson (Dailylog, DailylogList)
+CommonCalendar.prototype.markDailylog = function(list){
+    console.log(list);
     //type 1) 모든사람들 표시
-    var dailylogHtml = 
-    "<button class='btn btn-secondary dailylog' onclick='whenClickDailylog(event);' type='button'>김아무개, 박아무개, 이아무개, 홍길동, 가나다, 라마바, 사아자, 차카타, 파하가, 갸거겨,고교구 (11) </button> ";
-    var exdate = 'date-2020-4-12';
-    var element = document.getElementById(exdate);
+    var html =
+    "<button class='btn btn-secondary dailylog' onclick='whenClickDailylog(event);' type='button'>"
+    +"{{username}}</button> ";
+    var newhtml = '';
+    var dailylog;
+    var dateId ='';
+    var element;
 
-    if(element != null && element != undefined){
-        element.insertAdjacentHTML('beforeend',dailylogHtml);
-    } 
+    //var exdate = 'date-2020-4-12';
+    for(var i = 0 ; i < list.length ; i++){
+        dailylog = list[i];
+        dateId = this.getDateId(dailylog.workingday);
+
+        element = document.getElementById(dateId);
+        newhtml = html.replace('{{username}}',dailylog.user.username);
+
+         if(element != null && element != undefined){
+             element.insertAdjacentHTML('beforeend',newhtml);
+         }
+    }
 }
+CommonCalendar.prototype.getDateId = function(workingday){
+    // workingday  : yyyy-mm-dd
+    var dateid = '';
+
+    if(workingday != null){
+        var yearmonthday = workingday.split('-');
+        var year = yearmonthday[0];
+        var month= yearmonthday[1].substring(0,1) == "0" ? yearmonthday[1].substring(1,2) : yearmonthday[1].substring(0,2);
+
+        var day = yearmonthday[2].substring(0,1) == "0" ? yearmonthday[2].substring(1,2) : yearmonthday[2].substring(0,2);
+
+        dateid = "date-" + year +"-" +month +"-" +day;
+    }
+    return dateid;
+}
+
 
 CommonCalendar.prototype.markTeamDailylog = function(){
     //type 1) 모든사람들 표시
@@ -143,180 +216,6 @@ CommonCalendar.prototype.handleCol = function(colHeadHtml,year, month, day, vali
     return newColHeadHtml;
 }
 
-
-/* 월달력 
-class CommonCalendar{
-    constructor(date){
-        this.date = date;
-    };
-
-    header ='<div class="row calendar-header" >'
-    +'<div class="col" id="yyyymm">'
-    +    '<span id = "yyyy"></span>년 &nbsp; &nbsp;' 
-    +    '<span id = "mm"></span>월'
-    +'</div>'
-    +'</div>'
-    +'<div class="row calendar-yoil" id="calendarYoil">'
-    +'<div class="col yoil">일</div>'
-    +'<div class="col yoil">월</div>'
-    +'<div class="col yoil">화</div>'
-    +'<div class="col yoil">수</div>'
-    +'<div class="col yoil">목</div>'
-    +'<div class="col yoil">금</div>'
-    +'<div class="col yoil">토</div>'
-    +'</div>';
-
-    render(date,id){
-        this.date = date;
-        var yyyy = date.getFullYear();
-        var mm = date.getMonth(); // month : 실제 월보다 1이 적음. 
-        
-        //0이 일요일
-        var firstDay = new Date(yyyy,mm ,1);
-        var firstDate = firstDay.getDate();
-        var lastDay = new Date(yyyy,mm + 1,0);
-        var lastDate = lastDay.getDate();
-        var lastYoil = lastDay.getDay();
-        var firstYoil = firstDay.getDay(); //현재 월이 1일의 요일
-        var lastDateOfBeforeMonth = new Date(firstDay -1 ).getDate();
-        var calendarHtml = this.header;
-        var calendarMain ="<div class='calendar-main' id='month-calendar'>";
-        var rowHeadHtml = "<div class='row'>";
-        var colHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'><div class='dd'>{{day}}</div></div>";
-        var divEndHtml = "</div>";
-        
-        var startDay = ( firstYoil == 0 ? 1 : lastDateOfBeforeMonth - firstYoil + 1 ) ;
-    
-        //calendar reder
-        //첫주
-        var day = startDay;
-        
-        var validation = day == 1 ? "valid" : "invalid"; //해당 월의 날짜:valid, 아니면 invlid
-        //0:일 1:월 2:화 3:수 4:목 5:금 6:토
-        calendarHtml += calendarMain + rowHeadHtml;
-        for(var i = 1 ; i <= 7  ; i++, day ++){
-            //순서 중요
-            if(day > lastDateOfBeforeMonth){
-                day = 1;
-                validation = "valid";
-            }
-            calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day, validation);
-        }
-        calendarHtml += divEndHtml;
-        
-        //둘째주 ~ 마지막주  -1
-        validation = "valid";
-        for(var i = 1  ; day <= lastDate  ; day++, i++ ){
-    
-            if(i % 7 == 1){
-                calendarHtml += rowHeadHtml;
-            }
-            calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day,validation);
-            if (i % 7 == 0){
-                calendarHtml += divEndHtml;
-            }
-        }
-    
-        //마지막주 
-        //0:일 1:월 2:화 3:수 4:목 5:금 6:토
-        validation = "invalid";
-        for(var i = lastYoil + 1 ,day = 1  ;  i < 7 ; day++, i++ ){
-            calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day,validation);
-        }
-        calendarHtml += divEndHtml + divEndHtml;
-    
-        //calendarBody에 붙이기
-        var calendarBody = document.getElementById(id);
-        calendarBody.innerHTML = "";
-        calendarBody.insertAdjacentHTML('beforeend',calendarHtml);
-    
-        //yyyy-mm setting
-        document.getElementById('yyyy').innerHTML = yyyy;
-        document.getElementById('mm').innerHTML = mm + 1 ;
-    }
-    
-    markTodate(){
-        var date = new Date();
-
-        var element = document.getElementById("date-"+date);
-
-        if (element != undefined){
-            element.classList.add('today');
-        }
-    }
-    
-    markHoliday(){
-        var holiday = '공휴일';
-        var exdate = 'date-2020-3-20';
-        var element = document.getElementById(exdate);
-        var holidayHtml =  "<button class='btn btn-danger holiday' type='button'>{{holiday}}</button> ";
-        holidayHtml = holidayHtml.replace("{{holiday}}", holiday);
-
-        if(element != null && element != undefined){
-            element.insertAdjacentHTML('beforeend',holidayHtml);
-        }
-    }
-
-    markDailylog(){
-        //type 1) 모든사람들 표시
-        var dailylogHtml = 
-        "<button class='btn btn-secondary dailylog' onclick='whenClickDailylog(event);' type='button'>김아무개, 박아무개, 이아무개, 홍길동, 가나다, 라마바, 사아자, 차카타, 파하가, 갸거겨,고교구 (11) </button> ";
-        var exdate = 'date-2020-4-12';
-        var element = document.getElementById(exdate);
-
-        if(element != null && element != undefined){
-            element.insertAdjacentHTML('beforeend',dailylogHtml);
-        } 
-    }
-
-    markTeamDailylog(){
-        //type 1) 모든사람들 표시
-        var dailylogHtml = 
-        "<button class='btn btn-secondary dailylog' onclick='whenClickTeamDailylog(event);' type='button'>김아무개, 박아무개, 이아무개, 홍길동, 가나다, 라마바, 사아자, 차카타, 파하가, 갸거겨,고교구 (11) </button> ";
-        var exdate = 'date-2020-4-12';
-        var element = document.getElementById(exdate);
-
-        if(element != null && element != undefined){
-            element.insertAdjacentHTML('beforeend',dailylogHtml);
-        } 
-    }
-
-    handleCol (colHeadHtml,year, month, day, validation){
-        var newColHeadHtml = colHeadHtml.replace(/{{year}}/gi, year )
-                        .replace(/{{month}}/gi, month)
-                        .replace(/{{day}}/gi, day )
-                        .replace(/{{validation}}/, validation);
-
-        return newColHeadHtml;
-    }
-}
-*/
-/*
-function nextMonth(){
-        //날짜 설정하기
-
-        var yyyy = document.getElementById('yyyy').innerHTML;
-        var mm = document.getElementById('mm').innerHTML;
-
-        var nextyyyy = Number(mm) == 12 ? Number(yyyy) + 1  : yyyy ;
-        var nextmm = Number(mm) == 12 ? 1 : mm ;
-        var newdate = new Date( nextyyyy ,nextmm  , 1 );//다음달의 1일
-
-        var calHtml = document.getElementById('calendar');
-        calHtml.innerHTML = "";
-
-        //캘린더 그리기
-        calendar = new CommonCalendar();
-        calendar.render(newdate,'calendar');
-        calendar.markTodate();
-        calendar.markDailylog();
-        calendar.markHoliday();
-
-        changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-        //datepicker수정
-
-}
-*/
 function getNextMonth(){
     var yyyy = document.getElementById('yyyy').innerHTML;
     var mm = document.getElementById('mm').innerHTML;
@@ -327,30 +226,7 @@ function getNextMonth(){
 
     return newdate;
 }
-/*
-function beforeMonth(){
-    //날짜 설정하기
-   var yyyy = document.getElementById('yyyy').innerHTML;
-   var mm = document.getElementById('mm').innerHTML;
 
-   var beforeyyyy = Number(mm-2) == 0 ? Number(yyyy) - 1 : yyyy ;
-   var beforemm = Number(mm-2) == 0 ? 11 : (Number(mm)-1) -1 ;
-
-   var newdate = new Date( beforeyyyy ,beforemm  , 1 );//현재 현재달의 1일 -1 1
-
-   var calHtml = document.getElementById('calendar');
-   calHtml.innerHTML = "";
-   calendar = new CommonCalendar();
-
-   //캘린더 그리기
-   calendar.render(newdate,'calendar');
-   calendar.markTodate();
-   calendar.markDailylog();
-   calendar.markHoliday();
-
-   changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-}
-*/
 function getBeforeMonth(){
     var yyyy = document.getElementById('yyyy').innerHTML;
     var mm = document.getElementById('mm').innerHTML;
@@ -363,25 +239,11 @@ function getBeforeMonth(){
     return newdate;
 }
 
-/** 개인 업무일지 캘린더 그리기 */
-function drawMonthCalendar(date){
-    calendar = new CommonCalendar();
-    //1. render
-    calendar.render(date,'calendar');
-    calendar.markTodate(date.getDate());
-    calendar.markDailylog();
-    calendar.markHoliday();
-}
+/*
+    ajax
+*/
 
-/** 팀 업무일지 캘린더 그리기 */
-function drawTeamMonthCalendar(date){
-    calendar = new CommonCalendar();
-    //1. render
-    calendar.render(date,'calendar');
-    calendar.markTodate(date.getDate());
-    calendar.markTeamDailylog();
-    calendar.markHoliday();
-}
+
 
 /* dailylog 클릭 시 
     1. datepicker update

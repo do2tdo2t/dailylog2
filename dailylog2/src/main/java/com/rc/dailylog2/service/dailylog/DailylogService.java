@@ -33,10 +33,10 @@ public class DailylogService {
         List<Dailylog> dailylogList = dailylogRepository.
                 findByWorkeridAndWorkingdayBetween(requestDto.getUserid(), requestDto.getStartdate(),requestDto.getEnddate());
 
-        Dailylog dailylog = dailylogRepository.findByWorkeridAndWorkingday(requestDto.getUserid(), requestDto.getWorkingday());
+        //Dailylog dailylog = dailylogRepository.findByWorkeridAndWorkingday(requestDto.getUserid(), requestDto.getWorkingday());
 
         DailylogResponseDto responseDto = DailylogResponseDto.builder()
-                .dailylog(dailylog)
+                //.dailylog(dailylog)
                 .dailylogList(dailylogList)
                 .build();
 
