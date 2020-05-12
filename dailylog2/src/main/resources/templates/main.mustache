@@ -50,12 +50,109 @@
                 <button class="common-btn-style1">오늘</button>
                 <button id="month-btn" class="common-btn-style1">월달력</button>
                 <button id="week-btn"  class="common-btn-style1">주달력</button>
-
             </span>
         </div>
         <div id="calendar" class="common-calendar">
         </div>
     </div>
+
+    <!-- right side detail view -->
+    <div id="right-side" class="common-box-shadow open" >
+            <!-- 업무일지 open/close -->
+            <button id="right-side-open-bar" class="background-white">
+                <img src="/static/img/format_align_justify-24px.svg" width="12px" height="12px" />
+            </button>
+            <!-- form 부분 -->
+
+            <div id="form" class="list-group form-style1">
+                {{#dailylog}}
+                <div class="list-group-item list-item-style1 common-box-shadow">
+                    <span>
+                        <img src="./img/create-24px.svg" width="20px" height="20px">
+                        업무일지
+                    </span>
+                        <span>
+                        <img src="./img/event-24px.svg" width="20px" height="20px">
+                        <input type="text" id="date-picker2" class="date-picker" value="">
+                    </span>
+                        <span class="right">
+                        <button class="common-btn-style1 show-mode" id ="modify-btn">수정</button>
+                        <button class="common-btn-style1 input-mode display-none" id="save-btn">저장</button>
+                        <button class="common-btn-style1">삭제</button>
+                    </span>
+                </div>
+                <div class="list-group-item list-item-style1 common-label">
+                    실시사항
+                </div>
+                <div class="list-group-item list-item-style1">
+                    <textarea id="dailylog-content1" class="textarea-style1 input-mode display-none">{{content1}}</textarea>
+                    <pre id="dailylog-content1" class="nanum-font font-small show-mode">{{content1}}</pre>
+                </div>
+                <div class="list-group-item list-item-style1 common-label">
+                    <span>일정</span>
+                    <span class="right input-mode display-none">
+                    <button class="common-img-button-style1"><img src="./img/add_box-24px.svg" width="20px" height="20px"></button>
+                    </span>
+                </div>
+                <div class="list-group-item list-item-style1">
+                    <div id="dailylog-content2" class="schedule-style1 input-mode display-none">
+                        <div class="scheduel-header-style1">
+                        <span>
+                            <select class="common-selector-style1">
+                                <option>휴가</option>
+                                <option>출장</option>
+                                <option>회의</option>
+                            </select>
+                        </span>
+                            <span>{{username}}</span>
+                            <span class="right">
+                            <button class="common-img-button-style1"><img src="./img/delete_outline-24px.svg" width="20px" height="20px" ></button>
+                        </span>
+                        </div>
+                        <div class="schedule-body-style1">
+                            <textarea class="textarea-style2">{{content2}}</textarea>
+                        </div>
+                    </div>
+                    <div class="show-mode">
+                        <div class="normal-content nanum-font font-small">{{content2-type}}</div>
+                        <div><pre class="nanum-font font-small">{{content2}}</pre></div>
+                    </div>
+                </div>
+                <div class="list-group-item list-item-style1 common-label">
+                    특근
+                </div>
+                <div class="list-group-item list-item-style1">
+                    <div  id="dailylog-content3" class="specialwork-style1 input-mode display-none">
+                        <div class="specialwork-head-style1">
+                            <span><img src="./img/access_time-24px.svg" alt="시간" width="20px" height="20px" /></span>
+                            <span>시작시간:</span>
+                            <span><input type="time" value="{{overtimestart}}" class="time-picker-style1"></span>
+                            <span>종료시간:</span>
+                            <span><input type="time" value="{{overtimeend}}" class="time-picker-style1"></span>
+                        </div>
+                        <div class="specialwork-body-style1">
+                            <textarea class="textarea-style2">{{overtimecontent}}</textarea>
+                        </div>
+                    </div>
+                    <div class="nanum-font show-mode">
+                        <div>
+                            <span><img src="./img/access_time-24px.svg" alt="시간" width="20px" height="20px" /></span>
+                            <span>특근시간: </span><span>{{overtimestart}}</span><span>~</span><span>{{overtimeend}}</span>
+                        </div>
+                        <div><pre class="nanum-font font-small">{{overtimecontent}}</pre></div>
+                    </div>
+                </div>
+                {{/dailylog}}
+            </div>
+    </div>
+    <!-- right side detail view -->
+
 </div>
 
+<!-- 공통 script 부분 -->
+
 {{>layout/footer}}
+<script src="/static/js/main.js"></script>
+
+</body>
+</html>

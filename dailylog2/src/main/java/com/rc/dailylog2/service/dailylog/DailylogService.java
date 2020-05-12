@@ -18,7 +18,7 @@ public class DailylogService {
     //detail
     public DailylogResponseDto getDailylogDetail(DailylogRequestDto requestDto){
 
-        Dailylog dailylog = dailylogRepository.findByDailylogno(requestDto.getDailylogno());
+        Dailylog dailylog = dailylogRepository.findByWorkeridAndWorkingdayLike(requestDto.getUserid(),requestDto.getWorkingday());
 
         DailylogResponseDto responseDto = DailylogResponseDto.builder()
                 .dailylog(dailylog)
