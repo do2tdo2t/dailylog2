@@ -5,8 +5,6 @@ import com.rc.dailylog2.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Date;
 
 @ToString
 @Getter

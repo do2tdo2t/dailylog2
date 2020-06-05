@@ -1,0 +1,174 @@
+{{>layout/header}}
+
+<div id="main">
+    <div id="left-side" class="background-color-style1">
+        <div class="list-group background-none">
+            <div class="list-group-item background-none item">
+                <span><img src="/static/img/chrome_reader_mode-24px.svg" width="20px" height="20px"></span>
+                <span>업무일지</span>
+            </div>
+            <div class="list-group-item item focus active-item background-none">
+                <a class="common-link-style" href="#">
+                    <span><img src="/static/img/arrow_right-24px.svg" width="20px" height="20px"></span>
+                    <span>개인</span>
+                </a>
+            </div>
+            <div class="list-group-item item active-item background-none">
+                <a class="common-link-style" href="#">
+                    <span class="hidden"><img src="/static/img/arrow_right-24px.svg" width="20px" height="20px"></span>
+                    <span>팀</span>
+                </a>
+            </div>
+            <div class="list-group-item item background-none">
+                <span><img src="/static/img/event_note-24px.svg" width="20px" height="20px"></span>
+                <span>일정</span>
+            </div>
+            <div class="list-group-item item active-item background-none">
+                <a class="common-link-style" href="#">
+                    <span class="hidden"><img src="/static/img/arrow_right-24px.svg" width="20px" height="20px"></span>
+                    <span>개인</span>
+                </a>
+            </div>
+            <div class="list-group-item item active-item background-none">
+                <a class="common-link-style" href="#">
+                    <span class="hidden"><img src="/static/img/arrow_right-24px.svg" width="20px" height="20px"></span>
+                    <span>팀</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="center">
+        <div id="common-calendar-datepicker" class="datepicker-style1">
+            <span>
+            </span>
+            <span class="right">
+                <img src="/static/img/event-24px.svg" width="20px" height="20px">
+                <input type="text" id="date-picker1" class="date-picker" value="">
+                <button class="common-btn-style1" id="before-btn"><</button>
+                <button class="common-btn-style1" id="next-btn" >></button>
+                <button class="common-btn-style1">오늘</button>
+                <button id="month-btn" class="common-btn-style1">월달력</button>
+                <button id="week-btn"  class="common-btn-style1">주달력</button>
+            </span>
+        </div>
+        <div id="calendar" class="common-calendar">
+        </div>
+    </div>
+
+    <!-- 업무일지 수정 부분 -->
+    <div id="right-side" class="common-box-shadow open" >
+        <!-- 업무일지 open/close -->
+        <button id="right-side-open-bar" class="background-white">
+            <img src="/static/img/format_align_justify-24px.svg" width="12px" height="12px" />
+        </button>
+        <!-- form 부분 -->
+
+        <div id="form" class="list-group form-style1">
+            <div class="list-group-item list-item-style1 common-box-shadow">
+                <span>
+                    업무일지
+                </span>
+                <span>
+                    <img src="/static/img/event-24px.svg" width="20px" height="20px">
+                    <input type="text" id="date-picker2" class="date-picker" value="">
+                </span>
+                <span class="right">
+                    <button class="common-btn-style1" id ="approve-btn">업무일지 승인</button>
+                </span>
+            </div>
+            <div class="list-group-item list-item-style1 common-label">
+                실시사항
+            </div>
+            <div class="list-group-item list-item-style1">
+                <!-- template start -->
+
+                <table id = "content1-table" class="team-content-table-style1">
+                {{#dailylogList}}
+                    <tr class="team-content-tr-style1">
+                        <td class="team-content-td-style2">{{username}}</td>
+                        <td class="team-content-td-style1">
+                            <pre class="nanum-font">{{content1}}</pre>
+                        </td>
+                    </tr>
+                {{/dailylogList}}
+                </table>
+                <!-- template end -->
+            </div>
+            <div class="list-group-item list-item-style1 common-label">
+                <span>일정</span>
+            </div>
+            <div class="list-group-item list-item-style1">
+                <!-- template start -->
+                <table  id = "content2-table" class="team-content-table-style1">
+                    {{#dailylogList}}
+                        <tr class="team-content-tr-style1">
+                            <td class="team-content-td-style2">{{username}}</td>
+                            <td class="team-content-td-style1">
+                                <div></div>
+                                <pre class="nanum-font">{{content2}}</pre>
+                            </td>
+                        </tr>
+                    {{/dailylogList}}
+                </table>
+                <!-- template end -->
+            </div>
+            <div class="list-group-item list-item-style1 common-label">
+                특근
+            </div>
+            <div class="list-group-item list-item-style1">
+                <!-- template start -->
+                <table  id = "content3-table" class="team-content-table-style1">
+                    {{#dailylogList}}
+                    <tr class="team-content-tr-style1">
+                        <td class="team-content-td-style2">{{username}}</td>
+                        <td class="team-content-td-style1">
+                            <span>{{overtimestart}}</span><span>~</span><span>{{overtimeend}}</span>
+                            <pre class="nanum-font">{{content3}}</pre>
+                        </td>
+                    </tr>
+                    {{/dailylogList}}
+                </table>
+                <!-- template end -->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 공통 script 부분 -->
+
+{{>layout/footer}}
+<script src="/static/js/team.js"></script>
+
+<script type="html/template" id="content1-template">
+    <tr class="team-content-tr-style1">
+        <td class="team-content-td-style2"></td>
+        <td class="team-content-td-style1">
+            <pre class="nanum-font"></pre>
+        </td>
+    </tr>
+</script>
+
+<script type="html/template" id="content2-template">
+    <tr class="team-content-tr-style1">
+        <td class="team-content-td-style2"></td>
+        <td class="team-content-td-style1">
+            <div></div>
+            <pre class="nanum-font"></pre>
+        </td>
+    </tr>
+</script>
+
+<script type="html/template" id="content3-template">
+    <tr class="team-content-tr-style1">
+        <td class="team-content-td-style2"></td>
+        <td class="team-content-td-style1">
+            <span></span><span>~</span><span></span>
+            <pre class="nanum-font"></pre>
+        </td>
+    </tr>
+</script>
+
+</body>
+</html>

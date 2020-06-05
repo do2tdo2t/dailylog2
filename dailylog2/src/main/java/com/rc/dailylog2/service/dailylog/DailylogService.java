@@ -43,4 +43,13 @@ public class DailylogService {
         return responseDto;
     }
 
+    public DailylogResponseDto getDailylogTeamWeek(DailylogRequestDto requestDto){
+        List<Dailylog> dailylogList = dailylogRepository.findByDeptcodeAndWorkingdayBetween(requestDto.getDeptcode(),requestDto.getStartdate(),requestDto.getEnddate());
+
+        DailylogResponseDto responseDto = DailylogResponseDto.builder()
+                .dailylogList(dailylogList)
+                .build();
+
+        return responseDto;
+    }
 }

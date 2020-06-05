@@ -13,12 +13,12 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-public class DailylogController {
+public class DailylogApiController {
 
     private final DailylogService dailylogService;
 
     @PostMapping("/api/search/dailylog/member/month")
-    public DailylogResponseDto main(@RequestBody DailylogRequestDto dailylogRequestDto){
+    public DailylogResponseDto getSearchDailylogMemberMonthApi(@RequestBody DailylogRequestDto dailylogRequestDto){
 
         DailylogResponseDto responseDto = dailylogService.getDailylogMonth(dailylogRequestDto);
 
@@ -28,13 +28,26 @@ public class DailylogController {
     }
 
     @PostMapping("/api/search/dailylog/member/detail")
-    public DailylogResponseDto detail(@RequestBody DailylogRequestDto dailylogRequestDto, Model model){
+    public DailylogResponseDto getSearchDailylogMemberDetailApi(@RequestBody DailylogRequestDto dailylogRequestDto, Model model){
 
         DailylogResponseDto responseDto = dailylogService.getDailylogDetail(dailylogRequestDto);
 
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("dto",responseDto);
         model.addAttribute("dailylog",responseDto.getDailylog());
+
+        return responseDto;
+    }
+
+    @PostMapping("/api/search/dailylog/team/week")
+    public DailylogResponseDto getSearchDailylogTeamWeekApi(@RequestBody DailylogRequestDto dailylogRequestDto, Model model){
+
+        DailylogResponseDto responseDto = dailylogService.getDailylogTeamWeek(dailylogRequestDto);
+
+        //Map<String,Object> map = new HashMap<String, Object>();
+        //map.put("dto",responseDto);
+
+        //model.addAttribute("dailylog",responseDto.getDailylog());
 
         return responseDto;
     }

@@ -33,8 +33,12 @@ public interface DailylogRepository extends JpaRepository<Dailylog, Long> {
             " inner join t_user b" +
             " a.userid = b.workerid" +
             " where workerid = :workerid and workingday between :startdate and :enddate" , nativeQuery = true)
+
     public List<Dailylog> findDailylogListMonth(
             @Param("workerid") String workerid,
             @Param("startdate") String startdate,
             @Param("enddate") String enddate);
+
+    public List<Dailylog> findByDeptcodeAndWorkingdayLike(String deptcode, String workingday);
+
 }
