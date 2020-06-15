@@ -29,7 +29,6 @@ function WeeklyCalendar(){
     +       '</div>'
     +   '</div>'
     +'<div>';
-
 }
 
 WeeklyCalendar.prototype.render = function(curdate,id){

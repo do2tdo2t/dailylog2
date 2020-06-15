@@ -5,22 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+
+
+<link href='./static/css/common-calendar.css' rel='stylesheet' type='text/css'>
+<link href='./static/css/common-style.css' rel='stylesheet' type='text/css'>
+<link href="./static/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><style>
-html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif}
+  
+html,body,div,h1,h2,h3,h4,h5 {font-family: 'Nanum Gothic', sans-serif;}
 .w3-bar-block .w3-bar-item {padding: 16px}
+html,body{height:100%;  padding:0px; margin:0px}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="./js/month-calendar-event.js"></script>
 <body>
 
 <!-- Side Navigation -->
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><img src="https://www.w3schools.com/images/w3schools.png" style="width:60%;"></a>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><img src="static/img/logo.jpg" style="width:60%;"></a>
   <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'">New Message <i class="w3-padding fa fa-pencil"></i></a>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'"> 글쓰기 <i class="w3-padding fa fa-pencil"></i></a>
   <!-- menue tree strat -->
-  <a id="myBtn" onclick="myFunc('Menu1')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-inbox w3-margin-right"></i>업무일지<i class="fa fa-caret-down w3-margin-left"></i></a>
+  <a id="myBtn" onclick="showMenuDetail('Menu1')" href="javascript:void(0)" class="w3-bar-item w3-button">업무일지<i class="fa fa-caret-down w3-margin-left"></i></a>
   <div id="Menu1" class="w3-hide w3-animate-left">
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-firstTab">
       <div class="w3-container">
@@ -33,7 +45,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif}
       </div>
     </a>
   </div>
-  <a id="myBtn" onclick="myFunc('Menu2')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-inbox w3-margin-right"></i>주간회의<i class="fa fa-caret-down w3-margin-left"></i></a>
+  <a id="myBtn" onclick="showMenuDetail('Menu2')" href="javascript:void(0)" class="w3-bar-item w3-button">주간회의<i class="fa fa-caret-down w3-margin-left"></i></a>
   <div id="Menu2" class="w3-hide w3-animate-left">
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-firstTab">
       <div class="w3-container">
@@ -51,6 +63,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif}
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>로그아웃</a>
 </nav>
 <!-- Side Navigation end -->
+
+
 <!-- Modal that pops up when you click on "New Message" -->
 <div id="dailylogModal" class="w3-modal" style="z-index:4">
   <div class="w3-modal-content w3-animate-zoom">
@@ -79,34 +93,86 @@ html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif}
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Close Sidemenu" id="myOverlay"></div>
 
 <!-- Page content -->
-<div class="w3-main" style="margin-left:320px;">
-<i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top" onclick="w3_open()"></i>
-<a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
+<div class="w3-main" style="margin-left:320px; height:100%; ">
+  <i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top" onclick="w3_open()"></i>
+  <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
 
-<div id="Borge" class="w3-container person">
-  <br>
-  <h5 class="w3-opacity">업무일지 > 팀</h5>
-  <h4><i class="fa fa-clock-o"></i><div id ="datepicker"></div></h4>
-  <a class="w3-button w3-light-grey" href="#">월간달력</a>
-  <a class="w3-button w3-light-grey" href="#">주간달력</a>
-  <a class="w3-button w3-light-grey" href="#"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
-  <a class="w3-button w3-light-grey" href="#">다음<i class="w3-margin-left fa fa-arrow-right"></i></a>
-  <hr>
-  <!-- calendar-->
-  <div id ="calendar">
+  <div id="topContainer" class="w3-container" style="min-height: 145px;">
+    <br>
+    <h5 class="w3-opacity breadcrum">업무일지 > 팀</h5>
+    <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker1" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
+
+    <a class="w3-button w3-light-grey" href="javascript:void(0)"  onclick="changeTeamMonthCalendar()" >월간달력</a>
+    <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="changeTeamWeekCalendar()" >주간달력</a>
+    <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeMonth()"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
+    <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="nextMonth()">다음<i class="w3-margin-left fa fa-arrow-right"></i></a>
+    <a class= "w3-button" href = "javascript:void(0)" id="yyyymm">
+      <span id = "yyyy"></span>년 &nbsp; &nbsp;<span id = "mm"></span>월
+    </a>
+    <hr style="margin-bottom: 0px; padding-bottom: 0px;" >
   </div>
-</div>
+  <input id="type1" value='team' hidden>
+  <input id="type2" value='month' hidden>
+
+  <!-- calendar-->
+  <div id ="calendar" class="w3-container common-calendar">
+  </div>
+
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
+
+
+<!-- datepickers -->
+<script src="./static/js/datepicker/bootstrap-datepicker.js"></script>
+<script src="./static/js/datepicker/bootstrap-datepicker.ko.js"></script>
+<script src="./static/js/datepicker/datepicker-event.js"></script>
+<script src="./static/js/datepicker/date-format.js"></script>
+
+
+<script src="./static/js/date-format.js"></script>
+<script src="./static/js/month-calendar-event.js"></script>
+<script src="./static/js/week-calendar-event.js"></script>
 <script>
-var openInbox = document.getElementById("myBtn");
-openInbox.click();
 
-var CommonCalendar = new CommonCalendar();
+this.addEventListener('DOMContentLoaded', function(){
+    this.init();
+    $(window).resize(function(){
+      //this.fitHeight();
+  });
+});
+var commonCalendar;
+var weekCalendar;
+
+function init(){
+  var openInbox = document.getElementById("myBtn");
+  openInbox.click();
+  commonCalendar = new CommonCalendar();
+  this.drawCalendar();
+  
+  /* init #date-picker */
+  var date = new Date().format('yyyy-MM-dd');
+  //var datePickers = document.querySelectorAll('.date-picker');
+  $('.date-picker').attr('value',date);
+  
+}
+
+function fitHeight(){
+  var windowInnerHeight = window.innerHeight;
+  var topHeight = 145;
+  var calendarHeight = Number(windowInnerHeight) - Number(topHeight);
+  console.log('size is '+ calendarHeight);
+  $('#calnendar').css('height',calendarHeight);
+
+}
 
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
   document.getElementById("myOverlay").style.display = "block";
+
 }
 
 function w3_close() {
@@ -114,7 +180,7 @@ function w3_close() {
   document.getElementById("myOverlay").style.display = "none";
 }
 
-function myFunc(id) {
+function showMenuDetail(id) {
   var x = document.getElementById(id);
   if (x.className.indexOf("w3-show") == -1) {
     x.className += " w3-show"; 
@@ -141,11 +207,80 @@ function openMail(personName) {
   event.currentTarget.className += " w3-light-grey";
 }
 
-drawCalendar();
 function drawCalendar(){
-  var todate = new Date().todate;
-  CommonCalendar.render(todate,'calendar');
+  var todate = new Date();
+  if(commonCalendar === null || commonCalendar === undefined){
+      commonCalendar = new CommonCalendar();
+  }
+  commonCalendar.render(todate,'calendar');
+  
+}
 
+function changeTeamMonthCalendar(){
+  if(commonCalendar === null || commonCalendar === undefined){
+      commonCalendar = new CommonCalendar();
+  }
+  var date = $('.date-picker').attr('value');
+  $('.type2').attr('value','month');
+  commonCalendar.render(new Date(date),'calendar');
+}
+
+function changeTeamWeekCalendar(){
+  if(weekCalendar === null || weekCalendar === undefined){
+    weekCalendar = new WeeklyCalendar();
+  }
+  var date = $('.date-picker').attr('value');
+  $('.type2').attr('value','week');
+  weekCalendar.render(new Date(date),'calendar');
+}
+
+function nextMonth(){
+    var newdate = getNextMonth();
+    var type2 = $('.type2').attr('value');
+    if(type2 === 'month'){
+      drawMonthCalendar(newdate);
+    }else if(type2 === 'week'){
+      drawWeekCalendar(newdate);
+    }
+}
+
+function beforeMonth(){
+    var newdate = getBeforeMonth();
+    var type2 = $('.type2').attr('value');
+    if(type2 === 'month'){
+      drawMonthCalendar(newdate);
+    }else if(type2 === 'week'){
+      drawWeekCalendar(newdate);
+    }
+}
+
+function getNextMonth(){
+    var curdate = $(".date-picker").attr('value');
+    //var yyyy = document.getElementById('yyyy').innerHTML;
+    //var mm = document.getElementById('mm').innerHTML;
+    var yyyy = new Date(curdate).getFullYear();
+    var month = new Date(curdate).getMonth() + 1; 
+
+    var nextyyyy = Number(month) == 12 ? Number(yyyy) + 1  : yyyy ;
+    var nextmonth = Number(month) == 12 ? 1 : month ;
+    var newdate = new Date( nextyyyy ,nextmonth  , 1 );//다음달의 1일
+
+    return newdate;
+}
+
+function getBeforeMonth(){
+    var curdate = $(".date-picker").attr('value');
+    //var yyyy = document.getElementById('yyyy').innerHTML;
+    //var mm = document.getElementById('mm').innerHTML;
+    var yyyy = new Date(curdate).getFullYear();
+    var month = new Date(curdate).getMonth() + 1; 
+
+    var beforeyyyy = Number(month-2) == 0 ? Number(yyyy) - 1 : yyyy ;
+    var beforemonth = Number(month-2) == 0 ? 11 : (Number(month)-1) -1 ;
+ 
+    var newdate = new Date( beforeyyyy ,beforemonth  , 1 );//현재 현재달의 1일 -1 1
+
+    return newdate;
 }
 
 </script>

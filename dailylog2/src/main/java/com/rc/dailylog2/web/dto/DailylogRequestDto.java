@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class DailylogRequestDto {
+
     private Long dailylogno;
     private String workingday;
     private String userid; // workerid
@@ -23,7 +24,6 @@ public class DailylogRequestDto {
     private String overtimeend;
     private String overtimecontent;
     private String tag;
-
 
     @Builder
     public DailylogRequestDto(Long dailylogno , String workingday, String userid,

@@ -1,13 +1,14 @@
 /** prototype으로 구현 */
 function CommonCalendar(){
 
-    this.header ='<div class="row calendar-header" >'
-    +'<div class="col" id="yyyymm">'
-    +    '<span id = "yyyy"></span>년 &nbsp; &nbsp;' 
-    +    '<span id = "mm"></span>월'
-    +'</div>'
-    +'</div>'
-    +'<div class="row calendar-yoil" id="calendarYoil">'
+    this.header =
+  //  '<div class="row calendar-header" >'
+  //  +'<div class="col" id="yyyymm">'
+  //  +    '<span id = "yyyy"></span>년 &nbsp; &nbsp;' 
+  //  +    '<span id = "mm"></span>월'
+  //  +'</div>'
+  //  +'</div>' +
+    '<div class="row calendar-yoil" id="calendarYoil">'
     +'<div class="col yoil">일</div>'
     +'<div class="col yoil">월</div>'
     +'<div class="col yoil">화</div>'
@@ -95,22 +96,19 @@ CommonCalendar.prototype.buildId = function(date){
         date = new Date(date);
     }
 
-    var id = Date.format(date, 'yyyy-mm-dd');
+    var id = date.format('yyyy-mm-dd');
     return id;
 }
 
-//달력 그리기
 CommonCalendar.prototype.render = function(date, id){
-    
-    if(date === undefined || date === '' || date === null){
-        date = this.currentdate;
-    }else{
-        setCurrentDate(date);
+    if(date === undefined || date === null || date === ''){
+        date = new Date();
+        
     }
 
-    var yyyy = this.currentyyyy;
-    var mm = this.currentmm; // month : 실제 월보다 1이 적음.
-    var month = this.month; 
+    this.setCurrentDate(date);
+    var yyyy = date.getFullYear();
+    var mm = date.getMonth(); // month : 실제 월보다 1이 적음. 
     
     //0이 일요일
     var firstDay = new Date(yyyy,mm ,1);
@@ -123,29 +121,25 @@ CommonCalendar.prototype.render = function(date, id){
     var calendarHtml = this.header;
     var calendarMain ="<div class='calendar-main' id='month-calendar'>";
     var rowHeadHtml = "<div class='row'>";
-    var colHeadHtml = "<div class='col day {{validation}}' id='{{id}}'><div class='dd'>{{day}}</div></div>";
+    var colHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'><div class='dd'>{{day}}</div></div>";
     var divEndHtml = "</div>";
     
-    calendarHtml += calendarMain + rowHeadHtml;
+    var startDay = ( firstYoil == 0 ? 1 : lastDateOfBeforeMonth - firstYoil + 1 ) ;
 
-    //월의 첫날짜의 요일이 일요일일 경우, 이전달 표시 없이 해당 월만 표시
-    //월의 첫날짜의 요일이 일요일이 아닐경우, 이전달 표시하며 시작하는 일자는 7일 중 전 날짜를 표기해야 하는 만큼을 구한다.
-    var startDay = ( firstYoil == 0 ? 1 : lastDateOfBeforeMonth - firstYoil + 1 ) ; 
-    var day = startDay;
     //*calendar reder*//
+    //첫주
+    var day = startDay;
     
     var validation = day == 1 ? "valid" : "invalid"; //해당 월의 날짜:valid, 아니면 invlid
     //0:일 1:월 2:화 3:수 4:목 5:금 6:토
-    
-    //첫주
+    calendarHtml += calendarMain + rowHeadHtml;
     for(var i = 1 ; i <= 7  ; i++, day ++){
         //순서 중요
         if(day > lastDateOfBeforeMonth){
             day = 1;
             validation = "valid";
         }
-    
-        calendarHtml += this.replaceCol(colHeadHtml, day, validation);
+        calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day, validation);
     }
     calendarHtml += divEndHtml;
     
@@ -156,7 +150,7 @@ CommonCalendar.prototype.render = function(date, id){
         if(i % 7 == 1){
             calendarHtml += rowHeadHtml;
         }
-        calendarHtml += this.replaceCol(colHeadHtml, day,validation);
+        calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day,validation);
         if (i % 7 == 0){
             calendarHtml += divEndHtml;
         }
@@ -166,7 +160,7 @@ CommonCalendar.prototype.render = function(date, id){
     //0:일 1:월 2:화 3:수 4:목 5:금 6:토
     validation = "invalid";
     for(var i = lastYoil + 1 ,day = 1  ;  i < 7 ; day++, i++ ){
-        calendarHtml += this.replaceCol(colHeadHtml, day,validation);
+        calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day,validation);
     }
     calendarHtml += divEndHtml + divEndHtml;
 
@@ -174,16 +168,15 @@ CommonCalendar.prototype.render = function(date, id){
     var calendarBody = document.getElementById(id);
     calendarBody.innerHTML = "";
     calendarBody.insertAdjacentHTML('beforeend',calendarHtml);
-    console.log(calendarHtml);
 
     //yyyy-mm setting
     document.getElementById('yyyy').innerHTML = yyyy;
     document.getElementById('mm').innerHTML = mm + 1 ;
 }
 
-CommonCalendar.prototype.replaceCol = function(colHeadHtml, day, validation){
-    var id = this.buildId(new Date(this.currentyyyy,this.currentmm ,day));
-    var newColHeadHtml = colHeadHtml.replace(/{{id}}/gi, id )
+CommonCalendar.prototype.handleCol = function(colHeadHtml,year, month, day, validation){
+    var newColHeadHtml = colHeadHtml.replace(/{{year}}/gi, year )
+                    .replace(/{{month}}/gi, month)
                     .replace(/{{day}}/gi, day )
                     .replace(/{{validation}}/, validation);
 
@@ -242,7 +235,7 @@ CommonCalendar.prototype.markTeamDailylog = function(){
 function getNextMonth(){
     var yyyy = document.getElementById('yyyy').innerHTML;
     var mm = document.getElementById('mm').innerHTML;
-
+over
     var nextyyyy = Number(mm) == 12 ? Number(yyyy) + 1  : yyyy ;
     var nextmm = Number(mm) == 12 ? 1 : mm ;
     var newdate = new Date( nextyyyy ,nextmm  , 1 );//다음달의 1일
@@ -264,12 +257,15 @@ function getBeforeMonth(){
 
 /** 개인 업무일지 캘린더 그리기 */
 function drawMonthCalendar(date){
-    calendar = new CommonCalendar();
+    if(commonCalendar === undefined || commonCalendar === null){
+
+        commonCalendar = new CommonCalendar();
+    }
     //1. render
-    calendar.render(date,'calendar');
-    calendar.markTodate(date.getDate());
-    calendar.markDailylog();
-    calendar.markHoliday();
+    commonCalendar.render(date,'calendar');
+    //calendar.markTodate(date.getDate());
+    //calendar.markDailylog();
+    //calendar.markHoliday();
 }
 
 /** 팀 업무일지 캘린더 그리기 */
