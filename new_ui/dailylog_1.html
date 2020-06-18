@@ -102,17 +102,18 @@ html,body{height:100%;  padding:0px; margin:0px}
     <h5 class="w3-opacity breadcrum">업무일지 > 팀</h5>
     <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker1" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
 
-    <a class="w3-button w3-light-grey" href="javascript:void(0)"  onclick="changeTeamMonthCalendar()" >월간달력</a>
-    <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="changeTeamWeekCalendar()" >주간달력</a>
+    <a class="w3-button w3-light-grey" href="javascript:void(0)"  onclick="changeMonthCalendar()" >월간달력</a>
+    <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="changeWeekCalendar()" >주간달력</a>
     <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeMonth()"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
     <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="nextMonth()">다음<i class="w3-margin-left fa fa-arrow-right"></i></a>
     <a class= "w3-button" href = "javascript:void(0)" id="yyyymm">
       <span id = "yyyy"></span>년 &nbsp; &nbsp;<span id = "mm"></span>월
     </a>
-    <hr style="margin-bottom: 0px; padding-bottom: 0px;" >
+   <!-- <hr style="margin-bottom: 0px; padding-bottom: 0px;" > -->
   </div>
-  <input id="type1" value='team' hidden>
-  <input id="type2" value='month' hidden>
+  <!-- 달력 타입-->
+  <input id="calendarType1" value='team' hidden>
+  <input id="calendarType2" value='month' hidden>
 
   <!-- calendar-->
   <div id ="calendar" class="w3-container common-calendar">
@@ -140,33 +141,22 @@ html,body{height:100%;  padding:0px; margin:0px}
 
 this.addEventListener('DOMContentLoaded', function(){
     this.init();
-    $(window).resize(function(){
-      //this.fitHeight();
-  });
 });
-var commonCalendar;
-var weekCalendar;
+
+var commonCalendar; //월간달력
+var weekCalendar; //주간달력
 
 function init(){
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
+
   commonCalendar = new CommonCalendar();
-  this.drawCalendar();
+  commonCalendar.drawCalendar('team',new Date());
   
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');
-  //var datePickers = document.querySelectorAll('.date-picker');
   $('.date-picker').attr('value',date);
   
-}
-
-function fitHeight(){
-  var windowInnerHeight = window.innerHeight;
-  var topHeight = 145;
-  var calendarHeight = Number(windowInnerHeight) - Number(topHeight);
-  console.log('size is '+ calendarHeight);
-  $('#calnendar').css('height',calendarHeight);
-
 }
 
 function w3_open() {
@@ -180,6 +170,7 @@ function w3_close() {
   document.getElementById("myOverlay").style.display = "none";
 }
 
+//왼편 네비게이션바 부분 소메뉴펼치기
 function showMenuDetail(id) {
   var x = document.getElementById(id);
   if (x.className.indexOf("w3-show") == -1) {
@@ -192,7 +183,19 @@ function showMenuDetail(id) {
   }
 }
 
-//openMail("Borge")
+/*
+//캘린더그리기
+function drawMonthCalendar(){
+  var todate = new Date();
+  if(commonCalendar === null || commonCalendar === undefined){
+      commonCalendar = new CommonCalendar();
+  }
+  commonCalendar.render(todate,'calendar');
+  
+}
+*/
+/*
+openMail("Borge")
 function openMail(personName) {
   var i;
   var x = document.getElementsByClassName("person");
@@ -206,50 +209,70 @@ function openMail(personName) {
   document.getElementById(personName).style.display = "block";
   event.currentTarget.className += " w3-light-grey";
 }
+*/
 
-function drawCalendar(){
-  var todate = new Date();
+function changeMonthCalendar(){
   if(commonCalendar === null || commonCalendar === undefined){
       commonCalendar = new CommonCalendar();
   }
-  commonCalendar.render(todate,'calendar');
-  
-}
-
-function changeTeamMonthCalendar(){
-  if(commonCalendar === null || commonCalendar === undefined){
-      commonCalendar = new CommonCalendar();
-  }
+  var calendarType1 = $('#calendarType1').attr('value');
+  var calendarType2 = 'month';
   var date = $('.date-picker').attr('value');
-  $('.type2').attr('value','month');
-  commonCalendar.render(new Date(date),'calendar');
+  $('.calendarType2').attr('value', calendarType2 );
+
+  commonCalendar.drawCalendar(calendarType1 ,new Date(date),'calendar');
 }
 
-function changeTeamWeekCalendar(){
+function changeWeekCalendar(){
   if(weekCalendar === null || weekCalendar === undefined){
     weekCalendar = new WeeklyCalendar();
   }
+  var calendarType1 = $('#calendarType1').attr('value');
   var date = $('.date-picker').attr('value');
-  $('.type2').attr('value','week');
-  weekCalendar.render(new Date(date),'calendar');
+  $('.calendarType2').attr('value','week');
+
+  weekCalendar.drawCalendar(calendarType1,new Date(date),'calendar');
+  
+}
+
+function next(){
+  var calendarType1 = $('#calendarType1').attr('value');
+  var calendarType2 = $('#calendarType2').attr('value');
+  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
+      if(calendarType2 == 'month'){
+        if(commonCalendar === null || commonCalendar === undefined){
+            commonCalendar = new CommonCalendar();
+        }
+         var newdate = getNextMonth();
+         commonCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+
+      }else if(calendarType2 == 'week'){
+        var newdate = getNextWeek();
+        if(weekCalendar === null || weekCalendar === undefined){
+          weekCalendar = new CommonCalendar();
+        }
+         weekCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+      }
+  }
+
 }
 
 function nextMonth(){
     var newdate = getNextMonth();
-    var type2 = $('.type2').attr('value');
-    if(type2 === 'month'){
+    var calendarType2 = $('.calendarType2').attr('value');
+    if(calendarType2 === 'month'){
       drawMonthCalendar(newdate);
-    }else if(type2 === 'week'){
+    }else if(calendarType2 === 'week'){
       drawWeekCalendar(newdate);
     }
 }
 
 function beforeMonth(){
     var newdate = getBeforeMonth();
-    var type2 = $('.type2').attr('value');
-    if(type2 === 'month'){
+    var calendarType2 = $('.calendarType2').attr('value');
+    if(calendarType2 === 'month'){
       drawMonthCalendar(newdate);
-    }else if(type2 === 'week'){
+    }else if(calendarType2 === 'week'){
       drawWeekCalendar(newdate);
     }
 }

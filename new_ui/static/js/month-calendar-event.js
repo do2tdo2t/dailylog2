@@ -1,23 +1,6 @@
 /** prototype으로 구현 */
 function CommonCalendar(){
 
-    this.header =
-  //  '<div class="row calendar-header" >'
-  //  +'<div class="col" id="yyyymm">'
-  //  +    '<span id = "yyyy"></span>년 &nbsp; &nbsp;' 
-  //  +    '<span id = "mm"></span>월'
-  //  +'</div>'
-  //  +'</div>' +
-    '<div class="row calendar-yoil" id="calendarYoil">'
-    +'<div class="col yoil">일</div>'
-    +'<div class="col yoil">월</div>'
-    +'<div class="col yoil">화</div>'
-    +'<div class="col yoil">수</div>'
-    +'<div class="col yoil">목</div>'
-    +'<div class="col yoil">금</div>'
-    +'<div class="col yoil">토</div>'
-    +'</div>';
-
     this.currentdate ;
     this.currentyyyy ;
     this.currentmm ;
@@ -118,10 +101,17 @@ CommonCalendar.prototype.render = function(date, id){
     var lastYoil = lastDay.getDay();
     var firstYoil = firstDay.getDay(); //현재 월이 1일의 요일
     var lastDateOfBeforeMonth = new Date(firstDay -1 ).getDate();
-    var calendarHtml = this.header;
+    var hangulYoil = ['일','월','화','수','목','금','토'];
+    var calendarHtml = "";
     var calendarMain ="<div class='calendar-main' id='month-calendar'>";
     var rowHeadHtml = "<div class='row'>";
-    var colHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'><div class='dd'>{{day}}</div></div>";
+
+    //첫번째 주에는 요일을 표기
+    var firstColHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
+                            +"<div id='yoil'>{{hangulYoil}}</div>"
+                            +"<div class='dd'>{{day}}</div></div>";
+    var colHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
+                            +"<div class='dd'>{{day}}</div></div>";
     var divEndHtml = "</div>";
     
     var startDay = ( firstYoil == 0 ? 1 : lastDateOfBeforeMonth - firstYoil + 1 ) ;
@@ -139,7 +129,7 @@ CommonCalendar.prototype.render = function(date, id){
             day = 1;
             validation = "valid";
         }
-        calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day, validation);
+        calendarHtml += this.handleCol(firstColHeadHtml.replace('{{hangulYoil}}',hangulYoil[i-1]), yyyy, Number(mm) + 1, day, validation);
     }
     calendarHtml += divEndHtml;
     
@@ -230,12 +220,49 @@ CommonCalendar.prototype.markTeamDailylog = function(){
     } 
 }
 
+// calendarType2 = ['team','one']
+CommonCalendar.prototype.drawCalendar = function(calendarType1,date,id = 'calendar'){
+    if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
+        if(calendarType1 == 'team'){
+            //1. render
+            this.render(date,id);
+        }
 
+        if(calendarType1 == 'one'){
+            //1. render
+            this.render(date, id);
+        }
+    }
+}
+
+//다음달의 1일
+CommonCalendar.prototype.getNextMonth = function(){
+    var yyyy = document.getElementById('yyyy').innerHTML;
+    var mm = document.getElementById('mm').innerHTML;
+
+    var nextyyyy = Number(mm) == 12 ? Number(yyyy) + 1  : yyyy ;
+    var nextmm = Number(mm) == 12 ? 1 : mm ;
+    var newdate = new Date( nextyyyy ,nextmm  , 1 );//다음달의 1일
+
+    return newdate;
+}
+
+//현재달의 1일
+CommonCalendar.prototype.getBeforeMonth = function(){
+    var yyyy = document.getElementById('yyyy').innerHTML;
+    var mm = document.getElementById('mm').innerHTML;
+ 
+    var beforeyyyy = Number(mm-2) == 0 ? Number(yyyy) - 1 : yyyy ;
+    var beforemm = Number(mm-2) == 0 ? 11 : (Number(mm)-1) -1 ;
+ 
+    var newdate = new Date( beforeyyyy ,beforemm  , 1 );//현재 현재달의 1일 -1 1
+
+    return newdate;
+}
 
 function getNextMonth(){
     var yyyy = document.getElementById('yyyy').innerHTML;
     var mm = document.getElementById('mm').innerHTML;
-over
     var nextyyyy = Number(mm) == 12 ? Number(yyyy) + 1  : yyyy ;
     var nextmm = Number(mm) == 12 ? 1 : mm ;
     var newdate = new Date( nextyyyy ,nextmm  , 1 );//다음달의 1일

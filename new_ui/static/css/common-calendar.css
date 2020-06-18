@@ -34,22 +34,13 @@
     font-size:x-large;
 }
 
-.yoil{
-    width:16%;
-    font-size:medium;
-    margin:auto 0;
-    text-align:center;
-    color: #1e80d7;
-    font-weight: 700;
-}
-
 .calendar-main{
     bottom:0px;
     height:85%;
     width:100%;
 }
 .calendar-main > .row{
-    min-height:16%;
+    min-height:20%;
     margin:0px;
     width:100%;
     border-top:solid lightgrey 0.5px;
