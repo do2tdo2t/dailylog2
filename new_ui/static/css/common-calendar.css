@@ -124,3 +124,50 @@
 .display-none{
     display:none;
 }
+
+.date-style1 {
+    font-size: medium;
+    font-weight: 500;
+}
+
+.list-group{
+    border-top: solid 0.5px grey;
+}
+
+.list-group-item{
+    border-top: solid 0.5px grey;
+}
+
+.content1-style1{
+    font-size: medium;
+    text-align:left;
+}
+    
+.row-style1{
+    border-top:solid 0.5px grey;
+}
+
+.col-style1{
+    border-left:solid 0.5px grey;
+}
+
+.col-left-border{
+    border-left:solid 0.5px grey;
+}
+
+.col-right-border{
+    border-right:solid 0.5px grey;
+}
+.col-style2{
+    border-bottom:solid 0.5px grey;
+}
+
+.label-style1{
+    font-size: medium;
+    vertical-align:middle;
+}
+
+.pre-style1{
+    overflow: auto;
+    white-space: pre-wrap; 
+}

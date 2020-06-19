@@ -7,7 +7,7 @@ function CommonCalendar(){
     this.currentmonth;
     this.currentdd ;
     this.currentyoil ;
-
+    this.id = 'calendar';
     
     this.reg1 = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/g //yyyy-MM-DD ex) 2020-01-01
     this.reg2 = /^\d{4}-[1]?[0-9]{1}-[1-3]?[0-9]{1}$/g //yyyy-mm-dd ex) 2020-1-1
@@ -221,7 +221,11 @@ CommonCalendar.prototype.markTeamDailylog = function(){
 }
 
 // calendarType2 = ['team','one']
-CommonCalendar.prototype.drawCalendar = function(calendarType1,date,id = 'calendar'){
+CommonCalendar.prototype.drawCalendar = function(calendarType1,date,id ){
+    if(id == null || id == "" || id == undefined){
+        id = this.id;
+    }
+    
     if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
         if(calendarType1 == 'team'){
             //1. render

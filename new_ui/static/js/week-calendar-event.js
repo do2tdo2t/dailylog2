@@ -1,34 +1,53 @@
 function WeeklyCalendar(){
+    /*
     this.headerHtml = 
     '<div class="weekly-calendar-header-style1">'
     + ' <span id="startyyyymmdd" class="display-none">{{startyyyymmdd}}</span>'
     +    '<span id = "yyyy">{{yyyy}}</span>년 &nbsp; &nbsp;' 
     +    '<span id = "mm">{{mm}}</span>월'
+    + '</div>'; */
+
+    this.headerHtml = 
+    '<div class="weekly-calendar-header-style1">'
+    + ' <span id="startyyyymmdd" class="display-none">{{startyyyymmdd}}</span>'
     + '</div>';
+
     this.contentTemplate = 
-    '<div class="list-group weekly-content-form-style1">'
-    +   '<div class="list-group-item list-item-style2 common-label">실시사항</div>'
-    +   '<div class="list-group-item list-item-style2">'
-    +       '<pre id="dailylog-content1" class="nanum-font normal-content weekly-content-style1">{{content1}}</pre>'
-    +   '</div>'
-    +   '<div class="list-group-item list-item-style2 common-label"><span>일정</span></div>'
-    +   '<div class="list-group-item list-item-style2">'
-    +       '<div>'
-    +           '<div class="normal-content nanum-font  weekly-content-style1">{{content2-type}}</div>'
-    +           '<div><pre class="nanum-font weekly-content-style1">{{content2}}</pre></div>'
-    +       '</div>'
-    +   '</div>'
-    +   '<div class="list-group-item list-item-style2 common-label">특근</div>'
-    +   '<div class="list-group-item list-item-style2">'
-    +       '<div class="normal-content nanum-font">'
-    +           '<div>'
-    +               '<span><img src="./img/access_time-24px.svg" alt="시간" width="20px" height="20px" /></span>'
-    +               '<span class="weekly-content-style1" >{{starttime}}</span><span class="weekly-content-style1">~</span><span class="weekly-content-style1">{{endtime}}</span>'
-    +           '</div>'
-    +           '<div><pre class="normal-content nanum-font weekly-content-style1">{{content3}}</pre></div>'
-    +       '</div>'
-    +   '</div>'
-    +'<div>';
+'<div class="row row-style1">'+
+    '<div class="col-md-1">' +
+        '<div>{{yoil}}</div>'+
+        '<div>{{mmdd}}</div>'+
+    '</div>'+
+    '<div class="col-md-5 col-left-border">'+
+        '<div class="label-style1"> 실시사항 </div>'+
+        '<hr>'+
+        '<div><pre class="content1-style1 pre-style1">o FIS'+
+'1. 전산수정요청 및 문의 처리 8건 '+
+'2.  간호물품 관련 화면 수정 반영 완료'+
+' - 조건추가(검수대상물품여부, 검수상태)'+
+' 3. (공급,품질,제제,헌혈섭외,혈장) 입출고 장소 조회 쿼리 수정 및 입출고 장소코드 변경'+
+'4. 제조사 코드 입력   '+
+                    '</pre></div>'+
+                '</div>'+
+                '<div class="col-md-4 col-left-border">'+
+                    '<div class="label-style1"> 기타사항(교육,출장,회의,휴가,특이사항) </div>'+
+                    '<hr>'+
+                    '<div><pre class="content1-style1 pre-style1"> [출장]전자증빙 사업 착수보고회 사전협의 및  요구사항 공유'+
+'- 일시: 2020.6.16.(화) 10:00~'+
+'-  장소: 서울사무소'+
+                         '</pre>'+
+                    '</div>'+                    
+                '</div>'+
+                '<div class="col-md-2 col-left-border">'+
+                    '<div class="label-style1"> 특근 </div>'+
+                    '<hr>'+
+                    '<div class="content1-style1">'+
+                        '<div><span>시간</span><span>12:00 - 14:00</span></div>'+
+                        '<div><span>업무</span><span>물품검수 개발</span></div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>';
+    this.id = 'calendar';
 }
 
 WeeklyCalendar.prototype.render = function(curdate,id){
@@ -39,7 +58,6 @@ WeeklyCalendar.prototype.render = function(curdate,id){
     var month = curdate.getMonth();
     var year = curdate.getFullYear();
     var diff = ( yoil -1 );
-    var contentTemplate;
 
     var monday = new Date(year, month, date - diff  );
     var sunday = new Date(year, month, date - diff + 6 );
@@ -52,31 +70,24 @@ WeeklyCalendar.prototype.render = function(curdate,id){
                                     .replace('{{yyyy}}', year)
                                     .replace('{{mm}}', month+1);
 
-    var html = headerHtml + "<table class='weekly-calendar-style1' id='week-calendar'>";
-    var backHtml = "</table>";
-    var frontTr = "<tr>";
-    var backTr = "</tr>";
-    var headerTh = "<th class='weekly-calendar-border-style2'>"
-            +"<div>{{yoil}} </div><div> {{mmdd}}</div>";
-            +"</th>";
-    var bodyTh = "<th class='weekly-calendar-border-style1 weekly-calendar-th-style1' onclick='whenClickWeeklyForm(\"{{yyyymmdd}}\")'>{{content-template}}</th>";
-    
-    html +=frontTr;
+    var html = '';
+    var newContentTemplate ='';
     
     //7일 표시
     for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
+      
         year = day.getFullYear();
         month = day.getMonth();
         date = day.getDate();
 
         var mmdd = (month + 1) +'.'+date;
+        newContentTemplate = this.contentTemplate.replace('{{yoil}}', yoils[i])
+                                .replace('{{mmdd}}',mmdd);
         
-        html+=headerTh.replace('{{yoil}}', yoils[i])
-                    .replace('{{mmdd}}',mmdd);
-                  //  .replace('{{content-template}}', contentTemplate);
+        html+=newContentTemplate;
+                  
     }
-
-    html +=backTr;
+    /*
     //7일 표시
     for(var i = 0, day = monday ; i < 7  ; i++ ,  day = this.nextDay(year,month,date)){
         year = day.getFullYear();
@@ -91,10 +102,12 @@ WeeklyCalendar.prototype.render = function(curdate,id){
         .replace('{{content-template}}',this.contentTemplate);
     
     }
-    html +=backTr;
-    html +=backHtml;
-
+    */
     document.querySelector('#'+id).innerHTML = html;
+
+    //yyyy-mm setting
+    document.getElementById('yyyy').innerHTML = year;
+    document.getElementById('mm').innerHTML = month + 1 ;
 }
 
 WeeklyCalendar.prototype.nextDay = function(year,month,date){
@@ -102,7 +115,10 @@ WeeklyCalendar.prototype.nextDay = function(year,month,date){
 }
 
 /*calendarType1 = [team,one] */
-WeeklyCalendar.prototype.drawCalendar =function(calendarType1 = 'one',date,id ='calendar' ){
+WeeklyCalendar.prototype.drawCalendar =function(calendarType1 ,date, id){
+    if(id == null || id =="" || id == undefined ){
+        id = this.id;
+    }
     //team일떄와 one일때 분기 필요
     this.render(date, id);
 }
