@@ -87,22 +87,7 @@ WeeklyCalendar.prototype.render = function(curdate,id){
         html+=newContentTemplate;
                   
     }
-    /*
-    //7일 표시
-    for(var i = 0, day = monday ; i < 7  ; i++ ,  day = this.nextDay(year,month,date)){
-        year = day.getFullYear();
-        month = day.getMonth();
-        date = day.getDate();
-
-        var mmdd = (month + 1) +'-'+date;
-        var yyyymmdd = year+'-'+mmdd;
-
-        html+=bodyTh
-        .replace('{{yyyymmdd}}',yyyymmdd)
-        .replace('{{content-template}}',this.contentTemplate);
     
-    }
-    */
     document.querySelector('#'+id).innerHTML = html;
 
     //yyyy-mm setting
@@ -128,14 +113,13 @@ function drawWeekCalendar(date){
     //1. render
     calendar.render(date,'calendar');
 }
-
-
 function whenClickWeeklyForm(datestr){
     var date = new Date(datestr);
 
      changeInputDatePicker(date.format('yyyy-MM-dd'));
      openRightSideBar();
  }
+ /*
 function nextWeek(){
     var datestr = document.querySelector('#startyyyymmdd').innerHTML;
     var date = new Date(datestr);
@@ -150,19 +134,8 @@ function nextWeek(){
     drawWeekCalendar(newdate);
     
 }
-
-function getNextWeek(){
-    var datestr = document.querySelector('#startyyyymmdd').innerHTML;
-    var date = new Date(datestr);
-    var dd = date.getDate();
-    var mm = date.getMonth();
-    var yyyy = date.getFullYear();
-
-    var newdate = new Date(yyyy,mm,dd + 7);
-    
-    return newdate;
-}
-
+*/
+/*
 function beforeWeek(){
     var datestr = document.querySelector('#startyyyymmdd').innerHTML;
     var date = new Date(datestr); 
@@ -175,15 +148,4 @@ function beforeWeek(){
     changeInputDatePicker(newdate.format('yyyy-MM-dd'));
     drawWeekCalendar(newdate); 
 }
-
-function getBeforeWeek(){
-    var datestr = document.querySelector('#startyyyymmdd').innerHTML;
-    var date = new Date(datestr); 
-    var dd = date.getDate();
-    var mm = date.getMonth();
-    var yyyy = date.getFullYear();
-
-    var newdate = new Date(yyyy,mm,dd - 7);
-    return newdate;
-}
-
+*/

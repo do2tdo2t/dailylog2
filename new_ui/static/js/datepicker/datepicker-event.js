@@ -57,19 +57,3 @@
 		$('.date-picker').attr('value',yyyyMMdd);
 
 	}
-
-	function changeCalendar(date){
-		var monthCalendarId = document.querySelector('#month-calendar');
-        var weekCalendarId = document.querySelector('#week-calendar');
-		
-
-        if(monthCalendarId != null){
-            drawMonthCalendar(date);
-        }
-        
-        if(weekCalendarId != null){
-            drawWeekCalendar(date);
-        }
-	}
-
-	

@@ -183,34 +183,6 @@ function showMenuDetail(id) {
   }
 }
 
-/*
-//캘린더그리기
-function drawMonthCalendar(){
-  var todate = new Date();
-  if(commonCalendar === null || commonCalendar === undefined){
-      commonCalendar = new CommonCalendar();
-  }
-  commonCalendar.render(todate,'calendar');
-  
-}
-*/
-/*
-openMail("Borge")
-function openMail(personName) {
-  var i;
-  var x = document.getElementsByClassName("person");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  x = document.getElementsByClassName("test");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" w3-light-grey", "");
-  }
-  document.getElementById(personName).style.display = "block";
-  event.currentTarget.className += " w3-light-grey";
-}
-*/
-
 function changeMonthCalendar(){
   if(commonCalendar === null || commonCalendar === undefined){
       commonCalendar = new CommonCalendar();
@@ -218,7 +190,7 @@ function changeMonthCalendar(){
   var calendarType1 = $('#calendarType1').attr('value');
   var calendarType2 = 'month';
   var date = $('.date-picker').attr('value');
-  $('.calendarType2').attr('value', calendarType2 );
+  $('#calendarType2').attr('value', calendarType2 );
 
   commonCalendar.drawCalendar(calendarType1 ,new Date(date),'calendar');
 }
@@ -229,52 +201,79 @@ function changeWeekCalendar(){
   }
   var calendarType1 = $('#calendarType1').attr('value');
   var date = $('.date-picker').attr('value');
-  $('.calendarType2').attr('value','week');
+  $('#calendarType2').attr('value','week');
 
   weekCalendar.drawCalendar(calendarType1,new Date(date),'calendar');
   
 }
 
-function next(){
+function changeCalendar(date){
   var calendarType1 = $('#calendarType1').attr('value');
   var calendarType2 = $('#calendarType2').attr('value');
+  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
+    if(calendarType2 == 'month'){
+        if(commonCalendar === null || commonCalendar === undefined){
+            commonCalendar = new CommonCalendar();
+        }
+         
+         commonCalendar.drawCalendar(calendarType1,new Date(date),'calendar');
+         
+      }else if(calendarType2 == 'week'){
+        
+        if(weekCalendar === null || weekCalendar === undefined){
+          weekCalendar = new CommonCalendar();
+        }
+         weekCalendar.drawCalendar(calendarType1,new Date(date),'calendar');
+      }
+  }
+}
+
+  
+function nextMonth(){
+  var calendarType1 = $('#calendarType1').attr('value');
+  var calendarType2 = $('#calendarType2').attr('value');
+  var newdate;
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
       if(calendarType2 == 'month'){
         if(commonCalendar === null || commonCalendar === undefined){
             commonCalendar = new CommonCalendar();
         }
-         var newdate = getNextMonth();
+         newdate = getNextMonth();
          commonCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
-
+         
       }else if(calendarType2 == 'week'){
-        var newdate = getNextWeek();
+        newdate = getNextWeek();
         if(weekCalendar === null || weekCalendar === undefined){
           weekCalendar = new CommonCalendar();
         }
          weekCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
       }
+      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
+
   }
-
-}
-
-function nextMonth(){
-    var newdate = getNextMonth();
-    var calendarType2 = $('.calendarType2').attr('value');
-    if(calendarType2 === 'month'){
-      drawMonthCalendar(newdate);
-    }else if(calendarType2 === 'week'){
-      drawWeekCalendar(newdate);
-    }
 }
 
 function beforeMonth(){
-    var newdate = getBeforeMonth();
-    var calendarType2 = $('.calendarType2').attr('value');
-    if(calendarType2 === 'month'){
-      drawMonthCalendar(newdate);
-    }else if(calendarType2 === 'week'){
-      drawWeekCalendar(newdate);
-    }
+  var calendarType1 = $('#calendarType1').attr('value');
+  var calendarType2 = $('#calendarType2').attr('value');
+  var newdate;
+  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
+      if(calendarType2 == 'month'){
+        if(commonCalendar === null || commonCalendar === undefined){
+            commonCalendar = new CommonCalendar();
+        }
+         newdate = getBeforeMonth();
+         commonCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+         
+      }else if(calendarType2 == 'week'){
+        newdate = getBeforeWeek();
+        if(weekCalendar === null || weekCalendar === undefined){
+          weekCalendar = new CommonCalendar();
+        }
+         weekCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+      }
+      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
+  }
 }
 
 function getNextMonth(){
@@ -306,9 +305,60 @@ function getBeforeMonth(){
     return newdate;
 }
 
-</script>
 
-<script>
+function getNextWeek(){
+    var curdate = $(".date-picker").attr('value');
+    var date = new Date(curdate);
+    var dd = date.getDate();
+    var mm = date.getMonth();
+    var yyyy = date.getFullYear();
+
+    var newdate = new Date(yyyy,mm,dd + 7);
+    
+    return newdate;
+}
+
+
+function getBeforeWeek(){
+    var curdate = $(".date-picker").attr('value');
+    var date = new Date(curdate);
+    var dd = date.getDate();
+    var mm = date.getMonth();
+    var yyyy = date.getFullYear();
+
+    var newdate = new Date(yyyy,mm,dd - 7);
+    return newdate;
+}
+
+
+/*
+//캘린더그리기
+function drawMonthCalendar(){
+  var todate = new Date();
+  if(commonCalendar === null || commonCalendar === undefined){
+      commonCalendar = new CommonCalendar();
+  }
+  commonCalendar.render(todate,'calendar');
+}
+*/
+/*
+openMail("Borge")
+function openMail(personName) {
+  var i;
+  var x = document.getElementsByClassName("person");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  x = document.getElementsByClassName("test");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" w3-light-grey", "");
+  }
+  document.getElementById(personName).style.display = "block";
+  event.currentTarget.className += " w3-light-grey";
+}
+*/
+
+
 </script>
 
 </body>
