@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- google material design-->
 <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
 
 
@@ -30,7 +31,7 @@ html,body{height:100%;  padding:0px; margin:0px}
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><img src="static/img/logo.jpg" style="width:60%;"></a>
   <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'"> 글쓰기 <i class="w3-padding fa fa-pencil"></i></a>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="whenClickWriteBtn()"> 글쓰기 <i class="w3-padding fa fa-pencil"></i></a>
   <!-- menue tree strat -->
   <a id="myBtn" onclick="showMenuDetail('Menu1')" href="javascript:void(0)" class="w3-bar-item w3-button">업무일지<i class="fa fa-caret-down w3-margin-left"></i></a>
   <div id="Menu1" class="w3-hide w3-animate-left">
@@ -64,26 +65,31 @@ html,body{height:100%;  padding:0px; margin:0px}
 </nav>
 <!-- Side Navigation end -->
 
-
 <!-- Modal that pops up when you click on "New Message" -->
 <div id="dailylogModal" class="w3-modal" style="z-index:4">
   <div class="w3-modal-content w3-animate-zoom">
     <div class="w3-container w3-padding w3-red">
-       <span onclick="document.getElementById('id01').style.display='none'"
-       class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
-      <h2>Send Mail</h2>
+       <span onclick="document.getElementById('dailylogModal').style.display='none'"
+       class="w3-button w3-red w3-right w3-large"><i class="fa fa-remove"></i></span>
+      <h4>업무일지</h4>
     </div>
     <div class="w3-panel">
-      <label>To</label>
-      <input class="w3-input w3-border w3-margin-bottom" type="text">
-      <label>From</label>
-      <input class="w3-input w3-border w3-margin-bottom" type="text">
-      <label>Subject</label>
-      <input class="w3-input w3-border w3-margin-bottom" type="text">
-      <input class="w3-input w3-border w3-margin-bottom" style="height:150px" placeholder="What's on your mind?">
+      <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker2" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
+      <label>실시사항</label>
+      <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px"></pre>
+      <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:200px" name="content1"></textarea>
+      <label>기타사항</label>
+      <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px"></pre>
+      <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:150px" name="content2"></textarea>
+      <label>특별근무사항</label>
+      <div class="view-mode w3-margin-bottom"><span>12:00</span> ~ <span>14:00</span></div>
+      <input class="w3-input w3-border w3-margin-bottom write-mode" type="datetime-local">
+      <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px"></pre>
+      <textarea nput class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px"></textarea>
       <div class="w3-section">
-        <a class="w3-button w3-red" onclick="document.getElementById('id01').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
-        <a class="w3-button w3-light-grey w3-right" onclick="document.getElementById('id01').style.display='none'">Send  <i class="fa fa-paper-plane"></i></a> 
+        <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소  <i class="fa fa-remove"></i></a>
+        <a class="w3-button w3-light-grey w3-right write-mode" onclick="document.getElementById('dailylogModal').style.display='none'">저장  <i class="fa fa-paper-plane"></i></a> 
+        <a class="w3-button w3-light-grey w3-right view-mode" onclick="whenClickModifyBtn()">수정 <i class="fa fa-pencil"></i></a>
       </div>    
     </div>
   </div>
@@ -101,7 +107,6 @@ html,body{height:100%;  padding:0px; margin:0px}
     <br>
     <h5 class="w3-opacity breadcrum">업무일지 > 팀</h5>
     <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker1" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
-
     <a class="w3-button w3-light-grey" href="javascript:void(0)"  onclick="changeMonthCalendar()" >월간달력</a>
     <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="changeWeekCalendar()" >주간달력</a>
     <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeMonth()"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
@@ -124,8 +129,8 @@ html,body{height:100%;  padding:0px; margin:0px}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- google material design-->
 <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
-
 
 <!-- datepickers -->
 <script src="./static/js/datepicker/bootstrap-datepicker.js"></script>
@@ -330,34 +335,48 @@ function getBeforeWeek(){
     return newdate;
 }
 
+function whenClickWriteBtn(){
+  //1. 날짜 받아오기
+  var date = $('#date-picker1').attr('value');
+  
+  //2. ajax 실행 detail 정보 가져오기
 
-/*
-//캘린더그리기
-function drawMonthCalendar(){
-  var todate = new Date();
-  if(commonCalendar === null || commonCalendar === undefined){
-      commonCalendar = new CommonCalendar();
-  }
-  commonCalendar.render(todate,'calendar');
-}
-*/
-/*
-openMail("Borge")
-function openMail(personName) {
-  var i;
-  var x = document.getElementsByClassName("person");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  x = document.getElementsByClassName("test");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" w3-light-grey", "");
-  }
-  document.getElementById(personName).style.display = "block";
-  event.currentTarget.className += " w3-light-grey";
-}
-*/
+  //3. modal 글쓰기 모드로 변경
+  changeModalMode('write');
 
+  //4. modal띄우기
+  $('#dailylogModal').css('display','block');
+}
+
+function changeModalMode(mode){
+  if(mode != null && mode != '' && mode != undefined){
+    if(mode == 'write'){
+      $('.write-mode').css('display','block');
+      $('.view-mode').css('display','none');
+
+    }else if(mode == 'view')
+      $('.write-mode').css('display','none');
+      $('.view-mode').css('display','write');
+
+  }
+}
+
+function whenClickDay(obj){
+  var child = $(obj).children('.day');
+  var id = $(obj).children('.day').attr('id');
+  var date = new Date(id.replace('date-',''));
+
+  //1. 날짜 받아오기 (클릭한 날짜 기준)
+  $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
+
+  //2. ajax 실행 detail 
+
+  //3. modal 보기모드로 변경
+  changeModalMode('view');
+
+  //4.글쓰기 모달 팝업
+  $('#dailylogModal').css('display','block');
+}
 
 </script>
 

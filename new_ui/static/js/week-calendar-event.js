@@ -15,26 +15,26 @@ function WeeklyCalendar(){
     this.contentTemplate = 
 '<div class="row row-style1">'+
     '<div class="col-md-1">' +
-        '<div>{{yoil}}</div>'+
+        '<button class="w3-button w3-circle w3-light-grey w3-margin-top"><h3  class="yoil-style1">{{yoil}}</h3></button>'+
         '<div>{{mmdd}}</div>'+
     '</div>'+
     '<div class="col-md-5 col-left-border">'+
         '<div class="label-style1"> 실시사항 </div>'+
         '<hr>'+
-        '<div><pre class="content1-style1 pre-style1">o FIS'+
-'1. 전산수정요청 및 문의 처리 8건 '+
-'2.  간호물품 관련 화면 수정 반영 완료'+
-' - 조건추가(검수대상물품여부, 검수상태)'+
-' 3. (공급,품질,제제,헌혈섭외,혈장) 입출고 장소 조회 쿼리 수정 및 입출고 장소코드 변경'+
-'4. 제조사 코드 입력   '+
+        '<div><pre class="content1-style1 pre-style1">o FIS\n'+
+'1. 전산수정요청 및 문의 처리 8건 \n'+
+'2.  간호물품 관련 화면 수정 반영 완료 \n'+
+' - 조건추가(검수대상물품여부, 검수상태) \n'+
+' 3. (공급,품질,제제,헌혈섭외,혈장) 입출고 장소 조회 쿼리 수정 및 입출고 장소코드 변경 \n'+
+'4. 제조사 코드 입력 \n'+
                     '</pre></div>'+
                 '</div>'+
                 '<div class="col-md-4 col-left-border">'+
                     '<div class="label-style1"> 기타사항(교육,출장,회의,휴가,특이사항) </div>'+
                     '<hr>'+
-                    '<div><pre class="content1-style1 pre-style1"> [출장]전자증빙 사업 착수보고회 사전협의 및  요구사항 공유'+
-'- 일시: 2020.6.16.(화) 10:00~'+
-'-  장소: 서울사무소'+
+                    '<div><pre class="content1-style1 pre-style1"> [출장]전자증빙 사업 착수보고회 사전협의 및  요구사항 공유\n'+
+'- 일시: 2020.6.16.(화) 10:00~\n'+
+'-  장소: 서울사무소\n'+
                          '</pre>'+
                     '</div>'+                    
                 '</div>'+
@@ -119,33 +119,3 @@ function whenClickWeeklyForm(datestr){
      changeInputDatePicker(date.format('yyyy-MM-dd'));
      openRightSideBar();
  }
- /*
-function nextWeek(){
-    var datestr = document.querySelector('#startyyyymmdd').innerHTML;
-    var date = new Date(datestr);
-    var dd = date.getDate();
-    var mm = date.getMonth();
-    var yyyy = date.getFullYear();
-
-    var newdate = new Date(yyyy,mm,dd + 7);
-
-    changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-
-    drawWeekCalendar(newdate);
-    
-}
-*/
-/*
-function beforeWeek(){
-    var datestr = document.querySelector('#startyyyymmdd').innerHTML;
-    var date = new Date(datestr); 
-    var dd = date.getDate();
-    var mm = date.getMonth();
-    var yyyy = date.getFullYear();
-
-    var newdate = new Date(yyyy,mm,dd - 7);
-
-    changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-    drawWeekCalendar(newdate); 
-}
-*/

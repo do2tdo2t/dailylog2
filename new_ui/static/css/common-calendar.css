@@ -6,7 +6,7 @@
 
 .common-calendar{
     margin:0px auto 0px auto;
-    padding:0px;
+    padding:20px;
     /* border: solid 0.5px grey; */
     width:100%;
     height:80%;
@@ -84,6 +84,17 @@
     width:inherit;
 }
 
+.alink{
+    text-decoration:none;
+    color:black;
+}
+
+.alink > hover{
+    text-decoration:none;
+    color:black;
+}
+
+
 /*********************** 주간달력 *********************/
 .weekly-calendar-style1{
     height: fit-content;
@@ -144,27 +155,36 @@
 }
     
 .row-style1{
-    border-top:solid 0.5px grey;
+    border-top:solid 0.5px lightgrey;
+    box-shadow: 0 1px 1px 0 rgba(124, 124, 124, 0.14), 0 2px 1px -1px rgba(117, 116, 116, 0.12), 0 1px 3px 0 rgba(136, 135, 135, 0.329);
+    
 }
 
 .col-style1{
-    border-left:solid 0.5px grey;
+    border-left:solid 0.5px lightgrey;
 }
 
 .col-left-border{
-    border-left:solid 0.5px grey;
+    border-left:solid 0.5px lightgrey;
 }
 
 .col-right-border{
-    border-right:solid 0.5px grey;
+    border-right:solid 0.5px lightgrey;
 }
 .col-style2{
-    border-bottom:solid 0.5px grey;
+    border-bottom:solid 0.5px lightgrey;
 }
 
 .label-style1{
     font-size: medium;
-    vertical-align:middle;
+    margin-top: 10px;
+    
+}
+
+.yoil-style1{
+    margin-top:5px;
+    font-size: large;
+    
 }
 
 .pre-style1{

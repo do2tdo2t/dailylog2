@@ -1,6 +1,5 @@
 /** prototype으로 구현 */
 function CommonCalendar(){
-
     this.currentdate ;
     this.currentyyyy ;
     this.currentmm ;
@@ -107,11 +106,15 @@ CommonCalendar.prototype.render = function(date, id){
     var rowHeadHtml = "<div class='row'>";
 
     //첫번째 주에는 요일을 표기
-    var firstColHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
+    var firstColHeadHtml =  "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(this)' >"
+                            +"<div class='day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
                             +"<div id='yoil'>{{hangulYoil}}</div>"
-                            +"<div class='dd'>{{day}}</div></div>";
-    var colHeadHtml = "<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
-                            +"<div class='dd'>{{day}}</div></div>";
+                            +"<div class='dd'>{{day}}</div></div>"
+                            +"</a>";
+    var colHeadHtml = "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(this)' >"
+                    +"<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
+                    +"<div class='dd'>{{day}}</div></div>"
+                    +"</a>";
     var divEndHtml = "</div>";
     
     var startDay = ( firstYoil == 0 ? 1 : lastDateOfBeforeMonth - firstYoil + 1 ) ;
