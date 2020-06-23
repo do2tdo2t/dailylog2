@@ -6,16 +6,21 @@ function WeeklyCalendar(){
     +    '<span id = "yyyy">{{yyyy}}</span>년 &nbsp; &nbsp;' 
     +    '<span id = "mm">{{mm}}</span>월'
     + '</div>'; */
+    this.mode = "list";
+    this.calendarType1 = "one";
 
     this.headerHtml = 
-    '<div class="weekly-calendar-header-style1">'
-    + ' <span id="startyyyymmdd" class="display-none">{{startyyyymmdd}}</span>'
+    '<div class="row w3-margin-bottom">'
+    +'<a class="w3-button w3-round w3-light-grey w3-margin-right" href="javascript:void(0)"  onclick="changeWeekCalendarListMode()" >리스트형</a>'
+    +'<a class="w3-button w3-round w3-light-grey" href="javascript:void(0)"  onclick="changeWeekCalendarCardMode()" >카드형</a>'
     + '</div>';
 
-    this.contentTemplate = 
+    this.listTemplate = 
 '<div class="row row-style1">'+
     '<div class="col-md-1">' +
-        '<button class="w3-button w3-circle w3-light-grey w3-margin-top"><h3  class="yoil-style1">{{yoil}}</h3></button>'+
+        '<div class="label-style1"><button class="btn-style1" onclick="whenClickWriteBtn()"><i class="fa fa-pencil"></i></button></div>'+
+        '<hr/>'+
+        '<div><h3 class="yoil-style1">{{yoil}}</h3></div>'+
         '<div>{{mmdd}}</div>'+
     '</div>'+
     '<div class="col-md-5 col-left-border">'+
@@ -47,8 +52,38 @@ function WeeklyCalendar(){
                     '</div>'+
                 '</div>'+
             '</div>';
+
+            this.cardTemplate = 
+              "<div class='col-md-4 card-style1'>"
+                +"<div class='w3-margin-top'>"
+                  +"<span>{{yoil}}</span><span>{{mmdd}}</span>"
+                +"</div>"
+                +"<hr class='hr-style1'>"
+                +"<div class='label-style2'>"
+                  +"실시사항"
+                +"</div>"
+                +"<hr class='hr-style1'>"
+                +"<div><pre class='content2-style2 pre-style1'>{{content1}}</pre></div>"
+                +"<hr class='hr-style1'>"
+                +"<div class='label-style2'>"
+                 +"기타사항(교육,출장,회의,휴가,특이사항)"
+                +"</div>"
+                +"<hr class='hr-style1'>"
+                +"<div> <pre class='content2-style2 pre-style1'>{{content2}}</pre></div>"
+                +"<hr class='hr-style1'>"
+                +"<div class='label-style2'>"
+                 +"특근"
+                +"</div>"
+                +"<hr class='hr-style1'>"
+                +"<div class='content2-style2  w3-margin-bottom'>"
+                  +"<div><span>시간</span><span>12:00 - 14:00</span></div>"
+                  +"<div><span>업무</span><span>물품검수 개발</span></div>"
+                +"</div>"
+               +"</div>";
+            
     this.id = 'calendar';
 }
+
 
 WeeklyCalendar.prototype.render = function(curdate,id){
     this.date = date;
@@ -66,28 +101,49 @@ WeeklyCalendar.prototype.render = function(curdate,id){
 
     var yoils = ['월','화','수','목','금','토','일'];
     
-    var headerHtml = this.headerHtml.replace('{{startyyyymmdd}}', startyyyymmdd)
-                                    .replace('{{yyyy}}', year)
-                                    .replace('{{mm}}', month+1);
+    var html = this.headerHtml;
 
-    var html = '';
+    var contentTemplate = '';
+    if(this.mode == "card"){
+        contentTemplate = this.cardTemplate;
+        for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
+            year = day.getFullYear();
+            month = day.getMonth();
+            date = day.getDate();
+            if(i%3 == 0){
+                html+="<div class='row'>";
+            }
+
+            var mmdd = (month + 1) +'.'+date;
+            newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
+                                    .replace('{{mmdd}}',mmdd);
+            
+            html+=newContentTemplate;
+
+            if(i%3 == 2){
+                html+="</div>";
+            }
+        }
+    }else{
+        contentTemplate = this.listTemplate;
+        //7일 표시
+        for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
+            year = day.getFullYear();
+            month = day.getMonth();
+            date = day.getDate();
+
+            var mmdd = (month + 1) +'.'+date;
+            newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
+                                    .replace('{{mmdd}}',mmdd);
+            
+            html+=newContentTemplate;
+                    
+        }
+    }
     var newContentTemplate ='';
     
-    //7일 표시
-    for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
-      
-        year = day.getFullYear();
-        month = day.getMonth();
-        date = day.getDate();
-
-        var mmdd = (month + 1) +'.'+date;
-        newContentTemplate = this.contentTemplate.replace('{{yoil}}', yoils[i])
-                                .replace('{{mmdd}}',mmdd);
-        
-        html+=newContentTemplate;
-                  
-    }
     
+
     document.querySelector('#'+id).innerHTML = html;
 
     //yyyy-mm setting
@@ -100,7 +156,7 @@ WeeklyCalendar.prototype.nextDay = function(year,month,date){
 }
 
 /*calendarType1 = [team,one] */
-WeeklyCalendar.prototype.drawCalendar =function(calendarType1 ,date, id){
+WeeklyCalendar.prototype.drawCalendar = function(date, id){
     if(id == null || id =="" || id == undefined ){
         id = this.id;
     }

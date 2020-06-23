@@ -117,7 +117,7 @@ html,body{height:100%;  padding:0px; margin:0px}
    <!-- <hr style="margin-bottom: 0px; padding-bottom: 0px;" > -->
   </div>
   <!-- 달력 타입-->
-  <input id="calendarType1" value='team' hidden>
+  <input id="calendarType1" value='one' hidden>
   <input id="calendarType2" value='month' hidden>
 
   <!-- calendar-->
@@ -148,20 +148,39 @@ this.addEventListener('DOMContentLoaded', function(){
     this.init();
 });
 
-var commonCalendar; //월간달력
-var weekCalendar; //주간달력
+var commonCalendar;
+var weekCalendar;
 
 function init(){
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
 
   commonCalendar = new CommonCalendar();
-  commonCalendar.drawCalendar('team',new Date());
+  commonCalendar.calendarType1 = "one";
+  commonCalendar.drawCalendar(new Date(),'calendar');
   
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');
   $('.date-picker').attr('value',date);
   
+}
+
+function getMonthCalendar(){
+  if(commonCalendar === null || commonCalendar === undefined){
+      commonCalendar = new CommonCalendar();
+      var calendarType1 = $('#calendarType1').attr('value');
+      commonCalendar.calendarType1 = calendarType1;
+  }
+  return commonCalendar;
+}
+
+function getWeekCalendar(){
+  if(weekCalendar === null || weekCalendar === undefined){
+    weekCalendar = new WeeklyCalendar();
+    var calendarType1 = $('#calendarType1').attr('value');
+    weekCalendar.calendarType1 = calendarType1;
+  }
+  return weekCalendar;
 }
 
 function w3_open() {
@@ -183,52 +202,39 @@ function showMenuDetail(id) {
     x.previousElementSibling.className += " w3-red";
   } else { 
     x.className = x.className.replace(" w3-show", "");
-    x.previousElementSibling.className = 
-    x.previousElementSibling.className.replace(" w3-red", "");
+    x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-red", "");
   }
 }
 
 function changeMonthCalendar(){
-  if(commonCalendar === null || commonCalendar === undefined){
-      commonCalendar = new CommonCalendar();
-  }
-  var calendarType1 = $('#calendarType1').attr('value');
   var calendarType2 = 'month';
-  var date = $('.date-picker').attr('value');
   $('#calendarType2').attr('value', calendarType2 );
 
-  commonCalendar.drawCalendar(calendarType1 ,new Date(date),'calendar');
+  var date = $('.date-picker').attr('value');
+
+  getMonthCalendar().drawCalendar(new Date(date),'calendar');
 }
 
-function changeWeekCalendar(){
-  if(weekCalendar === null || weekCalendar === undefined){
-    weekCalendar = new WeeklyCalendar();
-  }
-  var calendarType1 = $('#calendarType1').attr('value');
+function changeWeekCalendar(){ 
+
   var date = $('.date-picker').attr('value');
+
   $('#calendarType2').attr('value','week');
 
-  weekCalendar.drawCalendar(calendarType1,new Date(date),'calendar');
+  getWeekCalendar().drawCalendar(new Date(date),'calendar');
   
 }
 
 function changeCalendar(date){
   var calendarType1 = $('#calendarType1').attr('value');
-  var calendarType2 = $('#calendarType2').attr('value');
+  
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
     if(calendarType2 == 'month'){
-        if(commonCalendar === null || commonCalendar === undefined){
-            commonCalendar = new CommonCalendar();
-        }
-         
-         commonCalendar.drawCalendar(calendarType1,new Date(date),'calendar');
-         
+        getMonthCalendar().drawCalendar(calendarType1,new Date(date),'calendar');
+
       }else if(calendarType2 == 'week'){
-        
-        if(weekCalendar === null || weekCalendar === undefined){
-          weekCalendar = new CommonCalendar();
-        }
-         weekCalendar.drawCalendar(calendarType1,new Date(date),'calendar');
+
+        getWeekCalendar().drawCalendar(calendarType1,new Date(date),'calendar');
       }
   }
 }
@@ -240,18 +246,13 @@ function nextMonth(){
   var newdate;
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
       if(calendarType2 == 'month'){
-        if(commonCalendar === null || commonCalendar === undefined){
-            commonCalendar = new CommonCalendar();
-        }
+        
          newdate = getNextMonth();
-         commonCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
          
       }else if(calendarType2 == 'week'){
         newdate = getNextWeek();
-        if(weekCalendar === null || weekCalendar === undefined){
-          weekCalendar = new CommonCalendar();
-        }
-         weekCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
       }
       $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
 
@@ -259,23 +260,19 @@ function nextMonth(){
 }
 
 function beforeMonth(){
-  var calendarType1 = $('#calendarType1').attr('value');
+  //var calendarType1 = $('#calendarType1').attr('value');
   var calendarType2 = $('#calendarType2').attr('value');
   var newdate;
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
       if(calendarType2 == 'month'){
-        if(commonCalendar === null || commonCalendar === undefined){
-            commonCalendar = new CommonCalendar();
-        }
+        
          newdate = getBeforeMonth();
-         commonCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
          
       }else if(calendarType2 == 'week'){
         newdate = getBeforeWeek();
-        if(weekCalendar === null || weekCalendar === undefined){
-          weekCalendar = new CommonCalendar();
-        }
-         weekCalendar.drawCalendar(calendarType1,new Date(newdate),'calendar');
+        
+        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
       }
       $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
   }
@@ -376,6 +373,20 @@ function whenClickDay(obj){
 
   //4.글쓰기 모달 팝업
   $('#dailylogModal').css('display','block');
+}
+
+function changeWeekCalendarListMode(){
+    var curdate = $(".date-picker").attr('value');
+    getWeekCalendar().mode = "list";
+    getWeekCalendar().render(new Date(curdate),'calendar');
+}
+
+function changeWeekCalendarCardMode(){
+    var curdate = $(".date-picker").attr('value');
+    
+    getWeekCalendar().mode = "card";
+    getWeekCalendar().render(new Date(curdate),'calendar');
+ 
 }
 
 </script>

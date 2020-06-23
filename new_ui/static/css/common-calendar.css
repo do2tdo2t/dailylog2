@@ -155,7 +155,7 @@
 }
     
 .row-style1{
-    border-top:solid 0.5px lightgrey;
+    border-top:solid 0.5px rgb(241, 241, 241);
     box-shadow: 0 1px 1px 0 rgba(124, 124, 124, 0.14), 0 2px 1px -1px rgba(117, 116, 116, 0.12), 0 1px 3px 0 rgba(136, 135, 135, 0.329);
     
 }
@@ -190,4 +190,30 @@
 .pre-style1{
     overflow: auto;
     white-space: pre-wrap; 
+}
+
+.btn-style1{
+    margin:auto;
+    border:none;
+    background-color: white;
+}
+
+/* weekly-calendar card */
+.card-style1{
+    box-shadow: 0 3px 1px 0 rgba(124, 124, 124, 0.14), 0 2px 1px -1px rgba(117, 116, 116, 0.12), 0 1px 3px 0 rgba(136, 135, 135, 0.329);
+}
+
+.label-style2{
+    text-align: left;
+    font-size: medium;
+}
+
+.content2-style2{
+    font-size: medium;
+    text-align: left;
+    padding:5px;
+}
+
+.hr-style1{
+    margin:10px auto;
 }

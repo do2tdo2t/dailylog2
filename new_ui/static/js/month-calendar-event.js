@@ -7,7 +7,8 @@ function CommonCalendar(){
     this.currentdd ;
     this.currentyoil ;
     this.id = 'calendar';
-    
+    this.calendarType1 = "one";
+
     this.reg1 = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/g //yyyy-MM-DD ex) 2020-01-01
     this.reg2 = /^\d{4}-[1]?[0-9]{1}-[1-3]?[0-9]{1}$/g //yyyy-mm-dd ex) 2020-1-1
     this.reg3 = /^\d{4}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}$/g //yyyyMMDD ex) 20200101
@@ -220,22 +221,24 @@ CommonCalendar.prototype.markTeamDailylog = function(){
 
     if(element != null && element != undefined){
         element.insertAdjacentHTML('beforeend',dailylogHtml);
-    } 
+    }
 }
 
-// calendarType2 = ['team','one']
-CommonCalendar.prototype.drawCalendar = function(calendarType1,date,id ){
+// calendarType1 = ['team','one']
+CommonCalendar.prototype.drawCalendar = function(date,id ){
     if(id == null || id == "" || id == undefined){
         id = this.id;
     }
-    
-    if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
-        if(calendarType1 == 'team'){
+    if(date ==="string"){
+        date = new Date(date);
+    }
+    if(this.calendarType1 != null && this.calendarType1 != undefined && this.calendarType1 != ""){
+        if(this.calendarType1 == 'team'){
             //1. render
             this.render(date,id);
         }
 
-        if(calendarType1 == 'one'){
+        if(this.calendarType1 == 'one'){
             //1. render
             this.render(date, id);
         }
