@@ -10,15 +10,15 @@ function WeeklyCalendar(){
     this.calendarType1 = "one";
 
     this.headerHtml = 
-    '<div class="row w3-margin-bottom">'
-    +'<a class="w3-button w3-round w3-light-grey w3-margin-right" href="javascript:void(0)"  onclick="changeWeekCalendarListMode()" >리스트형</a>'
-    +'<a class="w3-button w3-round w3-light-grey" href="javascript:void(0)"  onclick="changeWeekCalendarCardMode()" >카드형</a>'
-    + '</div>';
+    '<div class="row w3-margin-bottom w3-margin-left">'
+    +'<button class="w3-button w3-medium w3-wide w3-border w3-border-red" onclick="changeWeekCalendarListMode()">리스트형</button>'
+    +'<button class="w3-button w3-medium w3-wide w3-border w3-border-red" onclick="changeWeekCalendarCardMode()">카드형</button>'
+    +'</div>';
 
     this.listTemplate = 
 '<div class="row row-style1">'+
     '<div class="col-md-1">' +
-        '<div class="label-style1"><button class="btn-style1" onclick="whenClickWriteBtn()"><i class="fa fa-pencil"></i></button></div>'+
+        '<div class="label-style1"><button class="btn-style1" id="{{id}}" onclick="whenClickModifyBtn(this)"><i class="fa fa-pencil"></i></button></div>'+
         '<hr/>'+
         '<div><h3 class="yoil-style1">{{yoil}}</h3></div>'+
         '<div>{{mmdd}}</div>'+
@@ -56,7 +56,7 @@ function WeeklyCalendar(){
             this.cardTemplate = 
               "<div class='col-md-4 card-style1'>"
                 +"<div class='w3-margin-top'>"
-                  +"<span>{{yoil}}</span><span>{{mmdd}}</span>"
+                  +"<span>{{yoil}}</span><span>{{mmdd}}</span><span class='w3-right'><button class='btn-style1' id='{{id}}' onclick='whenClickModifyBtn(this)'><i class='fa fa-pencil'></i></button></span>"
                 +"</div>"
                 +"<hr class='hr-style1'>"
                 +"<div class='label-style2'>"
@@ -84,6 +84,19 @@ function WeeklyCalendar(){
     this.id = 'calendar';
 }
 
+//date type to id
+WeeklyCalendar.prototype.buildId = function(date){
+    if(date === undefined || date === '' || date === null){
+        console.log('Null error !');
+        return;
+    }
+    if(typeof date === 'string'){
+        date = new Date(date);
+    }
+
+    var id = date.format('yyyy-mm-dd');
+    return id;
+}
 
 WeeklyCalendar.prototype.render = function(curdate,id){
     this.date = date;
@@ -101,7 +114,9 @@ WeeklyCalendar.prototype.render = function(curdate,id){
 
     var yoils = ['월','화','수','목','금','토','일'];
     
-    var html = this.headerHtml;
+    var html ='';
+    var mmdd;
+    var id;
 
     var contentTemplate = '';
     if(this.mode == "card"){
@@ -114,9 +129,11 @@ WeeklyCalendar.prototype.render = function(curdate,id){
                 html+="<div class='row'>";
             }
 
-            var mmdd = (month + 1) +'.'+date;
+            mmdd = (month + 1) +'.'+date;
+            id = this.buildId(new Date(year,month,date));
             newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
-                                    .replace('{{mmdd}}',mmdd);
+                                    .replace('{{mmdd}}',mmdd)
+                                    .replace('{{id}}',id);
             
             html+=newContentTemplate;
 
