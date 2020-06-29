@@ -231,9 +231,15 @@ CommonCalendar.prototype.drawCalendar = function(date,id ){
     if(id == null || id == "" || id == undefined){
         id = this.id;
     }
-    if(date ==="string"){
+
+    if(typeof(date) ==="string"){
         date = new Date(date);
     }
+
+    if(date == null || date == undefined){
+        date = new Date();
+    }
+
     if(this.calendarType1 != null && this.calendarType1 != undefined && this.calendarType1 != ""){
         if(this.calendarType1 == 'team'){
             //1. render
@@ -245,6 +251,8 @@ CommonCalendar.prototype.drawCalendar = function(date,id ){
             this.render(date, id);
         }
     }
+
+    $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
 }
 
 //다음달의 1일

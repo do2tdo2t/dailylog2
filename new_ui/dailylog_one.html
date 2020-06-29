@@ -76,7 +76,7 @@ html,body{height:100%;  padding:0px; margin:0px}
     <div class="w3-panel">
       <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker2" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
       <label>실시사항</label>
-      <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px"></pre>
+      <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px" name="content1"></pre>
       <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:200px" name="content1"></textarea>
       <label>기타사항</label>
       <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px"></pre>
@@ -85,12 +85,12 @@ html,body{height:100%;  padding:0px; margin:0px}
       <div class="view-mode w3-margin-bottom"><span>12:00</span> ~ <span>14:00</span></div>
       <input class="w3-input w3-border w3-margin-bottom write-mode" type="datetime-local">
       <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px"></pre>
-      <textarea nput class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px"></textarea>
+      <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px"></textarea>
       <div class="w3-section">
         <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소  <i class="fa fa-remove"></i></a>
         <a class="w3-button w3-light-grey w3-right write-mode" onclick="document.getElementById('dailylogModal').style.display='none'">저장  <i class="fa fa-paper-plane"></i></a> 
         <a class="w3-button w3-light-grey w3-right view-mode" onclick="whenClickModalModifyBtn()">수정 <i class="fa fa-pencil"></i></a>
-      </div>    
+      </div>
     </div>
   </div>
 </div>
@@ -101,7 +101,7 @@ html,body{height:100%;  padding:0px; margin:0px}
 <!-- Page content -->
 <div class="w3-main" style="margin-left:320px; height:100%; ">
   <i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top" onclick="w3_open()"></i>
-  <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
+  <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="whenClickWriteBtn()"><i class="fa fa-pencil"></i></a>
 
   <div id="topContainer" class="w3-container" style="min-height: 145px;">
     <br>
@@ -232,24 +232,27 @@ function changeWeekCalendar(){
 }
 
 function changeCalendar(date){
-  var calendarType1 = $('#calendarType1').attr('value');
-  
+  var calendarType2 = $('#calendarType2').attr('value'); //month, week
+  if(date != null && typeof(date) == "string"){
+    date = new Date(date);
+  }
+
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
     if(calendarType2 == 'month'){
-        getMonthCalendar().drawCalendar(calendarType1,new Date(date),'calendar');
+        getMonthCalendar().drawCalendar(new Date(date),'calendar');
 
       }else if(calendarType2 == 'week'){
 
-        getWeekCalendar().drawCalendar(calendarType1,new Date(date),'calendar');
+        getWeekCalendar().drawCalendar(new Date(date),'calendar');
       }
   }
 }
 
   
 function nextMonth(){
-  var calendarType1 = $('#calendarType1').attr('value');
-  var calendarType2 = $('#calendarType2').attr('value');
+  var calendarType2 = $('#calendarType2').attr('value'); // month, week
   var newdate;
+
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
       if(calendarType2 == 'month'){
         
@@ -338,6 +341,7 @@ function getBeforeWeek(){
     return newdate;
 }
 
+//네비게이션의 글쓰기 버튼 클릭시
 function whenClickWriteBtn(){
   //1. 날짜 받아오기
   var date = $('#date-picker1').attr('value');
@@ -354,7 +358,6 @@ function whenClickWriteBtn(){
 //Weekly 캘린더의 리스트형, 카드형 템플릿의 수정아이콘 클릭 이벤트
 function whenClickModifyBtn(yyyyMMdd){
   
-  console.log(yyyyMMdd);
   var date = new Date(yyyyMMdd);
   if(date == null || date == undefined || date == ""){
     date = new Date();
@@ -372,22 +375,30 @@ function whenClickModifyBtn(yyyyMMdd){
   $('#dailylogModal').css('display','block');
 }
 
+//Modal에 있는 수정버튼 클릭시
 function whenClickModalModifyBtn(){
-  changeModalMode('view');
+  changeModalMode('write');
 }
 
 function changeModalMode(mode){
-  console.log('mode change.. ' + mode);
   if(mode != null && mode != '' && mode != undefined){
+     var viewElements = document.querySelectorAll('.view-mode');
+     var writeElements = document.querySelectorAll('.write-mode');
     if(mode == 'write'){
-      var writeArr = 
-      $('.write-mode').addClass('display','block');
-      $('.view-mode').css('display','none');
-
-    }else if(mode == 'view')
-      $('.write-mode').css('display','none');
-      $('.view-mode').css('display','block');
-
+      for(var i = 0 ; i < viewElements.length ; i ++){
+        viewElements[i].style.display = "none";
+      }
+      for(var i = 0 ; i < writeElements.length ; i ++){
+        writeElements[i].style.display = "block";
+      }
+    }else if(mode == 'view'){
+      for(var i = 0 ; i < viewElements.length ; i ++){
+        viewElements[i].style.display = "block";
+      }
+      for(var i = 0 ; i < writeElements.length ; i ++){
+        writeElements[i].style.display = "none";
+      }
+    }
   }
 }
 

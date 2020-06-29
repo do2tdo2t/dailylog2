@@ -1,19 +1,7 @@
 function WeeklyCalendar(){
-    /*
-    this.headerHtml = 
-    '<div class="weekly-calendar-header-style1">'
-    + ' <span id="startyyyymmdd" class="display-none">{{startyyyymmdd}}</span>'
-    +    '<span id = "yyyy">{{yyyy}}</span>년 &nbsp; &nbsp;' 
-    +    '<span id = "mm">{{mm}}</span>월'
-    + '</div>'; */
-    this.mode = "list";
-    this.calendarType1 = "one";
 
-    this.headerHtml = 
-    '<div class="row w3-margin-bottom w3-margin-left">'
-    +'<button class="w3-button w3-medium w3-wide w3-border w3-border-red" onclick="changeWeekCalendarListMode()">리스트형</button>'
-    +'<button class="w3-button w3-medium w3-wide w3-border w3-border-red" onclick="changeWeekCalendarCardMode()">카드형</button>'
-    +'</div>';
+    this.mode = "list";
+    this.calendarType1 = "one"; //one, team
 
     this.listTemplate = 
 '<div class="row row-style1">'+
@@ -182,8 +170,21 @@ WeeklyCalendar.prototype.drawCalendar = function(date, id){
     if(id == null || id =="" || id == undefined ){
         id = this.id;
     }
+
+    if(typeof(date) ==="string"){
+        date = new Date(date);
+    }
+
+    if(date == null || date == undefined){
+        date = new Date();
+    }
+
+
     //team일떄와 one일때 분기 필요
     this.render(date, id);
+
+    $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
+
 }
 
 function drawWeekCalendar(date){

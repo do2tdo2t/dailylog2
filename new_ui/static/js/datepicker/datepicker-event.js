@@ -53,7 +53,6 @@
     
     function changeInputDatePicker(yyyyMMdd){
 		$('.date-picker').datepicker('update',yyyyMMdd);
-		
 		$('.date-picker').attr('value',yyyyMMdd);
-
+		
 	}
