@@ -18,7 +18,7 @@ function WeeklyCalendar(){
     this.listTemplate = 
 '<div class="row row-style1">'+
     '<div class="col-md-1">' +
-        '<div class="label-style1"><button class="btn-style1" id="{{id}}" onclick="whenClickModifyBtn(this)"><i class="fa fa-pencil"></i></button></div>'+
+        '<div class="label-style1"><button class="btn-style1" onclick="whenClickModifyBtn(\'{{yyyyMMdd}}\')"><i class="fa fa-pencil"></i></button></div>'+
         '<hr/>'+
         '<div><h3 class="yoil-style1">{{yoil}}</h3></div>'+
         '<div>{{mmdd}}</div>'+
@@ -56,7 +56,7 @@ function WeeklyCalendar(){
             this.cardTemplate = 
               "<div class='col-md-4 card-style1'>"
                 +"<div class='w3-margin-top'>"
-                  +"<span>{{yoil}}</span><span>{{mmdd}}</span><span class='w3-right'><button class='btn-style1' id='{{id}}' onclick='whenClickModifyBtn(this)'><i class='fa fa-pencil'></i></button></span>"
+                  +"<span>{{yoil}}</span><span>{{mmdd}}</span><span class='w3-right'><button class='btn-style1' onclick='whenClickModifyBtn(\"{{yyyyMMdd}}\")'><i class='fa fa-pencil'></i></button></span>"
                 +"</div>"
                 +"<hr class='hr-style1'>"
                 +"<div class='label-style2'>"
@@ -117,9 +117,11 @@ WeeklyCalendar.prototype.render = function(curdate,id){
     var html ='';
     var mmdd;
     var id;
+    var yyyyMMdd;
 
     var contentTemplate = '';
     if(this.mode == "card"){
+        //카드형
         contentTemplate = this.cardTemplate;
         for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
             year = day.getFullYear();
@@ -130,10 +132,10 @@ WeeklyCalendar.prototype.render = function(curdate,id){
             }
 
             mmdd = (month + 1) +'.'+date;
-            id = this.buildId(new Date(year,month,date));
+            yyyyMMdd = day.format('yyyy-MM-dd');
             newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
                                     .replace('{{mmdd}}',mmdd)
-                                    .replace('{{id}}',id);
+                                    .replace(/{{yyyyMMdd}}/gi, yyyyMMdd );
             
             html+=newContentTemplate;
 
@@ -142,6 +144,7 @@ WeeklyCalendar.prototype.render = function(curdate,id){
             }
         }
     }else{
+        //리스트형
         contentTemplate = this.listTemplate;
         //7일 표시
         for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
@@ -150,8 +153,10 @@ WeeklyCalendar.prototype.render = function(curdate,id){
             date = day.getDate();
 
             var mmdd = (month + 1) +'.'+date;
+            yyyyMMdd = day.format('yyyy-MM-dd');
             newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
-                                    .replace('{{mmdd}}',mmdd);
+                                    .replace('{{mmdd}}',mmdd)
+                                    .replace(/{{yyyyMMdd}}/gi, yyyyMMdd );
             
             html+=newContentTemplate;
                     
@@ -186,6 +191,7 @@ function drawWeekCalendar(date){
     //1. render
     calendar.render(date,'calendar');
 }
+
 function whenClickWeeklyForm(datestr){
     var date = new Date(datestr);
 

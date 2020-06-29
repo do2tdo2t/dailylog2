@@ -107,13 +107,13 @@ CommonCalendar.prototype.render = function(date, id){
     var rowHeadHtml = "<div class='row'>";
 
     //첫번째 주에는 요일을 표기
-    var firstColHeadHtml =  "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(this)' >"
-                            +"<div class='day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
+    var firstColHeadHtml =  "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\")' >"
+                            +"<div class='day {{validation}}'>"
                             +"<div id='yoil'>{{hangulYoil}}</div>"
                             +"<div class='dd'>{{day}}</div></div>"
                             +"</a>";
-    var colHeadHtml = "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(this)' >"
-                    +"<div class='col day {{validation}}' id='date-{{year}}-{{month}}-{{day}}'>"
+    var colHeadHtml = "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\" )' >"
+                    +"<div class='col day {{validation}}' id='date-{{yyyyMMdd}}'>"
                     +"<div class='dd'>{{day}}</div></div>"
                     +"</a>";
     var divEndHtml = "</div>";
@@ -123,7 +123,7 @@ CommonCalendar.prototype.render = function(date, id){
     //*calendar reder*//
     //첫주
     var day = startDay;
-    
+    var yyyyMMdd ='';
     var validation = day == 1 ? "valid" : "invalid"; //해당 월의 날짜:valid, 아니면 invlid
     //0:일 1:월 2:화 3:수 4:목 5:금 6:토
     calendarHtml += calendarMain + rowHeadHtml;
@@ -133,7 +133,8 @@ CommonCalendar.prototype.render = function(date, id){
             day = 1;
             validation = "valid";
         }
-        calendarHtml += this.handleCol(firstColHeadHtml.replace('{{hangulYoil}}',hangulYoil[i-1]), yyyy, Number(mm) + 1, day, validation);
+        yyyyMMdd = new Date(yyyy,mm,day).format('yyyy-MM-dd');
+        calendarHtml += this.handleCol(firstColHeadHtml.replace('{{hangulYoil}}',hangulYoil[i-1]), yyyyMMdd , day , validation);
     }
     calendarHtml += divEndHtml;
     
@@ -144,7 +145,8 @@ CommonCalendar.prototype.render = function(date, id){
         if(i % 7 == 1){
             calendarHtml += rowHeadHtml;
         }
-        calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day,validation);
+        yyyyMMdd = new Date(yyyy,mm,day).format('yyyy-MM-dd');
+        calendarHtml += this.handleCol(colHeadHtml, yyyyMMdd, day, validation);
         if (i % 7 == 0){
             calendarHtml += divEndHtml;
         }
@@ -154,7 +156,8 @@ CommonCalendar.prototype.render = function(date, id){
     //0:일 1:월 2:화 3:수 4:목 5:금 6:토
     validation = "invalid";
     for(var i = lastYoil + 1 ,day = 1  ;  i < 7 ; day++, i++ ){
-        calendarHtml += this.handleCol(colHeadHtml, yyyy, Number(mm) + 1, day,validation);
+        yyyyMMdd = new Date(yyyy,mm,day).format('yyyy-MM-dd');
+        calendarHtml += this.handleCol(colHeadHtml,  yyyyMMdd , day ,validation);
     }
     calendarHtml += divEndHtml + divEndHtml;
 
@@ -168,11 +171,10 @@ CommonCalendar.prototype.render = function(date, id){
     document.getElementById('mm').innerHTML = mm + 1 ;
 }
 
-CommonCalendar.prototype.handleCol = function(colHeadHtml,year, month, day, validation){
-    var newColHeadHtml = colHeadHtml.replace(/{{year}}/gi, year )
-                    .replace(/{{month}}/gi, month)
-                    .replace(/{{day}}/gi, day )
-                    .replace(/{{validation}}/, validation);
+CommonCalendar.prototype.handleCol = function(colHeadHtml, yyyyMMdd, day, validation){
+    var newColHeadHtml = colHeadHtml.replace(/{{yyyyMMdd}}/gi, yyyyMMdd )
+                    .replace(/{{day}}/gi, day)
+                    .replace(/{{validation}}/gi, validation);
 
     return newColHeadHtml;
 }
@@ -269,7 +271,7 @@ CommonCalendar.prototype.getBeforeMonth = function(){
 
     return newdate;
 }
-
+/*
 function getNextMonth(){
     var yyyy = document.getElementById('yyyy').innerHTML;
     var mm = document.getElementById('mm').innerHTML;
@@ -291,6 +293,7 @@ function getBeforeMonth(){
 
     return newdate;
 }
+*/
 
 /** 개인 업무일지 캘린더 그리기 */
 function drawMonthCalendar(date){

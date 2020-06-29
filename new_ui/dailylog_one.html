@@ -89,7 +89,7 @@ html,body{height:100%;  padding:0px; margin:0px}
       <div class="w3-section">
         <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소  <i class="fa fa-remove"></i></a>
         <a class="w3-button w3-light-grey w3-right write-mode" onclick="document.getElementById('dailylogModal').style.display='none'">저장  <i class="fa fa-paper-plane"></i></a> 
-        <a class="w3-button w3-light-grey w3-right view-mode" onclick="whenClickModifyBtn()">수정 <i class="fa fa-pencil"></i></a>
+        <a class="w3-button w3-light-grey w3-right view-mode" onclick="whenClickModalModifyBtn()">수정 <i class="fa fa-pencil"></i></a>
       </div>    
     </div>
   </div>
@@ -352,11 +352,14 @@ function whenClickWriteBtn(){
 }
 
 //Weekly 캘린더의 리스트형, 카드형 템플릿의 수정아이콘 클릭 이벤트
-function whenClickModifyBtn(obj){
-  var child = $(obj).children('.day');
-  var id = $(obj).children('.day').attr('id');
-  var date = new Date(id.replace('date-',''));
-
+function whenClickModifyBtn(yyyyMMdd){
+  
+  console.log(yyyyMMdd);
+  var date = new Date(yyyyMMdd);
+  if(date == null || date == undefined || date == ""){
+    date = new Date();
+  }
+  
   //1. 날짜 받아오기
   $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
 
@@ -369,10 +372,16 @@ function whenClickModifyBtn(obj){
   $('#dailylogModal').css('display','block');
 }
 
+function whenClickModalModifyBtn(){
+  changeModalMode('view');
+}
+
 function changeModalMode(mode){
+  console.log('mode change.. ' + mode);
   if(mode != null && mode != '' && mode != undefined){
     if(mode == 'write'){
-      $('.write-mode').css('display','block');
+      var writeArr = 
+      $('.write-mode').addClass('display','block');
       $('.view-mode').css('display','none');
 
     }else if(mode == 'view')
@@ -382,10 +391,8 @@ function changeModalMode(mode){
   }
 }
 
-function whenClickDay(obj){
-  var child = $(obj).children('.day');
-  var id = $(obj).children('.day').attr('id');
-  var date = new Date(id.replace('date-',''));
+function whenClickDay(datestr){
+  var date = new Date(datestr);
 
   //1. 날짜 받아오기 (클릭한 날짜 기준)
   $(".date-picker").attr('value',date.format('yyyy-MM-dd'));

@@ -24,3 +24,27 @@ Date.prototype.format = function(f) {
 String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
 String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+String.prototype.toDate = function(year,month,day){
+    var year = ''+year;
+    var month = ''+month;
+    var day = ''.day;
+    
+    var year = year.length == 2 ? '20' + year : year;
+    var month = year.length == 1 ? '0' + month : month;
+    var day = year.length == 1 ? '0' + day : day;
+
+    return new Date(year,month,day); 
+}
+
+String.prototype.toDateStr = function(year,month,day){
+    var year = ''+year;
+    var month = ''+month;
+    var day = ''.day;
+    
+    var year = year.length == 2 ? '20' + year : year;
+    var month = year.length == 1 ? '0' + month : month;
+    var day = year.length == 1 ? '0' + day : day;
+
+    return year.concat(month,day); 
+}

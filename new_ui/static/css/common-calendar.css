@@ -121,9 +121,6 @@
     font-weight: 500;
 }
 
-.weekly-calendar-border-style1{
-    /*border:solid 0.5px grey;*/
-}
 
 .nanum-font{
     font-family: 'Nanum Gothic', sans-serif;
@@ -199,7 +196,7 @@
     background-color: white;
 }
 
-/* weekly-calendar card */
+/*************** weekly-calendar card ************************/
 .card-style1{
     box-shadow: 0 3px 1px 0 rgba(124, 124, 124, 0.14), 0 2px 1px -1px rgba(117, 116, 116, 0.12), 0 1px 3px 0 rgba(136, 135, 135, 0.329);
 }
@@ -217,4 +214,15 @@
 
 .hr-style1{
     margin:10px auto;
+}
+
+
+
+/***************** Modal ********************/
+content-hidden{
+    display: none;
+}
+
+content-show{
+    display: block;
 }
