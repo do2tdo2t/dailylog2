@@ -12,7 +12,6 @@
 <!-- google material design-->
 <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
 
-
 <link href='./static/css/common-calendar.css' rel='stylesheet' type='text/css'>
 <link href='./static/css/common-style.css' rel='stylesheet' type='text/css'>
 <link href="./static/css/bootstrap-datepicker.min.css" rel="stylesheet">
@@ -119,7 +118,7 @@ html,body{height:100%;  padding:0px; margin:0px}
    <!-- <hr style="margin-bottom: 0px; padding-bottom: 0px;" > -->
   </div>
   <!-- 달력 타입-->
-  <input id="calendarType1" value='team' hidden>
+  <input id="calendarType1" value='one' hidden>
   <input id="calendarType2" value='month' hidden>
 
   <!-- calendar-->
@@ -143,7 +142,7 @@ html,body{height:100%;  padding:0px; margin:0px}
 
 <script src="./static/js/date-format.js"></script>
 <script src="./static/js/month-calendar-event.js"></script>
-<script src="./static/js/week-calendar-event.js"></script>
+<script src="./static/js/team-calendar-event.js"></script>
 <script>
 
 this.addEventListener('DOMContentLoaded', function(){
@@ -158,7 +157,7 @@ function init(){
   openInbox.click();
 
   commonCalendar = new CommonCalendar();
-  commonCalendar.calendarType1 = "team";
+  commonCalendar.calendarType1 = "one";
   commonCalendar.drawCalendar(new Date(),'calendar');
   
   /* init #date-picker */
@@ -242,7 +241,6 @@ function changeCalendar(date){
         getMonthCalendar().drawCalendar(new Date(date),'calendar');
 
       }else if(calendarType2 == 'week'){
-
         getWeekCalendar().drawCalendar(new Date(date),'calendar');
       }
   }
@@ -269,6 +267,7 @@ function nextMonth(){
 }
 
 function beforeMonth(){
+  //var calendarType1 = $('#calendarType1').attr('value');
   var calendarType2 = $('#calendarType2').attr('value');
   var newdate;
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
