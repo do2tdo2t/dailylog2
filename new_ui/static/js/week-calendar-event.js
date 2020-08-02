@@ -1,7 +1,7 @@
 function WeeklyCalendar(){
 
     this.mode = "list";
-    this.calendarType1 = "one"; //one, team
+    this.calendarType1 = "one"; //one
 
     this.listTemplate = 
 '<div class="row row-style1">'

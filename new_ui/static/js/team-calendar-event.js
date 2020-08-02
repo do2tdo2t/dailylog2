@@ -4,7 +4,7 @@ function TeamCalendar(){
     this.calendarType1 = "team"; //one, team
 
     this.listTemplate = 
-'<div class="row row-style1">'
+ '<div class="row row-style1">'
   +'<div class="col-md-1">'
     +'<div class="label-style1">'
       +'<button class="btn-style1" onclick="whenClickModifyBtn(\'{{yyyyMMdd}}\')"><i class="fa fa-pencil"></i></button>'
@@ -17,20 +17,19 @@ function TeamCalendar(){
     +'<div class="label-style1"> 실시사항 </div>'
     +'<hr>'
     +'<div>'
-      +'<pre class="content1-style1 pre-style1">{{content1}}</pre>'
+      +'{{team-content1}}'
     +'</div>'
   +'</div>'
-  +'<div class="col-md-4 col-left-border">'
-    +'<div class="label-style1"> 기타사항(교육,출장,회의,휴가,특이사항) </div>'+
+  +'<div class="col-md-3 col-left-border">'
+    +'<div class="label-style1"> 기타사항(교육,출장,회의,휴가,특이사항) </div>'
     +'<hr>'
-    +'<div><pre class="content1-style1 pre-style1">{{content2}}</pre></div>'                 
+    +'<div>{{team-content2}}</div>'                 
   +'</div>'
-  +'<div class="col-md-2 col-left-border">'
+  +'<div class="col-md-3 col-left-border">'
     +'<div class="label-style1"> 특근 </div>'
     +'<hr>'
     +'<div class="content1-style1">'
-        +'<div><span>시간</span><span>12:00 - 14:00</span></div>'
-        +'<div><span>업무</span><span>{{content3}}</span></div>'
+        +'{{team-content3}}'
     +'</div>'
   +'</div>'
 +'</div>';
@@ -43,11 +42,40 @@ this.teamTemplate =
     + "</span>"
     +"</div>";
 
-this.content1Template = '';
-this.content2Template = '';
-this.content3Template = '';
+this.content1Template = 
+     "<div class='row'>"
+    + "<span class='col-3 label-style2'>{{name}}</span>"
+    + "<span>"
+    +  "<pre class='content1-style1 pre-style1'>{{content1}}</pre>"
+    + "</span>"
+    +"</div>"
+    +"<div class='row'>"
+    + "<span class='col-3 label-style2'>{{name}}</span>"
+    + "<span>"
+    +  "<pre class='content1-style1 pre-style1'>{{content1}}</pre>"
+    + "</span>"
+    +"</div>"    
+;
 
- this.id = 'calendar';
+this.content2Template = 
+    "<div class='row'>"
+    + "<span class='col-3 label-style2'>{{name}}</span>"
+    + "<span>"
+    +  "<pre class='content1-style1 pre-style1'>{{content2}}</pre>"
+    + "</span>"
+    +"</div>"
+;
+this.content3Template = 
+  "<div class='row'>"
+    + "<span class='col-3 label-style2'>{{name}}</span>"
+    + "<span>"
+    +'<div><span>시간</span><span>12:00 - 14:00</span></div>'
+    +'<div><span>업무</span><span>{{content3}}</span></div>'
+    + "</span>"
+    +"</div>";
+
+this.id = 'calendar';
+
 }
 
 //date type to id
@@ -67,8 +95,10 @@ TeamCalendar.prototype.buildId = function(date){
 TeamCalendar.prototype.parseData = function(jsonString){
   if(jsonString == null || jsonString == undefined || jsonString == ""){
      jsonString = 
-     "[{\"enterdate\":1593418151241,\"updatedate\":null,\"dailylogno\":1,\"deptcode\":\"00001\",\"user\":{\"enterdate\":1593418151235,\"updatedate\":null,\"userid\":\"R2020001\",\"username\":\"源��븘臾닿컻\",\"deptcode\":\"00001\",\"part\":null,\"userstatecode\":null,\"acceptadminyn\":\"N\",\"jumin1\":null,\"jumin2\":null,\"telnum\":null,\"hpnum\":null,\"email\":null,\"logindate\":null,\"loginip\":null,\"logincount\":null,\"loginfailcnt\":null,\"lockyn\":null,\"positioncode\":\"00004\",\"position\":{\"positioncode\":\"00004\",\"positionname\":\"��由�\"},\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},\"workerid\":\"R2020001\",\"workingday\":\"2020-05-06\",\"part\":\"H\",\"content1\":\"而⑦뀗痢�1\",\"content2\":\"而⑦뀗痢�2\",\"content3\":null,\"content4\":null,\"overtimestart\":null,\"overtimeend\":null,\"overtimecontent\":null,\"tag\":null,\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},{\"enterdate\":1593418151241,\"updatedate\":null,\"dailylogno\":2,\"deptcode\":\"00001\",\"user\":{\"enterdate\":1593418151235,\"updatedate\":null,\"userid\":\"R2020001\",\"username\":\"源��븘臾닿컻\",\"deptcode\":\"00001\",\"part\":null,\"userstatecode\":null,\"acceptadminyn\":\"N\",\"jumin1\":null,\"jumin2\":null,\"telnum\":null,\"hpnum\":null,\"email\":null,\"logindate\":null,\"loginip\":null,\"logincount\":null,\"loginfailcnt\":null,\"lockyn\":null,\"positioncode\":\"00004\",\"position\":{\"positioncode\":\"00004\",\"positionname\":\"��由�\"},\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},\"workerid\":\"R2020001\",\"workingday\":\"2020-05-07\",\"part\":\"H\",\"content1\":\"而⑦뀗痢�1\",\"content2\":\"而⑦뀗痢�2\",\"content3\":null,\"content4\":null,\"overtimestart\":null,\"overtimeend\":null,\"overtimecontent\":null,\"tag\":null,\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},{\"enterdate\":1593418151241,\"updatedate\":null,\"dailylogno\":3,\"deptcode\":\"00001\",\"user\":{\"enterdate\":1593418151235,\"updatedate\":null,\"userid\":\"R2020001\",\"username\":\"源��븘臾닿컻\",\"deptcode\":\"00001\",\"part\":null,\"userstatecode\":null,\"acceptadminyn\":\"N\",\"jumin1\":null,\"jumin2\":null,\"telnum\":null,\"hpnum\":null,\"email\":null,\"logindate\":null,\"loginip\":null,\"logincount\":null,\"loginfailcnt\":null,\"lockyn\":null,\"positioncode\":\"00004\",\"position\":{\"positioncode\":\"00004\",\"positionname\":\"��由�\"},\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},\"workerid\":\"R2020001\",\"workingday\":\"2020-05-08\",\"part\":\"H\",\"content1\":\"而⑦뀗痢�1\",\"content2\":\"而⑦뀗痢�2\",\"content3\":null,\"content4\":null,\"overtimestart\":null,\"overtimeend\":null,\"overtimecontent\":null,\"tag\":null,\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},{\"enterdate\":1593418151241,\"updatedate\":null,\"dailylogno\":4,\"deptcode\":\"00001\",\"user\":{\"enterdate\":1593418151235,\"updatedate\":null,\"userid\":\"R2020002\",\"username\":\"理쒖븘臾닿컻\",\"deptcode\":\"00001\",\"part\":null,\"userstatecode\":null,\"acceptadminyn\":\"Y\",\"jumin1\":null,\"jumin2\":null,\"telnum\":null,\"hpnum\":null,\"email\":null,\"logindate\":null,\"loginip\":null,\"logincount\":null,\"loginfailcnt\":null,\"lockyn\":null,\"positioncode\":\"00003\",\"position\":{\"positioncode\":\"00003\",\"positionname\":\"怨쇱옣\"},\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},\"workerid\":\"R2020002\",\"workingday\":\"2020-05-06\",\"part\":\"H\",\"content1\":\"而⑦뀗痢�1\",\"content2\":\"而⑦뀗痢�2\",\"content3\":null,\"content4\":null,\"overtimestart\":null,\"overtimeend\":null,\"overtimecontent\":null,\"tag\":null,\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},{\"enterdate\":1593418151241,\"updatedate\":null,\"dailylogno\":5,\"deptcode\":\"00001\",\"user\":{\"enterdate\":1593418151235,\"updatedate\":null,\"userid\":\"R2020002\",\"username\":\"理쒖븘臾닿컻\",\"deptcode\":\"00001\",\"part\":null,\"userstatecode\":null,\"acceptadminyn\":\"Y\",\"jumin1\":null,\"jumin2\":null,\"telnum\":null,\"hpnum\":null,\"email\":null,\"logindate\":null,\"loginip\":null,\"logincount\":null,\"loginfailcnt\":null,\"lockyn\":null,\"positioncode\":\"00003\",\"position\":{\"positioncode\":\"00003\",\"positionname\":\"怨쇱옣\"},\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null},\"workerid\":\"R2020002\",\"workingday\":\"2020-05-07\",\"part\":\"H\",\"content1\":\"而⑦뀗痢�1\",\"content2\":\"而⑦뀗痢�2\",\"content3\":null,\"content4\":null,\"overtimestart\":null,\"overtimeend\":null,\"overtimecontent\":null,\"tag\":null,\"enterid\":null,\"entername\":null,\"enterpgm\":null,\"updateid\":null,\"updatename\":null,\"updatepgm\":null}]";
-  }
+      '{"name":"John"}';
+    }
+    jsonString = 
+    '{"name":"John"}';
   var jsonData = JSON.parse(jsonString);
   console.log(jsonData);
 
@@ -97,30 +127,36 @@ TeamCalendar.prototype.render = function(curdate,id){
     var yyyyMMdd;
 
     var contentTemplate = '';
+
+    //test
+    this.parseData();
     
     //리스트형 
     contentTemplate = this.listTemplate;
     //7일 표시
     for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
-    year = day.getFullYear();
-    month = day.getMonth();
-    date = day.getDate();
+        year = day.getFullYear();
+        month = day.getMonth();
+        date = day.getDate();
 
-    var mmdd = (month + 1) +'.'+date;
-    yyyyMMdd = day.format('yyyy-MM-dd');
-    newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
-                              .replace('{{mmdd}}',mmdd)
-                              .replace(/{{yyyyMMdd}}/gi, yyyyMMdd );
-            
-    html+=newContentTemplate;                
+        var mmdd = (month + 1) +'.'+date;
+        yyyyMMdd = day.format('yyyy-MM-dd');
+        newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
+                                  .replace('{{mmdd}}',mmdd)
+                                  .replace(/{{yyyyMMdd}}/gi, yyyyMMdd )
+                                  .replace('{{team-content1}}',this.content1Template)
+                                  .replace('{{team-content2}}',this.content2Template)
+                                  .replace('{{team-content3}}',this.content3Template);
+                
+        html+=newContentTemplate;                
     }
       
-  var newContentTemplate ='';
-  document.querySelector('#'+id).innerHTML = html;
+    var newContentTemplate ='';
+    document.querySelector('#'+id).innerHTML = html;
 
-  //yyyy-mm setting
-  document.getElementById('yyyy').innerHTML = year;
-  document.getElementById('mm').innerHTML = month + 1 ;
+    //yyyy-mm setting
+    document.getElementById('yyyy').innerHTML = year;
+    document.getElementById('mm').innerHTML = month + 1 ;
 }
 
 TeamCalendar.prototype.nextDay = function(year,month,date){
