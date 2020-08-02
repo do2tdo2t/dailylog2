@@ -1,13 +1,18 @@
 package com.rc.dailylog2.domain.dailylog;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rc.dailylog2.domain.user.User;
 import com.rc.dailylog2.domain.user.UserRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -95,6 +100,22 @@ public class DailylogRepositoryTest {
         dailylogRepository.findListByWorkerid(workerid,startdate,enddate)
                 .forEach(System.out::println);
 
+    }
+
+    @Test
+    public void 팀업무일지리스트_가져오기() throws Exception{
+        User user = userRepository.findAll().get(0);
+
+        String deptcode = user.getDeptcode();
+        String startdate = "2020-05-06";
+        String enddate = "2020-05-08";
+
+        List<Dailylog> dailylogList = dailylogRepository.findByDeptcodeAndWorkingdayBetween(deptcode,startdate,enddate);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(System.out, dailylogList);
+        String jsonString = objectMapper.writeValueAsString(dailylogList);
+        System.out.println(jsonString);
     }
 
 }

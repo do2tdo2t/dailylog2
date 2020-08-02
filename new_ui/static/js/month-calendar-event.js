@@ -279,29 +279,7 @@ CommonCalendar.prototype.getBeforeMonth = function(){
 
     return newdate;
 }
-/*
-function getNextMonth(){
-    var yyyy = document.getElementById('yyyy').innerHTML;
-    var mm = document.getElementById('mm').innerHTML;
-    var nextyyyy = Number(mm) == 12 ? Number(yyyy) + 1  : yyyy ;
-    var nextmm = Number(mm) == 12 ? 1 : mm ;
-    var newdate = new Date( nextyyyy ,nextmm  , 1 );//다음달의 1일
 
-    return newdate;
-}
-
-function getBeforeMonth(){
-    var yyyy = document.getElementById('yyyy').innerHTML;
-    var mm = document.getElementById('mm').innerHTML;
- 
-    var beforeyyyy = Number(mm-2) == 0 ? Number(yyyy) - 1 : yyyy ;
-    var beforemm = Number(mm-2) == 0 ? 11 : (Number(mm)-1) -1 ;
- 
-    var newdate = new Date( beforeyyyy ,beforemm  , 1 );//현재 현재달의 1일 -1 1
-
-    return newdate;
-}
-*/
 
 /** 개인 업무일지 캘린더 그리기 */
 function drawMonthCalendar(date){

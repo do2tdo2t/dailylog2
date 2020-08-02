@@ -39,6 +39,7 @@ public class DailylogMapperTest {
         //mapper 사용
         mapper.selectTeamDailylogDetail(params)
                 .forEach(System.out::println);
-
     }
+
+
 }

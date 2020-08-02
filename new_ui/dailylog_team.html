@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- google material design-->
+<link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+
+<link href='./static/css/common-calendar.css' rel='stylesheet' type='text/css'>
+<link href='./static/css/common-style.css' rel='stylesheet' type='text/css'>
+<link href="./static/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  html,
+  body,
+  div,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+
+  .w3-bar-block .w3-bar-item {
+    padding: 16px
+  }
+
+  html,
+  body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px
+  }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<body>
+
+  <!-- Side Navigation -->
+  <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;"
+    id="mySidebar">
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><img src="static/img/logo.jpg"
+        style="width:60%;"></a>
+    <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
+      class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align"
+      onclick="whenClickWriteBtn()"> 글쓰기 <i class="w3-padding fa fa-pencil"></i></a>
+    <!-- menue tree strat -->
+    <a id="myBtn" onclick="showMenuDetail('Menu1')" href="javascript:void(0)" class="w3-bar-item w3-button">업무일지<i
+        class="fa fa-caret-down w3-margin-left"></i></a>
+    <div id="Menu1" class="w3-hide w3-animate-left">
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
+        id="Menu1-firstTab">
+        <div class="w3-container">
+          <span class="w3-opacity w3-large">개인</span>
+        </div>
+      </a>
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
+        id="Menu1-secondTab">
+        <div class="w3-container">
+          <span class="w3-opacity w3-large">팀</span>
+        </div>
+      </a>
+    </div>
+    <a id="myBtn" onclick="showMenuDetail('Menu2')" href="javascript:void(0)" class="w3-bar-item w3-button">주간회의<i
+        class="fa fa-caret-down w3-margin-left"></i></a>
+    <div id="Menu2" class="w3-hide w3-animate-left">
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
+        id="Menu1-firstTab">
+        <div class="w3-container">
+          <span class="w3-opacity w3-large">개인</span>
+        </div>
+      </a>
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
+        id="Menu1-secondTab">
+        <div class="w3-container">
+          <span class="w3-opacity w3-large">팀</span>
+        </div>
+      </a>
+    </div>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>검색</a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>일정</a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>로그아웃</a>
+  </nav>
+  <!-- Side Navigation end -->
+
+  <!-- Modal that pops up when you click on "New Message" -->
+  <div id="dailylogModal" class="w3-modal" style="z-index:4">
+    <div class="w3-modal-content w3-animate-zoom">
+      <div class="w3-container w3-padding w3-red">
+        <span onclick="document.getElementById('dailylogModal').style.display='none'"
+          class="w3-button w3-red w3-right w3-large"><i class="fa fa-remove"></i></span>
+        <h4>업무일지</h4>
+      </div>
+      <div class="w3-panel">
+        <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker2"
+            class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
+        <label>실시사항</label>
+        <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px" name="content1"></pre>
+        <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:200px"
+          name="content1"></textarea>
+        <label>기타사항</label>
+        <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px"></pre>
+        <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:150px"
+          name="content2"></textarea>
+        <label>특별근무사항</label>
+        <div class="view-mode w3-margin-bottom"><span>12:00</span> ~ <span>14:00</span></div>
+        <input class="w3-input w3-border w3-margin-bottom write-mode" type="datetime-local">
+        <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px"></pre>
+        <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px"></textarea>
+        <div class="w3-section">
+          <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소 <i
+              class="fa fa-remove"></i></a>
+          <a class="w3-button w3-light-grey w3-right write-mode"
+            onclick="document.getElementById('dailylogModal').style.display='none'">저장 <i
+              class="fa fa-paper-plane"></i></a>
+          <a class="w3-button w3-light-grey w3-right view-mode" onclick="whenClickModalModifyBtn()">수정 <i
+              class="fa fa-pencil"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay effect when opening the side navigation on small screens -->
+  <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+    title="Close Sidemenu" id="myOverlay"></div>
+
+  <!-- Page content -->
+  <div class="w3-main" style="margin-left:320px; height:100%; ">
+    <i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top"
+      onclick="w3_open()"></i>
+    <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right"
+      onclick="whenClickWriteBtn()"><i class="fa fa-pencil"></i></a>
+
+    <div id="topContainer" class="w3-container" style="min-height: 145px;">
+      <br>
+      <h5 class="w3-opacity breadcrum">업무일지 > 팀</h5>
+      <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker1"
+          class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
+      <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="changeMonthCalendar()">월간달력</a>
+      <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="changeteamCalendar()">주간달력</a>
+      <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeMonth()"><i
+          class="w3-margin-right fa fa-arrow-left"></i>이전</a>
+      <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="nextMonth()">다음<i
+          class="w3-margin-left fa fa-arrow-right"></i></a>
+      <a class="w3-button" href="javascript:void(0)" id="yyyymm">
+        <span id="yyyy"></span>년 &nbsp; &nbsp;<span id="mm"></span>월
+      </a>
+      <!-- <hr style="margin-bottom: 0px; padding-bottom: 0px;" > -->
+    </div>
+    <!-- 달력 타입-->
+    <input id="calendarType1" value='one' hidden>
+    <input id="calendarType2" value='month' hidden>
+
+    <!-- calendar-->
+    <div id="calendar" class="w3-container common-calendar">
+    </div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- google material design-->
+  <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
+
+  <!-- datepickers -->
+  <script src="./static/js/datepicker/bootstrap-datepicker.js"></script>
+  <script src="./static/js/datepicker/bootstrap-datepicker.ko.js"></script>
+  <script src="./static/js/datepicker/datepicker-event.js"></script>
+  <script src="./static/js/datepicker/date-format.js"></script>
+
+
+  <script src="./static/js/date-format.js"></script>
+  <script src="./static/js/month-calendar-event.js"></script>
+  <script src="./static/js/team-calendar-event.js"></script>
+  <script>
+
+    this.addEventListener('DOMContentLoaded', function () {
+      this.init();
+    });
+
+    var commonCalendar; //달력 형태
+    var teamCalendar; //리스트 형태
+
+    function init() {
+      var openInbox = document.getElementById("myBtn");
+      openInbox.click();
+
+      commonCalendar = new CommonCalendar();
+      commonCalendar.calendarType1 = "one";
+      commonCalendar.drawCalendar(new Date(), 'calendar');
+
+      /* init #date-picker */
+      var date = new Date().format('yyyy-MM-dd');
+      $('.date-picker').attr('value', date);
+
+    }
+
+    function getMonthCalendar() {
+      if (commonCalendar === null || commonCalendar === undefined) {
+        commonCalendar = new CommonCalendar();
+        var calendarType1 = $('#calendarType1').attr('value');
+        commonCalendar.calendarType1 = calendarType1;
+      }
+      return commonCalendar;
+    }
+
+    function getTeamCalendar() {
+      if (teamCalendar === null || teamCalendar === undefined) {
+        teamCalendar = new TeamCalendar();
+        var calendarType1 = $('#calendarType1').attr('value');
+        teamCalendar.calendarType1 = calendarType1;
+      }
+      return teamCalendar;
+    }
+
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("myOverlay").style.display = "block";
+
+    }
+
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("myOverlay").style.display = "none";
+    }
+
+    //왼편 네비게이션바 부분 소메뉴펼치기
+    function showMenuDetail(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-red";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-red", "");
+      }
+    }
+
+    function changeMonthCalendar() {
+      var calendarType2 = 'month';
+      $('#calendarType2').attr('value', calendarType2);
+
+      var date = $('.date-picker').attr('value');
+
+      getMonthCalendar().drawCalendar(new Date(date), 'calendar');
+
+      //mode button 숨김
+      $('.mode').css('display', 'none');
+    }
+
+    function changeteamCalendar() {
+
+      var date = $('.date-picker').attr('value');
+
+      $('#calendarType2').attr('value', 'week');
+
+      getTeamCalendar().drawCalendar(new Date(date), 'calendar');
+      //mode 버튼 활성화
+      $('.mode').css('display', 'inline-block');
+    }
+
+    function changeCalendar(date) {
+      var calendarType2 = $('#calendarType2').attr('value'); //month, week
+      if (date != null && typeof (date) == "string") {
+        date = new Date(date);
+      }
+
+      if (calendarType2 != null && calendarType2 != undefined && calendarType2 != "") {
+        if (calendarType2 == 'month') {
+          getMonthCalendar().drawCalendar(new Date(date), 'calendar');
+
+        } else if (calendarType2 == 'week') {
+          getTeamCalendar().drawCalendar(new Date(date), 'calendar');
+        }
+      }
+    }
+
+
+    function nextMonth() {
+      var calendarType2 = $('#calendarType2').attr('value'); // month, week
+      var newdate;
+
+      if (calendarType2 != null && calendarType2 != undefined && calendarType2 != "") {
+        if (calendarType2 == 'month') {
+
+          newdate = getNextMonth();
+          getMonthCalendar().drawCalendar(new Date(newdate), 'calendar');
+
+        } else if (calendarType2 == 'week') {
+          newdate = getNextWeek();
+          getTeamCalendar().drawCalendar(new Date(newdate), 'calendar');
+        }
+        $('.date-picker').attr('value', newdate.format('yyyy-MM-dd'));
+
+      }
+    }
+
+    function beforeMonth() {
+      //var calendarType1 = $('#calendarType1').attr('value');
+      var calendarType2 = $('#calendarType2').attr('value');
+      var newdate;
+      if (calendarType2 != null && calendarType2 != undefined && calendarType2 != "") {
+        if (calendarType2 == 'month') {
+
+          newdate = getBeforeMonth();
+          getMonthCalendar().drawCalendar(new Date(newdate), 'calendar');
+
+        } else if (calendarType2 == 'week') {
+          newdate = getBeforeWeek();
+
+          getTeamCalendar().drawCalendar(new Date(newdate), 'calendar');
+        }
+        $('.date-picker').attr('value', newdate.format('yyyy-MM-dd'));
+      }
+    }
+
+    function getNextMonth() {
+      var curdate = $(".date-picker").attr('value');
+      //var yyyy = document.getElementById('yyyy').innerHTML;
+      //var mm = document.getElementById('mm').innerHTML;
+      var yyyy = new Date(curdate).getFullYear();
+      var month = new Date(curdate).getMonth() + 1;
+
+      var nextyyyy = Number(month) == 12 ? Number(yyyy) + 1 : yyyy;
+      var nextmonth = Number(month) == 12 ? 1 : month;
+      var newdate = new Date(nextyyyy, nextmonth, 1);//다음달의 1일
+
+      return newdate;
+    }
+
+    function getBeforeMonth() {
+      var curdate = $(".date-picker").attr('value');
+      //var yyyy = document.getElementById('yyyy').innerHTML;
+      //var mm = document.getElementById('mm').innerHTML;
+      var yyyy = new Date(curdate).getFullYear();
+      var month = new Date(curdate).getMonth() + 1;
+
+      var beforeyyyy = Number(month - 2) == 0 ? Number(yyyy) - 1 : yyyy;
+      var beforemonth = Number(month - 2) == 0 ? 11 : (Number(month) - 1) - 1;
+
+      var newdate = new Date(beforeyyyy, beforemonth, 1);//현재 현재달의 1일 -1 1
+
+      return newdate;
+    }
+
+
+    function getNextWeek() {
+      var curdate = $(".date-picker").attr('value');
+      var date = new Date(curdate);
+      var dd = date.getDate();
+      var mm = date.getMonth();
+      var yyyy = date.getFullYear();
+
+      var newdate = new Date(yyyy, mm, dd + 7);
+
+      return newdate;
+    }
+
+
+    function getBeforeWeek() {
+      var curdate = $(".date-picker").attr('value');
+      var date = new Date(curdate);
+      var dd = date.getDate();
+      var mm = date.getMonth();
+      var yyyy = date.getFullYear();
+
+      var newdate = new Date(yyyy, mm, dd - 7);
+      return newdate;
+    }
+
+    //네비게이션의 글쓰기 버튼 클릭시
+    function whenClickWriteBtn() {
+      //1. 날짜 받아오기
+      var date = $('#date-picker1').attr('value');
+
+      //2. ajax 실행 detail 정보 가져오기
+
+      //3. modal 글쓰기 모드로 변경
+      changeModalMode('write');
+
+      //4. modal띄우기
+      $('#dailylogModal').css('display', 'block');
+    }
+
+    //Weekly 캘린더의 리스트형, 카드형 템플릿의 수정아이콘 클릭 이벤트
+    function whenClickModifyBtn(yyyyMMdd) {
+
+      var date = new Date(yyyyMMdd);
+      if (date == null || date == undefined || date == "") {
+        date = new Date();
+      }
+
+      //1. 날짜 받아오기
+      $(".date-picker").attr('value', date.format('yyyy-MM-dd'));
+
+      //2. ajax 실행 detail 정보 가져오기
+
+      //3. modal 글쓰기 모드로 변경
+      changeModalMode('write');
+
+      //4. modal띄우기
+      $('#dailylogModal').css('display', 'block');
+    }
+
+    //Modal에 있는 수정버튼 클릭시
+    function whenClickModalModifyBtn() {
+      changeModalMode('write');
+    }
+
+    function changeModalMode(mode) {
+      if (mode != null && mode != '' && mode != undefined) {
+        var viewElements = document.querySelectorAll('.view-mode');
+        var writeElements = document.querySelectorAll('.write-mode');
+        if (mode == 'write') {
+          for (var i = 0; i < viewElements.length; i++) {
+            viewElements[i].style.display = "none";
+          }
+          for (var i = 0; i < writeElements.length; i++) {
+            writeElements[i].style.display = "block";
+          }
+        } else if (mode == 'view') {
+          for (var i = 0; i < viewElements.length; i++) {
+            viewElements[i].style.display = "block";
+          }
+          for (var i = 0; i < writeElements.length; i++) {
+            writeElements[i].style.display = "none";
+          }
+        }
+      }
+    }
+
+    function whenClickDay(datestr) {
+      var date = new Date(datestr);
+
+      //1. 날짜 받아오기 (클릭한 날짜 기준)
+      $(".date-picker").attr('value', date.format('yyyy-MM-dd'));
+
+      //2. ajax 실행 detail 
+
+      //3. modal 보기모드로 변경
+      changeModalMode('view');
+
+      //4.글쓰기 모달 팝업
+      $('#dailylogModal').css('display', 'block');
+    }
+
+    function changeteamCalendarListMode() {
+      var curdate = $(".date-picker").attr('value');
+      getTeamCalendar().mode = "list";
+      getTeamCalendar().render(new Date(curdate), 'calendar');
+    }
+
+    function changeteamCalendarCardMode() {
+      var curdate = $(".date-picker").attr('value');
+
+      getTeamCalendar().mode = "card";
+      getTeamCalendar().render(new Date(curdate), 'calendar');
+
+    }
+
+  </script>
+
+</body>
+
+</html>

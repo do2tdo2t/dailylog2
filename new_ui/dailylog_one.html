@@ -119,7 +119,7 @@ html,body{height:100%;  padding:0px; margin:0px}
    <!-- <hr style="margin-bottom: 0px; padding-bottom: 0px;" > -->
   </div>
   <!-- 달력 타입-->
-  <input id="calendarType1" value='one' hidden>
+  <input id="calendarType1" value='team' hidden>
   <input id="calendarType2" value='month' hidden>
 
   <!-- calendar-->
@@ -158,7 +158,7 @@ function init(){
   openInbox.click();
 
   commonCalendar = new CommonCalendar();
-  commonCalendar.calendarType1 = "one";
+  commonCalendar.calendarType1 = "team";
   commonCalendar.drawCalendar(new Date(),'calendar');
   
   /* init #date-picker */
@@ -269,7 +269,6 @@ function nextMonth(){
 }
 
 function beforeMonth(){
-  //var calendarType1 = $('#calendarType1').attr('value');
   var calendarType2 = $('#calendarType2').attr('value');
   var newdate;
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
