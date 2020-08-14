@@ -25,6 +25,6 @@ public class MainController {
         Dailylog dailylog = dailylogRepository.findByWorkeridAndWorkingday(userid,workingday);
         model.addAttribute("dailylog",dailylog);
 
-        return "main";
+        return "one";
     }
 }
