@@ -1,5 +1,6 @@
 package com.rc.dailylog2.domain.holiday;
 
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
