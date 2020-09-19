@@ -18,8 +18,8 @@ public class MainController {
     public String main(Model model){
         //1. login 분기
 
-        String userid = "2020001";
-        String workingday = "2020-05-06";
+        String userid = "R2020001";
+        String workingday = "2020-09-06";
 
         //2. Session 세팅
         Dailylog dailylog = dailylogRepository.findByWorkeridAndWorkingday(userid,workingday);
