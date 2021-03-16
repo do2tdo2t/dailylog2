@@ -306,12 +306,14 @@ function drawTeamMonthCalendar(date){
 function whenClickDailylog(event){
     var target = event.target;
     var parentId = target.parentElement.getAttribute('id');
+    var dailylogno = target.getAttribute('id');
 
     var datestr = parentId.replace('date-','').split('-');
     
     var date = new Date(datestr[0],datestr[1]-1, datestr[2]);
 
     changeInputDatePicker(date.format('yyyy-MM-dd'));
+    callOneDailylogApi(dailylogno);
 }
 
 function whenClickTeamDailylog(event){
@@ -324,7 +326,7 @@ function whenClickTeamDailylog(event){
 
 
     changeInputDatePicker(date.format('yyyy-MM-dd'));
-    callTeamDailylogApi();
+    callTeamDailylogApi(date.format('yyyy-MM-dd'));
 }
 
 /******************** api **********************************
@@ -361,18 +363,21 @@ CommonCalendar.prototype.callMonthDailylogApi = function(){
 function markMonthDailylog(data){
     console.log(data);
      var html =
-        "<button class='btn btn-secondary dailylog' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
+        "<button class='btn btn-secondary dailylog' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
     var dailylogList = data.dailylogList;
     var dailylog;
     var username;
     var workingday;
+    var dailylogno;
     var element;
     for(var i = 0 ; i < dailylogList.length ; i++){
         dailylog = dailylogList[i];
         workingday = dailylog.workingday;
         username = dailylog.user.username;
+        dailylogno = dailylog.dailylogno;
         element = document.querySelector('#date-'+workingday);
-        html = html.replace('{{username}}',username);
+        html = html.replace('{{username}}',username)
+                    .replace('{{dailylogno}}',dailylogno);
         if(element != null && element != undefined){
                 element.insertAdjacentHTML('beforeend',html);
         }
@@ -393,7 +398,7 @@ CommonCalendar.prototype.callHolidayApi = function(){
     var endday = lastday.setDate(lastday.getDate() + 7);
 
     obj.startday = new Date(startday).format("yyyy-MM-dd") ;
-    obj.endday = new Date(endday).format("yyyy-MM-dd") ;
+    obj.endday = new Date(endday).format("yyyy-MM-dd");
 
     $.ajax({
         url: "/api/search/holiday/month",
@@ -426,8 +431,6 @@ function markHoliday(holidays){
        endday = new Date(holidays[i].endday);
        diff = ( endday - startday ) / cday;
 
-       console.log(startday +" " + endday + " " + diff);
-
        for (var j= 0 , day = startday ,  title = holidays[i].title ; j <= diff ; j++ ){
 
             element = document.querySelector("#date-"+day.format('yyyy-MM-dd'));
@@ -459,6 +462,27 @@ function markMonthDailylog(data){
                 element.insertAdjacentHTML('beforeend',html);
         }
     }
+}
+
+function callOneDailylogApi(dailylogno){
+    console.log("callOneDailylogApi...."+dailylogno);
+    var obj = new Object();
+    obj.dailylogno = dailylogno;
+
+    $.ajax({
+        url: "/api/search/dailylog/one/month",
+        dataType:"json",
+        method:"POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify( obj ),
+        success : function(data) {
+            console.log(data);
+            //setTeamDailylog(data);
+        },
+        fail : function(error){
+          alert("error..");
+      }
+    });
 }
 
 
