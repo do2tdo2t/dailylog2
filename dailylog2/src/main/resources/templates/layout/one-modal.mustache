@@ -1,0 +1,59 @@
+<!-- Modal that pops up when you click on "New Message" -->
+<div id="dailylogModal" class="w3-modal" style="z-index:4">
+    <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-container w3-padding w3-red">
+        <span onclick="document.getElementById('dailylogModal').style.display='none'"
+              class="w3-button w3-red w3-right w3-large"><i class="fa fa-remove"></i></span>
+            <h4>업무일지</h4>
+        </div>
+        <div class="w3-panel">
+            <h4>
+                <i class="fa fa-clock-o"></i>
+                <input type="text" id="date-picker2" class="date-picker datepicker-style1 w3-light-grey" value="">
+            </h4>
+            <label>실시사항</label>
+
+            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px" name="content1">
+                {{#dailylog}}
+                    {{content1}}
+                {{/dailylog}}
+            </pre>
+
+            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:200px" name="content1">
+                {{#dailylog}}
+                    {{content1}}
+                {{/dailylog}}</textarea>
+
+            <label>기타사항</label>
+            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px">{{#dailylog}}
+                {{content2}}
+            {{/dailylog}}</pre>
+            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:150px"
+                      name="content2">{{#dailylog}}
+                {{content2}}
+            {{/dailylog}}</textarea>
+            <label>특별근무사항</label>
+            <div class="view-mode w3-margin-bottom"><span>{{#dailylog}}
+                {{overtimestart}}
+            {{/dailylog}}</span> ~ <span>{{#dailylog}}
+                {{overtimeend}}
+            {{/dailylog}}</span></div>
+            <input class="w3-input w3-border w3-margin-bottom write-mode" type="datetime-local">
+            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px">{{#dailylog}}
+                {{overtimecontent}}
+            {{/dailylog}}</pre>
+            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px">{{#dailylog}}
+                {{content3}}
+            {{/dailylog}}</textarea>
+            <div class="w3-section">
+                <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소 <i
+                        class="fa fa-remove"></i></a>
+                <a class="w3-button w3-light-grey w3-right write-mode"
+                   onclick="document.getElementById('dailylogModal').style.display='none'">저장 <i
+                        class="fa fa-paper-plane"></i></a>
+                <a class="w3-button w3-light-grey w3-right view-mode" onclick="whenClickModalModifyBtn()">수정 <i
+                        class="fa fa-pencil"></i></a>
+            </div>
+        </div>
+    </div>ß
+</div>

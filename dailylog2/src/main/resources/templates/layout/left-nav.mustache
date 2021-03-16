@@ -1,0 +1,40 @@
+
+<!-- Side Navigation -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><img src="/static/img/logo.jpg" style="width:60%;"></a>
+    <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="whenClickWriteBtn()"> 글쓰기 <i class="w3-padding fa fa-pencil"></i></a>
+    <!-- menue tree strat -->
+    <a id="myBtn" onclick="showMenuDetail('Menu1')" href="javascript:void(0)" class="w3-bar-item w3-button">업무일지<i class="fa fa-caret-down w3-margin-left"></i></a>
+    <div id="Menu1" class="w3-hide w3-animate-left">
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-firstTab">
+            <div class="w3-container">
+                <span class="w3-opacity w3-large">개인</span>
+            </div>
+        </a>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-secondTab">
+            <div class="w3-container">
+                <span class="w3-opacity w3-large">팀</span>
+            </div>
+        </a>
+    </div>
+    <a id="myBtn" onclick="showMenuDetail('Menu2')" href="javascript:void(0)" class="w3-bar-item w3-button">주간회의<i class="fa fa-caret-down w3-margin-left"></i></a>
+    <div id="Menu2" class="w3-hide w3-animate-left">
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-firstTab">
+            <div class="w3-container">
+                <span class="w3-opacity w3-large">개인</span>
+            </div>
+        </a>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-secondTab">
+            <div class="w3-container">
+                <span class="w3-opacity w3-large">팀</span>
+            </div>
+        </a>
+    </div>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>검색</a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>일정</a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>로그아웃</a>
+</nav>
+
+<!-- Overlay effect when opening the side navigation on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Close Sidemenu" id="myOverlay"></div>
