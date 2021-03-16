@@ -18,8 +18,7 @@ public class DailylogApiController {
     private final DailylogService dailylogService;
 
     @PostMapping("/api/search/dailylog/one/month")
-    public DailylogResponseDto getSearchDailylogOneMonthApi(@RequestBody DailylogRequestDto dailylogRequestDto){
-        //session에서 가져오기 - userid
+    public DailylogResponseDto getDailylogOneMonthApi(@RequestBody DailylogRequestDto dailylogRequestDto){
 
         DailylogResponseDto responseDto = dailylogService.getDailylogMonth(dailylogRequestDto);
 
