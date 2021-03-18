@@ -22,22 +22,31 @@ public class DailylogApiController {
 
         DailylogResponseDto responseDto = dailylogService.getDailylogMonth(dailylogRequestDto);
 
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("dto",responseDto);
         return responseDto;
     }
+
+    @PostMapping("/api/search/dailylog/one/week")
+    public DailylogResponseDto getSearchDailylogOneWeekApi(@RequestBody DailylogRequestDto dailylogRequestDto, Model model){
+
+        DailylogResponseDto responseDto = dailylogService.getDailylogList(dailylogRequestDto);
+
+        return responseDto;
+    }
+
 
     @PostMapping("/api/search/dailylog/one/detail")
     public DailylogResponseDto getSearchDailylogOneDetailApi(@RequestBody DailylogRequestDto dailylogRequestDto, Model model){
 
-        DailylogResponseDto responseDto = dailylogService.getDailylogDetail(dailylogRequestDto);
+        DailylogResponseDto responseDto = dailylogService.getDailylogList(dailylogRequestDto);
 
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("dto",responseDto);
+        //Map<String,Object> map = new HashMap<String, Object>();
+        //map.put("dto",responseDto);
         model.addAttribute("dailylog",responseDto.getDailylog());
 
         return responseDto;
     }
+
+
 
     @PostMapping("/api/search/dailylog/team/week")
     public DailylogResponseDto getSearchDailylogTeamWeekApi(@RequestBody DailylogRequestDto dailylogRequestDto, Model model){

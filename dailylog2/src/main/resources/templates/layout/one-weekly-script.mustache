@@ -28,9 +28,8 @@ function init(){
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
 
-  commonCalendar = new CommonCalendar();
-  commonCalendar.calendarType1 = "one";
-  commonCalendar.drawCalendar(new Date(),'calendar');
+  callWeekDailylogApi(new Date());
+  //weekCalendar.drawCalendar(new Date(),'calendar');
 
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');

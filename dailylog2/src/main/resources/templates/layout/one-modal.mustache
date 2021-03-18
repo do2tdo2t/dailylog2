@@ -14,37 +14,29 @@
             <label>실시사항</label>
 
             <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px" name="content1">
-                {{#dailylog}}
-                    {{content1}}
-                {{/dailylog}}
             </pre>
 
             <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:200px" name="content1">
-                {{#dailylog}}
-                    {{content1}}
-                {{/dailylog}}</textarea>
+            </textarea>
 
             <label>기타사항</label>
-            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px">{{#dailylog}}
-                {{content2}}
-            {{/dailylog}}</pre>
-            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:150px"
-                      name="content2">{{#dailylog}}
-                {{content2}}
-            {{/dailylog}}</textarea>
+            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px" name="content2">
+            </pre>
+            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:150px" name="content2">
+            </textarea>
+
             <label>특별근무사항</label>
-            <div class="view-mode w3-margin-bottom"><span>{{#dailylog}}
-                {{overtimestart}}
-            {{/dailylog}}</span> ~ <span>{{#dailylog}}
-                {{overtimeend}}
-            {{/dailylog}}</span></div>
+            <div class="view-mode w3-margin-bottom" ><span name="overtimestart">
+
+            </span> ~ <span name="overtimeend">
+
+            </span></div>
             <input class="w3-input w3-border w3-margin-bottom write-mode" type="datetime-local">
-            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px">{{#dailylog}}
-                {{overtimecontent}}
-            {{/dailylog}}</pre>
-            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px">{{#dailylog}}
-                {{content3}}
-            {{/dailylog}}</textarea>
+            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px" name="overtimecontent">
+            </pre>
+            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px" name="overtimecontent">
+
+            </textarea>
             <div class="w3-section">
                 <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소 <i
                         class="fa fa-remove"></i></a>
@@ -55,5 +47,5 @@
                         class="fa fa-pencil"></i></a>
             </div>
         </div>
-    </div>ß
+    </div>
 </div>

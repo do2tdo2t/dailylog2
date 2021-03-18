@@ -28,6 +28,19 @@ public class DailylogService {
         return responseDto;
     }
 
+    public DailylogResponseDto getDailylogList(DailylogRequestDto requestDto){
+
+        List<Dailylog> dailylogList = dailylogRepository.
+                findByWorkeridAndWorkingdayBetween(requestDto.getUserid(), requestDto.getStartdate(),requestDto.getEnddate());
+
+        DailylogResponseDto responseDto = DailylogResponseDto.builder()
+                //.dailylog(dailylog)
+                .dailylogList(dailylogList)
+                .build();
+
+        return responseDto;
+    }
+
     //dailylog monthly list
     public DailylogResponseDto getDailylogMonth(DailylogRequestDto requestDto){
 

@@ -359,7 +359,7 @@ CommonCalendar.prototype.callMonthDailylogApi = function(){
     });
 }
 
-/************** 업무일지 간략 보기*********************/
+/************** 업무일지 달력에 마킹 *********************/
 function markMonthDailylog(data){
     console.log(data);
      var html =
@@ -375,6 +375,7 @@ function markMonthDailylog(data){
         workingday = dailylog.workingday;
         username = dailylog.user.username;
         dailylogno = dailylog.dailylogno;
+        //console.log("dailylogno:" + dailylogno );
         element = document.querySelector('#date-'+workingday);
         html = html.replace('{{username}}',username)
                     .replace('{{dailylogno}}',dailylogno);
@@ -415,6 +416,7 @@ CommonCalendar.prototype.callHolidayApi = function(){
       }
     });
 }
+
 /* 공휴일 달력에 마킹하기 */
 function markHoliday(holidays){
     var title = '';
@@ -446,38 +448,49 @@ function markHoliday(holidays){
 function markMonthDailylog(data){
     console.log(data);
      var html =
-        "<button class='btn btn-secondary dailylog' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
+        "<button class='btn btn-secondary dailylog' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
     var dailylogList = data.dailylogList;
     var dailylog;
     var username;
+    var dailylogno;
     var workingday;
     var element;
     for(var i = 0 ; i < dailylogList.length ; i++){
         dailylog = dailylogList[i];
         workingday = dailylog.workingday;
         username = dailylog.user.username;
+        dailylogno = dailylog.dailylogno;
+        console.log("dailylogno:" + dailylogno );
         element = document.querySelector('#date-'+workingday);
-        html = html.replace('{{username}}',username);
+
+        html = html.replace('{{username}}',username)
+            .replace('{{dailylogno}}',dailylogno);
         if(element != null && element != undefined){
                 element.insertAdjacentHTML('beforeend',html);
         }
     }
 }
 
+
+/******************** api **********************************
+업무일지 상세보기
+JSON.stringify(obj)
+*************************************************************/
 function callOneDailylogApi(dailylogno){
     console.log("callOneDailylogApi...."+dailylogno);
     var obj = new Object();
     obj.dailylogno = dailylogno;
 
     $.ajax({
-        url: "/api/search/dailylog/one/month",
+        url: "/api/search/dailylog/one/detail",
         dataType:"json",
         method:"POST",
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(data) {
             console.log(data);
-            //setTeamDailylog(data);
+            var dailylog = data.dailylog;
+            setOneDailylog(dailylog);
         },
         fail : function(error){
           alert("error..");
@@ -485,6 +498,17 @@ function callOneDailylogApi(dailylogno){
     });
 }
 
+function setOneDailylog(dailylog)
+{
+    $("[name=content1]").html(dailylog.content1);
+    $("[name=content2]").html(dailylog.content2);
+    $("[name=overtimestart]").html(dailylog.overtimestart);
+    $("[name=overtimeend]").html(dailylog.overtimeend);
+    $("[name=overtimecontent]").html(dailylog.overtimecontent);
+    $("#dailylogModal").css('display','block');
+}
+
+/********************/
 
 function callTeamDailylogApi(){
     $.ajax({
