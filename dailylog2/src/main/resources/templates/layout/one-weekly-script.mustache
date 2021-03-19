@@ -13,7 +13,7 @@
 <script src="/static/js/datepicker/date-format.js"></script>
 <script src="/static/js/mustache.min.js"></script>
 
-<script src="/static/js/calendar/month-calendar-event.js"></script>
+<!--<script src="/static/js/calendar/month-calendar-event.js"></script>-->
 <script src="/static/js/calendar/week-calendar-event.js"></script>
 <script>
 
@@ -28,8 +28,10 @@ function init(){
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
 
-  callWeekDailylogApi(new Date());
-  //weekCalendar.drawCalendar(new Date(),'calendar');
+  //callWeekDailylogApi(new Date());
+  weekCalendar = new WeeklyCalendar();
+  weekCalendar.calendarType1 = "one";
+  weekCalendar.drawCalendar(new Date(),'calendar');
 
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');

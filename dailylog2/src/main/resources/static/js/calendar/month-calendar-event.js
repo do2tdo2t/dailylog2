@@ -477,7 +477,7 @@ function markMonthDailylog(data){
 JSON.stringify(obj)
 *************************************************************/
 function callOneDailylogApi(dailylogno){
-    console.log("callOneDailylogApi...."+dailylogno);
+
     var obj = new Object();
     obj.dailylogno = dailylogno;
 
@@ -488,7 +488,6 @@ function callOneDailylogApi(dailylogno){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(data) {
-            console.log(data);
             var dailylog = data.dailylog;
             setOneDailylog(dailylog);
         },

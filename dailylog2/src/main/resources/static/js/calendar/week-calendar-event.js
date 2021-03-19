@@ -2,38 +2,43 @@ function WeeklyCalendar(){
 
     this.mode = "list";
     this.calendarType1 = "one"; //one
+    this.monday = '';
+    this.sunday = '';
 
     this.listTemplate = 
-'<div class="row row-style1" id="date-{{yyyyMMdd}}">'
-  +'<div class="col-md-1">'
-    +'<div class="label-style1">'
-      +'<button class="btn-style1" onclick="whenClickModifyBtn(\'{{yyyyMMdd}}\')"><i class="fa fa-pencil"></i></button>'
-    +'</div>'
-    +'<hr>'
+'<li class="row" id="date-{{yyyyMMdd}}">'
+  +'<div class="col-md-1 w3-rightbar">'
     +'<div><h3 class="yoil-style1">{{yoil}}</h3></div>'
     +'<div>{{mmdd}}</div>'
   +'</div>'
-  +'<div class="col-md-5 col-left-border">'
-    +'<div class="label-style1"> 실시사항 </div>'
-    +'<hr>'
-    +'<div>'
-      +'<pre class="content1-style1 pre-style1" name="content1">{{content1}}</pre>'
-    +'</div>'
-  +'</div>'
-  +'<div class="col-md-4 col-left-border">'
-    +'<div class="label-style1"> 기타사항(교육,출장,회의,휴가,특이사항) </div>'
-    +'<hr>'
-    +'<div><pre class="content1-style1 pre-style1" name="content2">{{content2}}</pre></div>'
-  +'</div>'
-  +'<div class="col-md-2 col-left-border">'
-    +'<div class="label-style1"> 특근 </div>'
-    +'<hr>'
-    +'<div class="content1-style1">'
-        +'<div><span>시간</span><span name="overtimestart">{{overtimestart}}</span> - <span name="overtimeend">{{overtimeend}}</span></span></div>'
-        +'<div><span>업무</span><span name="overtimecontent">{{overtimecontent}}</span></div>'
-    +'</div>'
-  +'</div>'
-+'</div>';
++'</li>';
+
+/* 내용*/
+ this.listContentTemplate =
+ '<div class="col-md-4 col-left-border">'
+     +'<div class="label-style1"> 실시사항 </div>'
+     +'<hr>'
+     +'<div>'
+       +'<pre class="content1-style1 pre-style1" name="content1">{{content1}}</pre>'
+     +'</div>'
+   +'</div>'
+   +'<div class="col-md-4 col-left-border">'
+     +'<div class="label-style1"> 기타사항(교육,출장,회의,휴가,특이사항) </div>'
+     +'<hr>'
+     +'<div><pre class="content1-style1 pre-style1" name="content2">{{content2}}</pre></div>'
+   +'</div>'
+   +'<div class="col-md-2 col-left-border">'
+     +'<div class="label-style1"> 특근 </div>'
+     +'<hr>'
+     +'<div class="content1-style1">'
+         +'<div><span>시간</span><span name="overtimestart">{{overtimestart}}</span> - <span name="overtimeend">{{overtimeend}}</span></span></div>'
+         +'<div><span>업무</span><span name="overtimecontent">{{overtimecontent}}</span></div>'
+     +'</div>'
+   +'</div>'
+   +'<div class="col-md-1>'
+    +'<a  href="javascript:void(0)" class="w3-button" onclick="whenClickDailylog({{dailylogno}})"><i class="fa fa-pencil"></i></a>'
+    +'<a  href="javascript:void(0)" class="w3-button" onclick="whenClickDailylog({{dailylogno}})"><i class="fa fa-pencil"></i></a>'
+   +'</div>';
 
 this.cardTemplate = 
               "<div class='col-md-4 card-style1'>"
@@ -88,10 +93,9 @@ WeeklyCalendar.prototype.buildId = function(date){
     return id;
 }
 
-WeeklyCalendar.prototype.render = function(curdate,id, data){
+WeeklyCalendar.prototype.render = function(curdate,id){
 
     this.date = date;
-    var dailylogList = data.dailylogList;
 
     //0:일 1:월 2:화 3:수 4:목 5:금 6:토
     var yoil = curdate.getDay() == 0 ? 7 : curdate.getDay() ;
@@ -104,6 +108,9 @@ WeeklyCalendar.prototype.render = function(curdate,id, data){
     var sunday = new Date(year, month, date - diff + 6 );
     var startyyyymmdd = monday.format('yyyy-MM-dd');
     var endyyyymmdd = sunday.format('yyyy-MM-dd');
+
+    this.monday = monday;
+    this.sunday= sunday;
 
     var yoils = ['월','화','수','목','금','토','일'];
     var dailylog;
@@ -138,44 +145,33 @@ WeeklyCalendar.prototype.render = function(curdate,id, data){
             }
         }
     }else if(this.mode == "list"){
+        html = '';
         //리스트형 
-        contentTemplate = this.listTemplate;
+        template = this.listTemplate;
+        var newtemplate ='';
         //7일 표시
         for(var i = 0, day = monday ; i < 7  ; i++, day = this.nextDay(year,month,date)){
             year = day.getFullYear();
             month = day.getMonth();
-            date = day.getDate();``
+            date = day.getDate();
 
             var mmdd = (month + 1) +'.'+date;
-            dailylog = dailylogList[i];
 
             yyyyMMdd = day.format('yyyy-MM-dd');
-            newContentTemplate = contentTemplate.replace('{{yoil}}', yoils[i])
+            newtemplate = template.replace('{{yoil}}', yoils[i])
                                     .replace('{{mmdd}}',mmdd)
                                     .replace(/{{yyyyMMdd}}/gi, yyyyMMdd );
-
-           /* 이쪽 다시 확인해봐야 됨 */
-            if(dailylog.workingday ==  yyyyMMdd)
-            {
-            newContentTemplate = newContentTemplate
-                                    .replace('{{content1}}',dailylog.content1)
-                                    .replace('{{content2}}',dailylog.content2)
-                                    .replace('{{overtimecontent}}',dailylog.overtimecontent)
-                                    .replace('{{overtimestart}}',dailylog.overtimestart)
-                                    .replace('{{overtimeend}}',dailylog.overtimeend);
-            }
-            html+=newContentTemplate;
+            html+=newtemplate;
 
         }
     }
-    
-    var newContentTemplate ='';
-
     document.querySelector('#'+id).innerHTML = html;
 
     //yyyy-mm setting
     document.getElementById('yyyy').innerHTML = year;
     document.getElementById('mm').innerHTML = month + 1 ;
+
+    this.callWeekDailylogApi(curdate);
 }
 
 WeeklyCalendar.prototype.nextDay = function(year,month,date){
@@ -202,14 +198,37 @@ WeeklyCalendar.prototype.drawCalendar = function(date, id, data){
 
 }
 
+WeeklyCalendar.prototype.renderContent = function(data)
+{
+    var startyyyymmdd = this.monday.format('yyyy-MM-dd');
+    var endyyyymmdd = this.sunday.format('yyyy-MM-dd');
+    var dailylogList = data.dailylogList;
+    var dailylog ;
+    var template =  this.listContentTemplate;
+
+    var html = '';
+
+    for(var i = 0 ; i < dailylogList.length ; i++){
+       dailylog = dailylogList[i];
+       html = template.replace('{{content1}}',dailylog.content1)
+        .replace('{{dailylogno}}',dailylog.dailylogno)
+        .replace('{{content2}}',dailylog.content2)
+        .replace('{{overtimecontent}}',dailylog.overtimecontent)
+        .replace('{{overtimestart}}',dailylog.overtimestart)
+        .replace('{{overtimeend}}',dailylog.overtimeend);
+       $("#date-"+dailylog.workingday).append(html);
+    }
+}
+
 /******************** api **********************************
 일주일 업무일지 가져오기
 JSON.stringify(obj)
 *************************************************************/
-function callWeekDailylogApi(curdate){
+WeeklyCalendar.prototype.callWeekDailylogApi = function(curdate){
     var obj = new Object();
     //세션으로부터 가져오도록 변경 필요
 
+    /*
     var yoil = curdate.getDay() == 0 ? 7 : curdate.getDay() ;
     var date = curdate.getDate();
     var month = curdate.getMonth();
@@ -217,9 +236,9 @@ function callWeekDailylogApi(curdate){
     var diff = ( yoil -1 );
 
     var monday = new Date(year, month, date - diff  );
-    var sunday = new Date(year, month, date - diff + 6 );
-    var startdate = monday.format('yyyy-MM-dd');
-    var enddate = sunday.format('yyyy-MM-dd');
+    var sunday = new Date(year, month, date - diff + 6 ); */
+    var startdate = this.monday.format('yyyy-MM-dd');
+    var enddate = this.sunday.format('yyyy-MM-dd');
 
     obj.userid = "R2020001";
     obj.startdate = startdate;
@@ -232,15 +251,63 @@ function callWeekDailylogApi(curdate){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(data) {
-            console.log(data);
-            weekCalendar = new WeeklyCalendar();
-            weekCalendar.calendarType1 = "one";
-            weekCalendar.drawCalendar(new Date(),'calendar', data);
+            //weekCalendar: 전역변수
+            weekCalendar.renderContent(data);
+
         },
         fail : function(error){
           alert("error..");
       }
     });
+}
+
+
+/******************** api **********************************
+업무일지 상세보기 클릭시
+JSON.stringify(obj)
+*************************************************************/
+function whenClickDailylog(dailylogno,datestr){
+
+    $(".date-picker").attr('value',datestr);
+
+    callOneDailylogApi(dailylogno);
+
+    changeModalMode('view');
+
+}
+
+/******************** api **********************************
+업무일지 상세보기 api 호출
+JSON.stringify(obj)
+*************************************************************/
+function callOneDailylogApi(dailylogno){
+
+    var obj = new Object();
+    obj.dailylogno = dailylogno;
+
+    $.ajax({
+        url: "/api/search/dailylog/one/detail",
+        dataType:"json",
+        method:"POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify( obj ),
+        success : function(data) {
+            var dailylog = data.dailylog;
+            setOneDailylog(dailylog);
+        },
+        fail : function(error){
+          alert("error..");
+      }
+    });
+}
+
+function setOneDailylog(dailylog){
+    $("[name=content1]").html(dailylog.content1);
+    $("[name=content2]").html(dailylog.content2);
+    $("[name=overtimestart]").html(dailylog.overtimestart);
+    $("[name=overtimeend]").html(dailylog.overtimeend);
+    $("[name=overtimecontent]").html(dailylog.overtimecontent);
+    $("#dailylogModal").css('display','block');
 }
 
 function markWeekDailylog(data){

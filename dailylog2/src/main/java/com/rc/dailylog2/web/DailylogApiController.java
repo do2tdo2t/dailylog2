@@ -37,10 +37,8 @@ public class DailylogApiController {
     @PostMapping("/api/search/dailylog/one/detail")
     public DailylogResponseDto getSearchDailylogOneDetailApi(@RequestBody DailylogRequestDto dailylogRequestDto, Model model){
 
-        DailylogResponseDto responseDto = dailylogService.getDailylogList(dailylogRequestDto);
+        DailylogResponseDto responseDto = dailylogService.getDailylogDetail(dailylogRequestDto);
 
-        //Map<String,Object> map = new HashMap<String, Object>();
-        //map.put("dto",responseDto);
         model.addAttribute("dailylog",responseDto.getDailylog());
 
         return responseDto;
