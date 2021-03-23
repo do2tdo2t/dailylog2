@@ -13,8 +13,11 @@
 <script src="/static/js/datepicker/date-format.js"></script>
 <script src="/static/js/mustache.min.js"></script>
 
+
 <script src="/static/js/calendar/month-calendar-event.js"></script>
+<script src="/static/js/calendar/one.js"></script>
 <script src="/static/js/calendar/week-calendar-event.js"></script>
+<script src="/static/js/calendar/modal-event.js"></script>
 <script>
 
 this.addEventListener('DOMContentLoaded', function(){
@@ -256,8 +259,20 @@ function whenClickModalModifyBtn(){
   changeModalMode('write');
 }
 
-// 모달의 글쓰기/보기 모드 변경
 function changeModalMode(mode){
+    if(mode == 'write'){
+        $(".write-input").attr("readonly",false);
+        $(".write-mode").css('display','block');
+        $(".view-mode").css('display','none');
+    }else if(mode == "view"){
+        $(".write-input").attr("readonly",true);
+        $(".view-mode").css('display','block');
+        $(".wirt-mode").css('display','none');
+    }
+}
+
+// 모달의 글쓰기/보기 모드 변경
+function changeModalMode2(mode){
   if(mode != null && mode != '' && mode != undefined){
      var viewElements = document.querySelectorAll('.view-mode');
      var writeElements = document.querySelectorAll('.write-mode');
@@ -268,32 +283,20 @@ function changeModalMode(mode){
       for(var i = 0 ; i < writeElements.length ; i ++){
         writeElements[i].style.display = "block";
       }
+      $(".write-mode").attr("readonly",false);
     }else if(mode == 'view'){
       for(var i = 0 ; i < viewElements.length ; i ++){
         viewElements[i].style.display = "block";
       }
       for(var i = 0 ; i < writeElements.length ; i ++){
-        writeElements[i].style.display = "none";
+        //writeElements[i].style.display = "none";
+
       }
+      $(".write-mode").attr("readonly",true);
     }
   }
 }
 
-//날짜를 클릭했을 때 -> 수정모드로 모달 띄움
-function whenClickDay(datestr){
-  var date = new Date(datestr);
-
-  //1. 날짜 받아오기 (클릭한 날짜 기준)
-  $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
-
-  //2. ajax 실행 detail
-
-  //3. modal 보기모드로 변경
-  changeModalMode('view');
-
-  //4.글쓰기 모달 팝업
-  //$('#dailylogModal').css('display','block');
-}
 
 //주간 캘린더 리스트모드변경
 function changeWeekCalendarListMode(){

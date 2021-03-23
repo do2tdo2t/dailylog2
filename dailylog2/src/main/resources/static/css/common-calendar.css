@@ -71,7 +71,7 @@
 
 .day{
     text-align:center;
-    font-size: 13px;
+    font-size: 1.1em;
     font-weight: 600;
     max-height:100%;
 }
@@ -86,7 +86,7 @@
 
 /* button */
 .dailylog{
-    font-size: x-small;
+    font-size: small;
     padding:0px;
     margin:0px;
     overflow: hidden;
@@ -100,7 +100,7 @@
 
 /* button */
 .holiday{
-    font-size: x-small;
+    font-size: small;
     padding: 0px;
     margin:0px;
     height:inherit;
@@ -146,5 +146,5 @@
 
 .weekly-calendar-row-style1{
     background:red;
-
 }
+

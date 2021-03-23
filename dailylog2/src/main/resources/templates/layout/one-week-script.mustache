@@ -15,6 +15,8 @@
 
 <!--<script src="/static/js/calendar/month-calendar-event.js"></script>-->
 <script src="/static/js/calendar/week-calendar-event.js"></script>
+<script src="/static/js/calendar/modal-event.js"></script>
+
 <script>
 
 this.addEventListener('DOMContentLoaded', function(){
@@ -255,29 +257,6 @@ function whenClickModifyBtn(yyyyMMdd){
 //Modal에 있는 수정버튼 클릭시
 function whenClickModalModifyBtn(){
   changeModalMode('write');
-}
-
-// 모달의 글쓰기/보기 모드 변경
-function changeModalMode(mode){
-  if(mode != null && mode != '' && mode != undefined){
-     var viewElements = document.querySelectorAll('.view-mode');
-     var writeElements = document.querySelectorAll('.write-mode');
-    if(mode == 'write'){
-      for(var i = 0 ; i < viewElements.length ; i ++){
-        viewElements[i].style.display = "none";
-      }
-      for(var i = 0 ; i < writeElements.length ; i ++){
-        writeElements[i].style.display = "block";
-      }
-    }else if(mode == 'view'){
-      for(var i = 0 ; i < viewElements.length ; i ++){
-        viewElements[i].style.display = "block";
-      }
-      for(var i = 0 ; i < writeElements.length ; i ++){
-        writeElements[i].style.display = "none";
-      }
-    }
-  }
 }
 
 //날짜를 클릭했을 때 -> 수정모드로 모달 띄움

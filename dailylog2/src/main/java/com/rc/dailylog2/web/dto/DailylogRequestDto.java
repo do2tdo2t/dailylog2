@@ -16,13 +16,13 @@ public class DailylogRequestDto {
     private String startdate;
     private String enddate;
     private String part;
-    private String content1;
-    private String content2;
-    private String content3;
-    private String content4;
-    private String overtimestart;
-    private String overtimeend;
-    private String overtimecontent;
+    private String content1 = "";
+    private String content2 = "";
+    private String content3 = "";
+    private String content4 = "";
+    private String overtimestart = "";
+    private String overtimeend = "";
+    private String overtimecontent = "";
     private String tag;
 
     @Builder

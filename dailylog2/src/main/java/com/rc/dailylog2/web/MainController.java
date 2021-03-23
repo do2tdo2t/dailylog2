@@ -39,7 +39,7 @@ public class MainController {
         Dailylog dailylog = dailylogRepository.findByWorkeridAndWorkingday(userid,workingday);
         model.addAttribute("dailylog",dailylog);
 
-        return "one-weekly";
+        return "one-week";
     }
 
 }

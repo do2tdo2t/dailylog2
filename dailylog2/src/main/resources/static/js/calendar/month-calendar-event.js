@@ -1,5 +1,22 @@
 /** prototype으로 구현 */
 function CommonCalendar(){
+    this.calendarMain ="<div class='calendar-main' id='month-calendar'>";
+    this.rowHeadHtml = "<div class='row'>";
+
+    this.dailylogHtml = "<button class='btn btn-secondary dailylog w3-hover-black' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
+
+    //첫번째 주에는 요일을 표기
+    this.firstColHeadHtml =  "<a class='col' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\")' >"
+                                +"<div class='col day {{validation}}'  id='date-{{yyyyMMdd}}'>"
+                                +"<div id='yoil'>{{hangulYoil}}</div>"
+                                +"<div class='dd'>{{day}}</div></div>"
+                                +"</a>";
+    this.colHeadHtml = "<a class='col' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\" )' >"
+                        +"<div class='col day {{validation}}' id='date-{{yyyyMMdd}}'>"
+                        +"<div class='dd'>{{day}}</div></div>"
+                        +"</a>";
+    this.divEndHtml = "</div>";
+
     this.currentdate ;
     this.currentyyyy ;
     this.currentmm ;
@@ -100,21 +117,7 @@ CommonCalendar.prototype.render = function(date, id){
     var lastDateOfBeforeMonth = new Date(firstDay -1 ).getDate();
     var hangulYoil = ['일','월','화','수','목','금','토'];
     var calendarHtml = "";
-    var calendarMain ="<div class='calendar-main' id='month-calendar'>";
-    var rowHeadHtml = "<div class='row'>";
 
-    //첫번째 주에는 요일을 표기
-    var firstColHeadHtml =  "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\")' >"
-                            +"<div class='day {{validation}}'  id='date-{{yyyyMMdd}}'>"
-                            +"<div id='yoil'>{{hangulYoil}}</div>"
-                            +"<div class='dd'>{{day}}</div></div>"
-                            +"</a>";
-    var colHeadHtml = "<a class='col alink' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\" )' >"
-                    +"<div class='col day {{validation}}' id='date-{{yyyyMMdd}}'>"
-                    +"<div class='dd'>{{day}}</div></div>"
-                    +"</a>";
-    var divEndHtml = "</div>";
-    
     var startDay = ( firstYoil == 0 ? 1 : lastDateOfBeforeMonth - firstYoil + 1 ) ;
 
     //*calendar reder*//
@@ -123,7 +126,8 @@ CommonCalendar.prototype.render = function(date, id){
     var yyyyMMdd ='';
     var validation = day == 1 ? "valid" : "invalid"; //해당 월의 날짜:valid, 아니면 invlid
     //0:일 1:월 2:화 3:수 4:목 5:금 6:토
-    calendarHtml += calendarMain + rowHeadHtml;
+    // 1번째 행 (1번째 주)
+    calendarHtml += this.calendarMain + this.rowHeadHtml;
     for(var i = 1 ; i <= 7  ; i++, day ++){
         //순서 중요
         if(day > lastDateOfBeforeMonth){
@@ -131,21 +135,21 @@ CommonCalendar.prototype.render = function(date, id){
             validation = "valid";
         }
         yyyyMMdd = new Date(yyyy,mm,day).format('yyyy-MM-dd');
-        calendarHtml += this.handleCol(firstColHeadHtml.replace('{{hangulYoil}}',hangulYoil[i-1]), yyyyMMdd , day , validation);
+        calendarHtml += this.handleCol(this.firstColHeadHtml.replace('{{hangulYoil}}',hangulYoil[i-1]), yyyyMMdd , day , validation);
     }
-    calendarHtml += divEndHtml;
+    calendarHtml += this.divEndHtml;
     
     //둘째주 ~ 마지막주  -1
     validation = "valid";
     for(var i = 1  ; day <= lastDate  ; day++, i++ ){
 
         if(i % 7 == 1){
-            calendarHtml += rowHeadHtml;
+            calendarHtml += this.rowHeadHtml;
         }
         yyyyMMdd = new Date(yyyy,mm,day).format('yyyy-MM-dd');
-        calendarHtml += this.handleCol(colHeadHtml, yyyyMMdd, day, validation);
+        calendarHtml += this.handleCol(this.colHeadHtml, yyyyMMdd, day, validation);
         if (i % 7 == 0){
-            calendarHtml += divEndHtml;
+            calendarHtml += this.divEndHtml;
         }
     }
 
@@ -156,10 +160,10 @@ CommonCalendar.prototype.render = function(date, id){
     for(var i = lastYoil + 1 ,day = 1;  i < 7 ; day++, i++ ){
 
         yyyyMMdd = new Date(yyyy,mm,day).format('yyyy-MM-dd');
-
-        calendarHtml += this.handleCol(colHeadHtml,  yyyyMMdd , day ,validation);
+                                        //컬럼HTML, 일자, 일, 표기활성화 여부
+        calendarHtml += this.handleCol(this.colHeadHtml, yyyyMMdd , day ,validation);
     }
-    calendarHtml += divEndHtml + divEndHtml;
+    calendarHtml += this.divEndHtml + this.divEndHtml;
 
     //calendarBody에 붙이기
     var calendarBody = document.getElementById(id);
@@ -170,9 +174,8 @@ CommonCalendar.prototype.render = function(date, id){
     document.getElementById('yyyy').innerHTML = yyyy;
     document.getElementById('mm').innerHTML = mm;
 }
-/****************************************************/
 
-CommonCalendar.prototype.handleCol = function(colHeadHtml, yyyyMMdd, day, validation){
+CommonCalendar.prototype.handleCol = function( colHeadHtml ,yyyyMMdd, day, validation){
     var newColHeadHtml = colHeadHtml.replace(/{{yyyyMMdd}}/gi, yyyyMMdd )
                     .replace(/{{day}}/gi, day)
                     .replace(/{{validation}}/gi, validation);
@@ -216,6 +219,7 @@ CommonCalendar.prototype.markTeamDailylog = function(){
     }
 }
 **/
+
 // calendarType1 = ['team','one']
 CommonCalendar.prototype.drawCalendar = function(date,id ){
     if(id == null || id == "" || id == undefined){
@@ -234,8 +238,6 @@ CommonCalendar.prototype.drawCalendar = function(date,id ){
         if(this.calendarType1 == 'team'){
             //1. render
             this.render(date,id);
-            //this.callTeamDailylogApi();
-            //this.callHolidayApi();
         }
 
         if(this.calendarType1 == 'one'){
@@ -284,8 +286,6 @@ function drawMonthCalendar(date){
     commonCalendar.render(date,'calendar');
     commonCalendar.callMonthDailylogApi();
     calendar.callHoliydayApi();
-    //calendar.markDailylog();
-    //calendar.markHoliday();
 }
 
 /** 팀 업무일지 캘린더 그리기 */
@@ -298,11 +298,33 @@ function drawTeamMonthCalendar(date){
     calendar.markHoliday();
 }
 
-/* dailylog 클릭 시 
+//날짜를 클릭했을 때 -> 수정모드로 모달 띄움
+function whenClickDay(datestr){
+  var date = new Date(datestr);
+
+  //1. 날짜 받아오기 (클릭한 날짜 기준)
+  $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
+
+  //2. modal 내용 초기화
+  $("#dailylogModal").find("[name=content1]").val('');
+  $("#dailylogModal").find("[name=content2]").val('');
+  $("#dailylogModal").find("[name=overtimestart]").val('');
+  $("#dailylogModal").find("[name=overtimeend]").val('');
+  $("#dailylogModal").find("[name=overtimecontent]").val('');
+
+  //3. modal 보기모드로 변경
+  changeModalMode('write');
+
+  //4.글쓰기 모달 팝업
+  $('#dailylogModal').css('display','block');
+}
+
+/*************************************************
+ dailylog 클릭 시
     1. datepicker update
     2. ajax 데이터 가져오기
     3. open side bar - 상세보기바
-*/
+**************************************************/
 function whenClickDailylog(event){
     var target = event.target;
     var parentId = target.parentElement.getAttribute('id');
@@ -319,11 +341,8 @@ function whenClickDailylog(event){
 function whenClickTeamDailylog(event){
     var target = event.target;
     var parentId = target.parentElement.getAttribute('id');
-
     var datestr = parentId.replace('date-','').split('-');
-    
     var date = new Date(datestr[0],datestr[1]-1, datestr[2]);
-
 
     changeInputDatePicker(date.format('yyyy-MM-dd'));
     callTeamDailylogApi(date.format('yyyy-MM-dd'));
@@ -361,9 +380,8 @@ CommonCalendar.prototype.callMonthDailylogApi = function(){
 
 /************** 업무일지 달력에 마킹 *********************/
 function markMonthDailylog(data){
-    console.log(data);
      var html =
-        "<button class='btn btn-secondary dailylog' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
+        "<button class='btn btn-secondary dailylog w3-hover-black' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
     var dailylogList = data.dailylogList;
     var dailylog;
     var username;
@@ -375,7 +393,6 @@ function markMonthDailylog(data){
         workingday = dailylog.workingday;
         username = dailylog.user.username;
         dailylogno = dailylog.dailylogno;
-        //console.log("dailylogno:" + dailylogno );
         element = document.querySelector('#date-'+workingday);
         html = html.replace('{{username}}',username)
                     .replace('{{dailylogno}}',dailylogno);
@@ -434,40 +451,12 @@ function markHoliday(holidays){
        diff = ( endday - startday ) / cday;
 
        for (var j= 0 , day = startday ,  title = holidays[i].title ; j <= diff ; j++ ){
-
             element = document.querySelector("#date-"+day.format('yyyy-MM-dd'));
             if(element != null && element != undefined){
                element.insertAdjacentHTML('beforeend',holidayHtml.replace("{{title}}", title));
             }
-             day.setDate(day.getDate()+1);
+            day.setDate(day.getDate()+1);
        }
-    }
-}
-
-/************** 업무일지 달력에 표기하기*********************/
-function markMonthDailylog(data){
-    console.log(data);
-     var html =
-        "<button class='btn btn-secondary dailylog' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
-    var dailylogList = data.dailylogList;
-    var dailylog;
-    var username;
-    var dailylogno;
-    var workingday;
-    var element;
-    for(var i = 0 ; i < dailylogList.length ; i++){
-        dailylog = dailylogList[i];
-        workingday = dailylog.workingday;
-        username = dailylog.user.username;
-        dailylogno = dailylog.dailylogno;
-        console.log("dailylogno:" + dailylogno );
-        element = document.querySelector('#date-'+workingday);
-
-        html = html.replace('{{username}}',username)
-            .replace('{{dailylogno}}',dailylogno);
-        if(element != null && element != undefined){
-                element.insertAdjacentHTML('beforeend',html);
-        }
     }
 }
 
@@ -506,6 +495,7 @@ function setOneDailylog(dailylog)
     $("[name=overtimecontent]").html(dailylog.overtimecontent);
     $("#dailylogModal").css('display','block');
 }
+
 
 /********************/
 

@@ -13,28 +13,30 @@
             </h4>
             <label>실시사항</label>
 
-            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px" name="content1">
-            </pre>
+           <!-- <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px" name="content1">
+            </pre> -->
 
-            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:200px" name="content1">
+            <textarea class="w3-input w3-border w3-margin-bottom write-input" style="height:200px" name="content1">
             </textarea>
 
             <label>기타사항</label>
-            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px" name="content2">
-            </pre>
-            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:150px" name="content2">
+            <!--<pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:150px" name="content2">
+            </pre> -->
+            <textarea class="w3-input w3-border w3-margin-bottom write-input" style="height:150px" name="content2">
             </textarea>
 
             <label>특별근무사항</label>
-            <div class="view-mode w3-margin-bottom" ><span name="overtimestart">
 
-            </span> ~ <span name="overtimeend">
-
-            </span></div>
-            <input class="w3-input w3-border w3-margin-bottom write-mode" type="datetime-local">
-            <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px" name="overtimecontent">
-            </pre>
-            <textarea class="w3-input w3-border w3-margin-bottom write-mode" style="height:50px" name="overtimecontent">
+           <!-- <div class="view-mode w3-margin-bottom" >
+                <span name="overtimestart"></span> ~ <span name="overtimeend"></span>
+            </div> -->
+            <div class="row">
+            <input class="w3-input w3-border w3-margin-left w3-margin-bottom write-input col-3" name="overtimestart" type="time"> <span class="col-1 w3-margin-bottom" style="font-size:1.5em; text-align:center;" aria-readonly="true"> ~ </span>
+            <input class="w3-input w3-border w3-margin-left w3-margin-bottom write-input col-3" name="overtimestart" type="time">
+            </div>
+            <!--<pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:50px" name="overtimecontent">
+            </pre> -->
+            <textarea class="w3-input w3-border w3-margin-bottom write-input" style="height:80px" name="overtimecontent">
 
             </textarea>
             <div class="w3-section">
