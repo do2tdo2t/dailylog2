@@ -28,8 +28,6 @@ function getMonthCalendar(){
   return commonCalendar;
 }
 
-
-
 function changeMonthCalendar(){
   var calendarType2 = 'month';
   $('#calendarType2').attr('value', calendarType2 );
@@ -121,19 +119,6 @@ function getBeforeMonth(){
     return newdate;
 }
 
-//네비게이션의 글쓰기 버튼 클릭시
-function whenClickWriteBtn(){
-  //1. 날짜 받아오기
-  var date = $('#date-picker1').attr('value');
-
-  //2. ajax 실행 detail 정보 가져오기
-
-  //3. modal 글쓰기 모드로 변경
-  changeModalMode('write');
-
-  //4. modal띄우기
-  $('#dailylogModal').css('display','block');
-}
 
 /***********************************************************
 네비게이션 효과

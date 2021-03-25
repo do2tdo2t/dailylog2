@@ -154,6 +154,7 @@ function getBeforeWeek(){
     return newdate;
 }
 
+/* unused
 function drawWeekCalendar(date){
     console.log('call ajax');
     var month = date.getMonth();
@@ -187,8 +188,6 @@ function drawWeekCalendar(date){
             console.log(error);
         }
       });
-
-
 }
 
 function whenClickWeeklyForm(datestr){
@@ -197,3 +196,4 @@ function whenClickWeeklyForm(datestr){
      changeInputDatePicker(date.format('yyyy-MM-dd'));
      openRightSideBar();
  }
+*/

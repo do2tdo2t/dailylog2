@@ -256,13 +256,13 @@ WeeklyCalendar.prototype.renderContent = function(data)
     for(var i = 0 ; i < dailylogList.length ; i++){
        dailylog = removeNull(dailylogList[i]);
 
-       html = template.replace('{{content1}}',dailylog.content1)
-        .replace(/{{dailylogno}}/g,dailylog.dailylogno) //not null
-        .replace(/{{workingday}}/g,dailylog.workingday) // not null
-        .replace('{{content2}}',dailylog.content2)
-        .replace('{{overtimecontent}}',dailylog.overtimecontent)
-        .replace('{{overtimestart}}',dailylog.overtimestart)
-        .replace('{{overtimeend}}',dailylog.overtimeend);
+       html = template.replace('{{content1}}',removeNull(dailylog.content1))
+        .replace(/{{dailylogno}}/g,removeNull(dailylog.dailylogno)) //not null
+        .replace(/{{workingday}}/g,removeNull(dailylog.workingday)) // not null
+        .replace('{{content2}}', removeNull(dailylog.content2))
+        .replace('{{overtimecontent}}',removeNull(dailylog.overtimecontent))
+        .replace('{{overtimestart}}', removeNull(dailylog.overtimestart))
+        .replace('{{overtimeend}}', removeNull(dailylog.overtimeend));
 
        $("#date-"+dailylog.workingday).append(html);
     }
@@ -270,7 +270,11 @@ WeeklyCalendar.prototype.renderContent = function(data)
 
 /****/
 function removeNull(value){
-
+    if(value == null || value == undefined)
+    {
+        return '';
+    }
+    return value;
 }
 
 /******************** api **********************************
@@ -296,6 +300,7 @@ function whenClickAddButton(yyyyMMdd){
     //1. 날짜 변경
     $(".date-picker").attr('value',yyyyMMdd);
      //변경
+    $("#dailylogModal").find("[name=dailylogno]").val('');
     $("#dailylogModal").find("[name=content1]").val('');
     $("#dailylogModal").find("[name=content2]").val('');
     $("#dailylogModal").find("[name=overtimestart]").val('');
@@ -334,16 +339,18 @@ function callOneDailylogApi(dailylogno){
 
 function setOneDailylog(dailylog){
     //변경
+    $("#dailylogModal").find("[name=dailylogno]").val(dailylog.dailylogno);
     $("#dailylogModal").find("[name=content1]").val(dailylog.content1);
     $("#dailylogModal").find("[name=content2]").val(dailylog.content2);
     $("#dailylogModal").find("[name=overtimestart]").val(dailylog.overtimestart);
     $("#dailylogModal").find("[name=overtimeend]").val(dailylog.overtimeend);
     $("#dailylogModal").find("[name=overtimecontent]").val(dailylog.overtimecontent);
 
-    changeModalMode2('write');
+    changeModalMode('write');
     $("#dailylogModal").css('display','block');
 }
 
+/* unused
 function markWeekDailylog(data){
     var dailylogList = data.dailylogList;
     var dailylog;
@@ -360,7 +367,7 @@ function markWeekDailylog(data){
     }
 }
 
-/* unused
+
 function drawWeekCalendar(date){
     calendar = new WeeklyCalendar();
     //1. render
@@ -398,8 +405,7 @@ WeeklyCalendar.prototype.callHolidayApi = function(curdate){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(jsonData) {
-            console.log(jsonData);
-            markHoliday(jsonData.holidayList);
+            weekCalendar.markHoliday(jsonData.holidayList);
         },
         fail : function(error){
           alert("error..");
@@ -412,7 +418,7 @@ WeeklyCalendar.prototype.callHolidayApi = function(curdate){
 공휴일 달력에 마킹하기
 JSON.stringify(obj)
 *************************************************************/
-function markHoliday(holidays){
+WeeklyCalendar.prototype.markHoliday = function(holidays){
     var title = '';
     var element;
     var cday = 24 * 60 * 60 * 1000;

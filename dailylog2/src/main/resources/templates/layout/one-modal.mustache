@@ -6,15 +6,14 @@
               class="w3-button w3-red w3-right w3-large"><i class="fa fa-remove"></i></span>
             <h4>업무일지</h4>
         </div>
-        <div class="w3-panel">
+        <form class="w3-panel" onsubmit="return callSaveDailylogApi();">
             <h4>
                 <i class="fa fa-clock-o"></i>
                 <input type="text" id="date-picker2" class="date-picker datepicker-style1 w3-light-grey" value="">
             </h4>
             <label>실시사항</label>
 
-           <!-- <pre class="w3-input w3-border w3-margin-bottom view-mode" style="height:200px" name="content1">
-            </pre> -->
+            <input name="dailylogno" type="hidden"/>
 
             <textarea class="w3-input w3-border w3-margin-bottom write-input" style="height:200px" name="content1">
             </textarea>
@@ -42,12 +41,10 @@
             <div class="w3-section">
                 <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소 <i
                         class="fa fa-remove"></i></a>
-                <a class="w3-button w3-light-grey w3-right write-mode"
-                   onclick="document.getElementById('dailylogModal').style.display='none'">저장 <i
-                        class="fa fa-paper-plane"></i></a>
+                <input type="submit" class="w3-button w3-light-grey w3-right write-mode" value = "저장" />
                 <a class="w3-button w3-light-grey w3-right view-mode" onclick="whenClickModalModifyBtn()">수정 <i
                         class="fa fa-pencil"></i></a>
             </div>
-        </div>
+        </form>
     </div>
 </div>

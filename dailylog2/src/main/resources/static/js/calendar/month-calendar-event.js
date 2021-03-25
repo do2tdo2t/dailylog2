@@ -79,10 +79,6 @@ CommonCalendar.prototype.beforeMonth = function(){
     this.setCurrentDate(newdate);
 }
 
-CommonCalendar.prototype.format = function(date, format){
-    /* 매칭되는 부분 */
-}
-
 //date type to id
 CommonCalendar.prototype.buildId = function(date){
     if(date === undefined || date === '' || date === null){
@@ -183,43 +179,6 @@ CommonCalendar.prototype.handleCol = function( colHeadHtml ,yyyyMMdd, day, valid
     return newColHeadHtml;
 }
 
-/** unused
-CommonCalendar.prototype.markTodate = function(){
-    var date = new Date();
-
-    var element = document.getElementById("date-"+date);
-
-    if (element != undefined){
-        element.classList.add('today');
-    }
-}
-
-CommonCalendar.prototype.markDailylog = function(){
-    //type 1) 모든사람들 표시
-    var dailylogHtml = 
-    "<button class='btn btn-secondary dailylog' onclick='whenClickDailylog(event);' type='button'>김아무개, 박아무개, 이아무개, 홍길동, 가나다, 라마바, 사아자, 차카타, 파하가, 갸거겨,고교구 (11) </button> ";
-    var exdate = 'date-2020-4-12';
-    var element = document.getElementById(exdate);
-
-    if(element != null && element != undefined){
-        element.insertAdjacentHTML('beforeend',dailylogHtml);
-    } 
-}
-
-
-CommonCalendar.prototype.markTeamDailylog = function(){
-    //type 1) 모든사람들 표시
-    var dailylogHtml = 
-    "<button class='btn btn-secondary dailylog' onclick='whenClickTeamDailylog(event);' type='button'>김아무개, 박아무개, 이아무개, 홍길동, 가나다, 라마바, 사아자, 차카타, 파하가, 갸거겨,고교구 (11) </button> ";
-    var exdate = 'date-2020-4-12';
-    var element = document.getElementById(exdate);
-
-    if(element != null && element != undefined){
-        element.insertAdjacentHTML('beforeend',dailylogHtml);
-    }
-}
-**/
-
 // calendarType1 = ['team','one']
 CommonCalendar.prototype.drawCalendar = function(date,id ){
     if(id == null || id == "" || id == undefined){
@@ -306,6 +265,7 @@ function whenClickDay(datestr){
   $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
 
   //2. modal 내용 초기화
+  $("#dailylogModal").find("[name=dailylogno]").val('');
   $("#dailylogModal").find("[name=content1]").val('');
   $("#dailylogModal").find("[name=content2]").val('');
   $("#dailylogModal").find("[name=overtimestart]").val('');
@@ -425,8 +385,7 @@ CommonCalendar.prototype.callHolidayApi = function(){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(jsonData) {
-            console.log(jsonData.holidayList);
-            markHoliday(jsonData.holidayList);
+            commonCalendar.markHoliday(jsonData.holidayList);
         },
         fail : function(error){
           alert("error..");
@@ -435,7 +394,7 @@ CommonCalendar.prototype.callHolidayApi = function(){
 }
 
 /* 공휴일 달력에 마킹하기 */
-function markHoliday(holidays){
+CommonCalendar.prototype.markHoliday = function(holidays){
     var title = '';
     var holidayHtml =  "<button class='btn btn-danger holiday' type='button'>{{title}}</button> ";
     var element;
@@ -486,16 +445,18 @@ function callOneDailylogApi(dailylogno){
     });
 }
 
-function setOneDailylog(dailylog)
-{
-    $("[name=content1]").html(dailylog.content1);
-    $("[name=content2]").html(dailylog.content2);
-    $("[name=overtimestart]").html(dailylog.overtimestart);
-    $("[name=overtimeend]").html(dailylog.overtimeend);
-    $("[name=overtimecontent]").html(dailylog.overtimecontent);
+function setOneDailylog(dailylog){
+    //변경
+    $("#dailylogModal").find("[name=dailylogno]").val(dailylog.dailylogno);
+    $("#dailylogModal").find("[name=content1]").val(dailylog.content1);
+    $("#dailylogModal").find("[name=content2]").val(dailylog.content2);
+    $("#dailylogModal").find("[name=overtimestart]").val(dailylog.overtimestart);
+    $("#dailylogModal").find("[name=overtimeend]").val(dailylog.overtimeend);
+    $("#dailylogModal").find("[name=overtimecontent]").val(dailylog.overtimecontent);
+
+    changeModalMode('write');
     $("#dailylogModal").css('display','block');
 }
-
 
 /********************/
 
@@ -505,7 +466,6 @@ function callTeamDailylogApi(){
         dataType:"json",
         method:"GET",
         success : function(data) {
-            
             setTeamDailylog(data);
         },
         fail : function(error){
