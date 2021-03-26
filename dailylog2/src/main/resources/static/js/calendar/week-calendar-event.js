@@ -1,5 +1,4 @@
 function WeeklyCalendar(){
-
     this.mode = "list";
     this.calendarType1 = "one"; //one
     this.monday = '';
@@ -289,7 +288,8 @@ function whenClickModifyButton(workingday,dailylogno){
 업무일지 삭제 클릭시
 *************************************************************/
 function whenClickDeleteButton(workingday,dailylogno){
-
+    callDeleteDailylogApi(dailylogno);
+    reload(workingday);
 }
 
 

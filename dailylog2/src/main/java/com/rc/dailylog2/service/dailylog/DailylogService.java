@@ -66,4 +66,22 @@ public class DailylogService {
 
         return responseDto;
     }
+
+    public DailylogResponseDto saveDailylog(DailylogRequestDto requestDto){
+        Dailylog dailylog = requestDto.toEntity();
+
+        Dailylog dailylogResult =  dailylogRepository.save(dailylog);
+
+        DailylogResponseDto responseDto = DailylogResponseDto.builder()
+                .dailylog(dailylogResult)
+                .build();
+        return responseDto;
+    }
+
+    public void deleteDailylog(DailylogRequestDto requestDto){
+        Dailylog dailylog = requestDto.toEntity();
+
+        dailylogRepository.delete(dailylog);
+
+    }
 }

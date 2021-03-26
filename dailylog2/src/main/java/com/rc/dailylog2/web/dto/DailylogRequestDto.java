@@ -12,6 +12,7 @@ public class DailylogRequestDto {
     private Long dailylogno;
     private String workingday;
     private String userid; // workerid
+    private String workerid;
     private String deptcode;
     private String startdate;
     private String enddate;
@@ -26,13 +27,14 @@ public class DailylogRequestDto {
     private String tag;
 
     @Builder
-    public DailylogRequestDto(Long dailylogno , String workingday, String userid,
+    public DailylogRequestDto(Long dailylogno , String workingday, String userid, String workerid,
                               String deptcode, String part, String content1
                             , String content2, String content3, String content4
                             , String overtimestart, String overtimeend, String overtimecontent
                             , String tag, String startdate , String enddate){
         this.dailylogno = dailylogno;
         this.workingday = workingday;
+        this.workerid = workerid;
         this.userid = userid;
         this.deptcode = deptcode;
         this.content1 = content1;
@@ -52,7 +54,7 @@ public class DailylogRequestDto {
         return Dailylog.builder()
                 .dailylogno(dailylogno)
                 .workingday(workingday)
-                .workerid(userid)
+                .workerid(workerid)
                 .deptcode(deptcode)
                 .content1(content1)
                 .content2(content2)

@@ -16,7 +16,19 @@ function init(){
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');
   $('.date-picker').attr('value',date);
+}
 
+function reload(workingday){
+  var openInbox = document.getElementById("myBtn");
+  openInbox.click();
+
+  commonCalendar = new CommonCalendar();
+  commonCalendar.calendarType1 = "one";
+  commonCalendar.drawCalendar(new Date(workingday),'calendar');
+
+  /* init #date-picker */
+  var date = new Date(workingday).format('yyyy-MM-dd');
+  $('.date-picker').attr('value',date);
 }
 
 function getMonthCalendar(){

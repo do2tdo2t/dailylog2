@@ -23,11 +23,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4df83288-81df-426e-a9d3-0b8d38290566" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/left-nav.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-modal.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-script.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/dailylog/Dailylog.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/dailylog/Dailylog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/service/dailylog/DailylogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/service/dailylog/DailylogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/DailylogApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/DailylogApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/dto/DailylogRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/dto/DailylogRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/modal-event.js" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/modal-event.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/week-calendar-event.js" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/week-calendar-event.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/one.js" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/one.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-modal.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-modal.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-week-script.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-week-script.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +59,15 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/dailylog2" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dailylog2/src/main/resources/static/js" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Dailylog2Application">
     <configuration name="Dailylog2Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -135,31 +149,56 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="159" y="23" width="1024" height="821" key="#Project_Structure" timestamp="1616724841522">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state x="159" y="23" width="1024" height="821" key="#Project_Structure/0.23.1440.821@0.23.1440.821" timestamp="1616724841522" />
+    <state x="81" y="184" width="1195" height="560" key="DiffContextDialog" timestamp="1616733468397">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="81" y="184" width="1195" height="560" key="DiffContextDialog/0.23.1440.822@0.23.1440.822" timestamp="1616733468397" />
     <state x="519" y="336" key="Github.CreateGistDialog" timestamp="1615879125251">
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="519" y="336" key="Github.CreateGistDialog/0.23.1440.822@0.23.1440.822" timestamp="1615879125251" />
+    <state width="985" height="222" key="GridCell.Tab.0.bottom" timestamp="1616741790233">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state width="985" height="222" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
+    <state width="985" height="203" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1616740086905" />
+    <state width="914" height="103" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1616731941006" />
+    <state width="985" height="222" key="GridCell.Tab.0.center" timestamp="1616741790233">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state width="985" height="222" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
+    <state width="985" height="203" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1616740086904" />
+    <state width="914" height="103" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1616731941005" />
+    <state width="985" height="222" key="GridCell.Tab.0.left" timestamp="1616741790233">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state width="985" height="222" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
+    <state width="985" height="203" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1616740086904" />
+    <state width="914" height="103" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1616731941005" />
+    <state width="985" height="222" key="GridCell.Tab.0.right" timestamp="1616741790233">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state width="985" height="222" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
+    <state width="985" height="203" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1616740086905" />
+    <state width="914" height="103" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1616731941005" />
+    <state x="289" y="185" key="IDE.errors.dialog" timestamp="1616725782636">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state x="289" y="185" key="IDE.errors.dialog/0.23.1440.821@0.23.1440.821" timestamp="1616725782636" />
+    <state x="318" y="168" width="670" height="676" key="search.everywhere.popup" timestamp="1616725388594">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state x="318" y="168" width="670" height="676" key="search.everywhere.popup/0.23.1440.821@0.23.1440.821" timestamp="1616725388594" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

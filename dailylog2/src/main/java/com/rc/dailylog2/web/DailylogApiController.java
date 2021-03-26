@@ -1,15 +1,11 @@
 package com.rc.dailylog2.web;
 
+import com.rc.dailylog2.domain.dailylog.Dailylog;
 import com.rc.dailylog2.service.dailylog.DailylogService;
 import com.rc.dailylog2.web.dto.DailylogRequestDto;
 import com.rc.dailylog2.web.dto.DailylogResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -53,9 +49,18 @@ public class DailylogApiController {
         return responseDto;
     }
 
-    @PostMapping("/api/save/dailylog")
-    public void saveDailylogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
-        System.out.println("/api/save/dailylog.... ");
+    @PutMapping("/api/dailylog")
+    public DailylogResponseDto saveDailyslogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
+        DailylogResponseDto responseDto = dailylogService.saveDailylog(dailylogRequestDto);
+        return responseDto;
+    }
+
+    @DeleteMapping("/api/dailylog")
+    public void deleteDailylogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
+
+        dailylogService.deleteDailylog(dailylogRequestDto);
+
+        
 
     }
 }

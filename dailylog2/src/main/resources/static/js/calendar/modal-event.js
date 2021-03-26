@@ -40,17 +40,19 @@ function whenClickWriteBtn(){
 }
 
 function callSaveDailylogApi(){
-    console.log("callSaveDailylogApi...");
 
     var obj = new Object();
-    var dailylogno = $("#dailylogModal").find("[name=content1]").val();
+    var dailylogno = $("#dailylogModal").find("[name=dailylogno]").val();
     var content1 = $("#dailylogModal").find("[name=content1]").val();
     var content2 = $("#dailylogModal").find("[name=content2]").val();
     var overtimestart = $("#dailylogModal").find("[name=overtimestart]").val();
     var overtimeend = $("#dailylogModal").find("[name=overtimeend]").val();
     var overtimecontent = $("#dailylogModal").find("[name=overtimecontent]").val();
+    var workingday = $("#dailylogModal").find("[name=workingday]").val();
 
     obj.dailylogno = dailylogno;
+    obj.workerid = 'R2020001';
+    obj.workingday = workingday;
     obj.content1 = content1;
     obj.content2 = content2;
     obj.overtimestart = overtimestart;
@@ -58,18 +60,47 @@ function callSaveDailylogApi(){
     obj.overtimecontent = overtimecontent;
 
     $.ajax({
-        url: "/api/save/dailylog",
+        url: "/api/dailylog",
         dataType:"json",
-        method:"POST",
+        method:"PUT",
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
-        success : function() {
-            console.log("글이 등록되었습니다.");
-            //window.location.href= "/dailylog2/month";
+        success : function(data) {
+            alert('저장 완료되었습니다.');
+            document.getElementById('dailylogModal').style.display='none';
+
+            var dailylog = data.dailylog;
+            var workingday = dailylog.workingday;
+
+            reload(workingday);
         },
         fail : function(error){
           alert("error..");
       }
     });
+}
 
+function deleteDailylog(){
+    var dailylogno =  $("#dailylogModal").find("[name=dailylogno]").val();
+    callDeleteDailylogApi(dailylogno);
+    document.getElementById('dailylogModal').style.display='none';
+}
+function callDeleteDailylogApi(dailylogno){
+    // temp
+    var obj = new Object();
+    obj.dailylogno = dailylogno;
+
+    $.ajax({
+        url: "/api/dailylog",
+        dataType:"json",
+        method:"DELETE",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify( obj ),
+        success : function(data) {
+            alert('삭제 완료되었습니다.');
+        },
+        fail : function(error){
+          alert("error..");
+      }
+    });
 }

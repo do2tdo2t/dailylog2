@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name="T_DAILYLOG")
 public class Dailylog extends BaseTimeEntity {
     @Id
-    @SequenceGenerator(name="seq", sequenceName = "SEQ_T_DAILYLOG", allocationSize = 1)
+    @SequenceGenerator(name="seq", sequenceName = "SEQ_T_DAILYLOG", allocationSize = 1, initialValue = 14)
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator="seq") //PK auto_increment 속성
     private Long dailylogno;
