@@ -56,11 +56,12 @@ public class DailylogApiController {
     }
 
     @DeleteMapping("/api/dailylog")
-    public void deleteDailylogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
-
+    public DailylogResponseDto deleteDailylogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
+        DailylogResponseDto responseDto = DailylogResponseDto.builder()
+                                            .workingday(dailylogRequestDto.getWorkingday()).build();
+        
         dailylogService.deleteDailylog(dailylogRequestDto);
 
-        
-
+        return responseDto;
     }
 }

@@ -12,11 +12,13 @@ import java.util.List;
 public class DailylogResponseDto {
     private Dailylog dailylog;
     private List<Dailylog> dailylogList;
+    private String workingday;
 
     @Builder
-    public DailylogResponseDto(Dailylog dailylog, List<Dailylog> dailylogList){
+    public DailylogResponseDto(Dailylog dailylog, List<Dailylog> dailylogList, String workingday){
         this.dailylog = dailylog;
         this.dailylogList = dailylogList;
+        this.workingday = workingday;
     }
 
 }

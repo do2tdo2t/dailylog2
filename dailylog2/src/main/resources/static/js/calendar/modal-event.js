@@ -89,6 +89,7 @@ function callDeleteDailylogApi(dailylogno){
     // temp
     var obj = new Object();
     obj.dailylogno = dailylogno;
+    obj.workingday = $('.date-picker').val();
 
     $.ajax({
         url: "/api/dailylog",
@@ -97,7 +98,9 @@ function callDeleteDailylogApi(dailylogno){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(data) {
+            var workingday = data.workingday;
             alert('삭제 완료되었습니다.');
+            reload(workingday);
         },
         fail : function(error){
           alert("error..");

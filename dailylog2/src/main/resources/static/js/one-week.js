@@ -25,8 +25,6 @@ function reload(workingday){
   openInbox.click();
 
   //callWeekDailylogApi(new Date());
-  weekCalendar = new WeeklyCalendar();
-  weekCalendar.calendarType1 = "one";
   weekCalendar.drawCalendar(new Date(workingday),'calendar');
 
   /* init #date-picker */

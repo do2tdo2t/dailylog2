@@ -142,6 +142,7 @@ WeeklyCalendar.prototype.render = function(curdate,id){
     var yyyyMMdd;
 
     var contentTemplate = '';
+    document.querySelector('#'+id).innerHTML = '';
     if(this.mode == "card"){
         //카드형
         contentTemplate = this.cardTemplate;
@@ -183,7 +184,6 @@ WeeklyCalendar.prototype.render = function(curdate,id){
                                     .replace('{{mmdd}}',mmdd)
                                     .replace(/{{yyyyMMdd}}/gi, yyyyMMdd );
             html+=newtemplate;
-
         }
     }
     document.querySelector('#'+id).innerHTML = html;
@@ -207,16 +207,6 @@ JSON.stringify(obj)
 WeeklyCalendar.prototype.callWeekDailylogApi = function(curdate){
     var obj = new Object();
     //세션으로부터 가져오도록 변경 필요
-
-    /*
-    var yoil = curdate.getDay() == 0 ? 7 : curdate.getDay() ;
-    var date = curdate.getDate();
-    var month = curdate.getMonth();
-    var year = curdate.getFullYear();
-    var diff = ( yoil -1 );
-
-    var monday = new Date(year, month, date - diff  );
-    var sunday = new Date(year, month, date - diff + 6 ); */
 
     var startdate = this.monday.format('yyyy-MM-dd');
     var enddate = this.sunday.format('yyyy-MM-dd');
@@ -253,7 +243,9 @@ WeeklyCalendar.prototype.renderContent = function(data)
     var html = '';
 
     for(var i = 0 ; i < dailylogList.length ; i++){
+
        dailylog = removeNull(dailylogList[i]);
+       console.log(i +" renderContent: " + dailylog.workingday);
 
        html = template.replace('{{content1}}',removeNull(dailylog.content1))
         .replace(/{{dailylogno}}/g,removeNull(dailylog.dailylogno)) //not null
@@ -289,7 +281,6 @@ function whenClickModifyButton(workingday,dailylogno){
 *************************************************************/
 function whenClickDeleteButton(workingday,dailylogno){
     callDeleteDailylogApi(dailylogno);
-    reload(workingday);
 }
 
 

@@ -79,7 +79,7 @@ public class DailylogService {
     }
 
     public void deleteDailylog(DailylogRequestDto requestDto){
-        Dailylog dailylog = requestDto.toEntity();
+        Dailylog dailylog = Dailylog.builder().dailylogno(requestDto.getDailylogno()).build();
 
         dailylogRepository.delete(dailylog);
 

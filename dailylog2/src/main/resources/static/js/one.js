@@ -19,11 +19,10 @@ function init(){
 }
 
 function reload(workingday){
+
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
 
-  commonCalendar = new CommonCalendar();
-  commonCalendar.calendarType1 = "one";
   commonCalendar.drawCalendar(new Date(workingday),'calendar');
 
   /* init #date-picker */
