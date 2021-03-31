@@ -1,19 +1,27 @@
 package com.rc.dailylog2.service.dailylog;
 
 import com.rc.dailylog2.domain.dailylog.Dailylog;
+import com.rc.dailylog2.domain.dailylog.DailylogMapper;
 import com.rc.dailylog2.domain.dailylog.DailylogRepository;
+import com.rc.dailylog2.domain.dailylog.TeamDailylog;
 import com.rc.dailylog2.web.dto.DailylogRequestDto;
 import com.rc.dailylog2.web.dto.DailylogResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RequiredArgsConstructor
 @Service
 public class DailylogService {
     private final DailylogRepository dailylogRepository;
+
+    @Autowired
+    private DailylogMapper mapper;
 
     //detail
     public DailylogResponseDto getDailylogDetail(DailylogRequestDto requestDto){
@@ -52,6 +60,24 @@ public class DailylogService {
         DailylogResponseDto responseDto = DailylogResponseDto.builder()
                 //.dailylog(dailylog)
                 .dailylogList(dailylogList)
+                .build();
+
+        return responseDto;
+    }
+
+    //dailylog monthly list
+    public DailylogResponseDto getDailylogTeamMonth(DailylogRequestDto requestDto){
+
+        HashMap<String,Object> param = new HashMap<String,Object>();
+
+        param.put("startdate",requestDto.getStartdate());
+        param.put("enddate",requestDto.getEnddate());
+        param.put("deptcode",requestDto.getDeptcode());
+
+        List<TeamDailylog> teamDailylogList = mapper.selectTeamDailylog(param);
+
+        DailylogResponseDto responseDto = DailylogResponseDto.builder()
+                .teamDailylogList(teamDailylogList)
                 .build();
 
         return responseDto;

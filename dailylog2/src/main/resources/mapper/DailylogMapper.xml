@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rc.dailylog2.domain.dailylog.DailylogMapper" >
 
-<select id="selectTeamDailylogDetail" parameterType="hashmap" resultType="Dailylog">
+    <select id="selectTeamDailylogDetail" parameterType="hashmap" resultType="Dailylog">
         select
         a.dailylogno
         ,a.deptcode
@@ -26,6 +26,33 @@
         and workingday =#{dailylog.workingday}
         and a.deptcode =#{dailylog.deptcode}
         order by positioncode, workerid
-</select>
+    </select>
+
+    <select id="selectTeamDailylog" parameterType="hashmap" resultType="com.rc.dailylog2.domain.dailylog.TeamDailylog">
+        with
+        dailylog_table
+        as
+        ( select
+        a.dailylogno
+        ,a.deptcode
+        ,a.workerid
+        ,b.username
+        ,a.workingday
+        ,b.positioncode
+        ,b.userid
+        from t_dailylog a
+        inner join t_user b
+        on a.workerid = b.userid
+        where 1=1
+        and workingday between #{startdate} and #{enddate}
+        and a.deptcode = #{deptcode}
+        order by positioncode, workerid )
+        select
+        workingday,
+        listagg(username, ',') within group (order by positioncode) as username,
+        deptcode
+        from dailylog_table
+        group by workingday, deptcode
+    </select>
 
 </mapper>

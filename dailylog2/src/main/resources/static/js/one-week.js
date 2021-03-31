@@ -99,7 +99,6 @@ function changeWeekCalendar(){
   $('.mode').css('display','inline-block');
 }
 
-
 function changeCalendar(date){
   var calendarType2 = $('#calendarType2').attr('value'); //month, week
   if(date != null && typeof(date) == "string"){

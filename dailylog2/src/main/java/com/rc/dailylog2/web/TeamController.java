@@ -16,7 +16,7 @@ public class TeamController {
     private final DailylogRepository dailylogRepository;
 
     //팀 업무일지 첫화면
-    @GetMapping("/dailylog2/month/team")
+    @GetMapping("/dailylog2/team")
     public String init(Model model){
 
         String userid = "2020001";

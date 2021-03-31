@@ -23,7 +23,8 @@ public class DailylogMapperTest {
     public void  팀업무일지상세가져오기(){
         //1. template 사용
         //template.selectList("com.rc.dailylog.domain.menu.MenuMapper.selectAllMenu")
-        //        .forEach(System.out::println);
+        //        .forEach(Syst
+        //        em.out::println);
 
         HashMap<String,Object> params = new HashMap<>();
 
@@ -40,6 +41,25 @@ public class DailylogMapperTest {
         mapper.selectTeamDailylogDetail(params)
                 .forEach(System.out::println);
     }
+
+    @Test
+    public void  팀업무일지가져오기(){
+        //1. template 사용
+        //template.selectList("com.rc.dailylog.domain.menu.MenuMapper.selectAllMenu")
+        //        .forEach(System.out::println);
+
+        HashMap<String,Object> params = new HashMap<>();
+
+        String deptcode = "00001";
+        params.put("deptcode",deptcode);
+        params.put("startdate","2021-03-01");
+        params.put("enddate","2021-03-31");
+
+        //mapper 사용
+        mapper.selectTeamDailylogDetail(params)
+                .forEach(System.out::println);
+    }
+
 
 
 }

@@ -1,100 +1,136 @@
 
+this.addEventListener('DOMContentLoaded', function(){
+    this.init();
+});
 
-    this.addEventListener('DOMContentLoaded', function(){
-        this.init();
-    });
+var commonCalendar;
 
-    function init(){
-        this.initComponent();
-        this.loadCalendar();
-        this.addClickEvent();
-    }
+function init(){
+  var openInbox = document.getElementById("myBtn");
+  openInbox.click();
 
-    function initComponent(){
-        /* init #date-picker */
-        var date = new Date().format('yyyy-MM-dd');
-        //var datePickers = document.querySelectorAll('.date-picker');
-        $('.date-picker').attr('value',date);
-    }
+  commonCalendar = new CommonCalendar();
+  commonCalendar.calendarType1 = "team";
+  commonCalendar.drawCalendar(new Date(),'calendar');
 
-    /* event 관련 */
-    function addClickEvent(){
-        this.addRightsideopenbarClickEvent();
-        document.querySelector('#month-btn').addEventListener('click',this.whenClickMonthBtn);
-        document.querySelector('#week-btn').addEventListener('click',this.whenClickWeekBtn);
-        document.querySelector('#next-btn').addEventListener('click',this.whenClickNextBtn);
-        document.querySelector('#before-btn').addEventListener('click',this.whenClickBeforeBtn);
+  /* init #date-picker */
+  var date = new Date().format('yyyy-MM-dd');
+  $('.date-picker').attr('value',date);
+}
+
+function reload(workingday){
+
+  var openInbox = document.getElementById("myBtn");
+  openInbox.click();
+
+  commonCalendar.drawCalendar(new Date(workingday),'calendar');
+
+  /* init #date-picker */
+  var date = new Date(workingday).format('yyyy-MM-dd');
+  $('.date-picker').attr('value',date);
+}
+
+/******************** api **********************************
+다음달로 이동하기
+JSON.stringify(obj)
+*************************************************************/
+function nextMonth(){
+  var calendarType2 = $('#calendarType2').attr('value'); // month, week
+  var newdate;
+
+  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
+      if(calendarType2 == 'month'){
+
+         newdate = getNextMonth();
+         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
+
+      }else if(calendarType2 == 'week'){
+        newdate = getNextWeek();
+        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
       }
+      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
+  }
+}
 
-    function addRightsideopenbarClickEvent(){
-        var bar = document.querySelector('#right-side-open-bar');
+//다음달 구하기
+function getNextMonth(){
+    var curdate = $(".date-picker").attr('value');
+    //var yyyy = document.getElementById('yyyy').innerHTML;
+    //var mm = document.getElementById('mm').innerHTML;
+    var yyyy = new Date(curdate).getFullYear();
+    var month = new Date(curdate).getMonth() + 1;
 
-        bar.addEventListener('click', function(event){
-            var element = document.querySelector('#right-side');
-            var form = document.querySelector('#form');
-            if( element.classList.contains('close') ) {
-                element.classList.remove('close');
-                element.classList.add('open');
-                form.classList.remove('hidden');
-            }else{
-                element.classList.add('close');
-                element.classList.remove('open');
-                form.classList.add('hidden');
-            }
-        });
-    }
+    var nextyyyy = Number(month) == 12 ? Number(yyyy) + 1  : yyyy ;
+    var nextmonth = Number(month) == 12 ? 1 : month ;
+    var newdate = new Date( nextyyyy ,nextmonth  , 1 );//다음달의 1일
 
-    //첫 화면 로드시
-    function loadCalendar(){
-        //현재 날짜를 기준으로 로드
-        var date = new Date();
-        //drawTeamMonthCalendar(date);
-        drawMonthCalendar(date);
-    }
+    return newdate;
+}
 
-    function whenClickMonthBtn(){
-        var datestr = document.querySelector('.date-picker').getAttribute('value');
-        var date = new Date(datestr);
-        drawTeamMonthCalendar(date);
-    }
 
-    function whenClickWeekBtn(){
-        var datestr = document.querySelector('.date-picker').getAttribute('value');
-        var date = new Date(datestr);
+/******************** api **********************************
+이전달로 이동하기
+JSON.stringify(obj)
+*************************************************************/
+function beforeMonth(){
+  var calendarType2 = $('#calendarType2').attr('value');
+  var newdate;
+  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
+      if(calendarType2 == 'month'){
 
-        drawWeekCalendar(date);
-    }
+         newdate = getBeforeMonth();
+         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
 
-    function whenClickBeforeBtn(){
-        var monthCalendarId = document.querySelector('#month-calendar');
-        var weekCalendarId = document.querySelector('#week-calendar');
+      }else if(calendarType2 == 'week'){
+        newdate = getBeforeWeek();
 
-        if(monthCalendarId != null){
-            var newdate = getBeforeMonth();
-            drawTeamMonthCalendar(newdate);
-            changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-        }
+        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
+      }
+      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
+  }
+}
 
-        if(weekCalendarId != null){
-            var newdate = getBeforeWeek();
-            drawWeekCalendar(newdate);
-            changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-        }
-    }
 
-    function whenClickNextBtn(){
-        var monthCalendarId = document.querySelector('#month-calendar');
-        var weekCalendarId = document.querySelector('#week-calendar');
 
-        if(monthCalendarId != null){
-            var newdate = getNextMonth();
-            drawTeamMonthCalendar(newdate);
-            changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-        }
+// 전달 구하기
+function getBeforeMonth(){
+    var curdate = $(".date-picker").attr('value');
+    //var yyyy = document.getElementById('yyyy').innerHTML;
+    //var mm = document.getElementById('mm').innerHTML;
+    var yyyy = new Date(curdate).getFullYear();
+    var month = new Date(curdate).getMonth() + 1;
 
-        if(weekCalendarId != null){
-            var newdate = getNextWeek();
-            drawWeekCalendar(newdate);
-            changeInputDatePicker(newdate.format('yyyy-MM-dd'));
-        }
-    }
+    var beforeyyyy = Number(month-2) == 0 ? Number(yyyy) - 1 : yyyy ;
+    var beforemonth = Number(month-2) == 0 ? 11 : (Number(month)-1) -1 ;
+
+    var newdate = new Date( beforeyyyy ,beforemonth  , 1 );//현재 현재달의 1일 -1 1
+
+    return newdate;
+}
+
+
+/***********************************************************
+네비게이션 효과
+JSON.stringify(obj)
+*************************************************************/
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+//왼편 네비게이션바 부분 소메뉴펼치기
+function showMenuDetail(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-red";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-red", "");
+  }
+}

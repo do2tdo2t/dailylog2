@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface DailylogMapper {
     List<Dailylog> selectTeamDailylogDetail(HashMap map);
+
+    List<TeamDailylog> selectTeamDailylog(HashMap map);
 }

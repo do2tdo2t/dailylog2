@@ -21,6 +21,14 @@ public class DailylogApiController {
         return responseDto;
     }
 
+    @PostMapping("/api/search/dailylog/team/month")
+    public DailylogResponseDto getDailylogTeamMonthApi(@RequestBody DailylogRequestDto dailylogRequestDto){
+
+        DailylogResponseDto responseDto = dailylogService.getDailylogTeamMonth(dailylogRequestDto);
+
+        return responseDto;
+    }
+
     @PostMapping("/api/search/dailylog/one/week")
     public DailylogResponseDto getSearchDailylogOneWeekApi(@RequestBody DailylogRequestDto dailylogRequestDto){
 
@@ -59,7 +67,7 @@ public class DailylogApiController {
     public DailylogResponseDto deleteDailylogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
         DailylogResponseDto responseDto = DailylogResponseDto.builder()
                                             .workingday(dailylogRequestDto.getWorkingday()).build();
-        
+
         dailylogService.deleteDailylog(dailylogRequestDto);
 
         return responseDto;
