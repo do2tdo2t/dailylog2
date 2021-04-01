@@ -36,6 +36,18 @@ public class DailylogService {
         return responseDto;
     }
 
+    //detail
+    public DailylogResponseDto getTeamDaillogDetail(DailylogRequestDto requestDto){
+
+        List<Dailylog> dailylogList = dailylogRepository.findByDeptcodeAndWorkingdayLike(requestDto.getDeptcode(), requestDto.getWorkingday());
+
+        DailylogResponseDto responseDto = DailylogResponseDto.builder()
+                .dailylogList(dailylogList)
+                .build();
+
+        return responseDto;
+    }
+
     public DailylogResponseDto getDailylogList(DailylogRequestDto requestDto){
 
         List<Dailylog> dailylogList = dailylogRepository.

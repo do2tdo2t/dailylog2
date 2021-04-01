@@ -39,18 +39,6 @@ function getMonthCalendar(){
   return commonCalendar;
 }
 
-function changeMonthCalendar(){
-  var calendarType2 = 'month';
-  $('#calendarType2').attr('value', calendarType2 );
-
-  var date = $('.date-picker').attr('value');
-
-  getMonthCalendar().drawCalendar(new Date(date),'calendar');
-
-  //mode button 숨김
-  $('.mode').css('display','none');
-}
-
 
 /******************** api **********************************
 다음달로 이동하기

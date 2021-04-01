@@ -47,6 +47,14 @@ public class DailylogApiController {
         return responseDto;
     }
 
+    @PostMapping("/api/search/dailylog/team/detail")
+    public DailylogResponseDto getSearchDailylogTeamDetailApi(@RequestBody DailylogRequestDto dailylogRequestDto){
+
+        DailylogResponseDto responseDto = dailylogService.getTeamDaillogDetail(dailylogRequestDto);
+
+        return responseDto;
+    }
+
 
     @PostMapping("/api/search/dailylog/team/week")
     public DailylogResponseDto getSearchDailylogTeamWeekApi(@RequestBody DailylogRequestDto dailylogRequestDto){

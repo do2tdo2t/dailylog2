@@ -30,6 +30,15 @@ function reload(workingday){
   $('.date-picker').attr('value',date);
 }
 
+function getMonthCalendar(){
+  if(commonCalendar === null || commonCalendar === undefined){
+      commonCalendar = new CommonCalendar();
+      var calendarType1 = $('#calendarType1').attr('value');
+      commonCalendar.calendarType1 = calendarType1;
+  }
+  return commonCalendar;
+}
+
 /******************** api **********************************
 다음달로 이동하기
 JSON.stringify(obj)

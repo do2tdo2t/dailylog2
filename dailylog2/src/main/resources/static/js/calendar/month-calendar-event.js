@@ -300,14 +300,11 @@ function whenClickDailylog(event){
     callOneDailylogDetailApi(dailylogno);
 }
 
-function whenClickTeamDailylog(event){
-    var target = event.target;
-    var parentId = target.parentElement.getAttribute('id');
-    var datestr = parentId.replace('date-','').split('-');
-    var date = new Date(datestr[0],datestr[1]-1, datestr[2]);
+function whenClickTeamDailylog(workingday,deptcode){
 
-    changeInputDatePicker(date.format('yyyy-MM-dd'));
-    callTeamDailylogDetailApi(date.format('yyyy-MM-dd'));
+    var date = new Date(workingday).format('yyyy-MM-dd')
+    changeInputDatePicker(date);
+    callTeamDailylogDetailApi(date,deptcode);
 }
 
 /******************** api **********************************
@@ -460,61 +457,6 @@ function setOneDailylog(dailylog){
     $("#dailylogModal").css('display','block');
 }
 
-/******************** api **********************************
-한달 업무일지 가져오기
-JSON.stringify(obj)
-*************************************************************/
-CommonCalendar.prototype.callMonthTeamDailylogApi = function(){
-    var obj = new Object();
-    //세션으로부터 가져오도록 변경 필요
-    obj.deptcode = "00001";
-
-    var firstday = new Date(this.currentyyyy,this.currentmm, 1 );
-    var lastday = new Date(this.currentyyyy,this.currentmm + 1, 0 );
-
-    obj.startdate = firstday.format("yyyy-MM-dd") ;
-    obj.enddate = lastday.format("yyyy-MM-dd") ;
-
-    $.ajax({
-        url: "/api/search/dailylog/team/month",
-        dataType:"json",
-        method:"POST",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify( obj ),
-        success : function(data) {
-            console.log(data);
-            markMonthTeamDailylog(data);
-        },
-        fail : function(error){
-          alert("error..");
-      }
-    });
-}
-
-/************** 업무일지 달력에 마킹 *********************/
-function markMonthTeamDailylog(data){
-     var html =
-        "<button class='btn btn-secondary dailylog w3-hover-black' id='{{dailylogno}}' onclick='whenClickTeamDailylog(event);' type='button'>{{username}}</button> ";
-    var teamDailylogList = data.teamDailylogList;
-    var dailylog;
-    var username;
-    var workingday;
-    var dailylogno;
-    var element;
-    for(var i = 0 ; i < teamDailylogList.length ; i++){
-        dailylog = teamDailylogList[i];
-        workingday = dailylog.workingday;
-        username = dailylog.username;
-        dailylogno = dailylog.dailylogno;
-        element = document.querySelector('#date-'+workingday);
-        html = html.replace('{{username}}',username)
-                    .replace('{{dailylogno}}',dailylogno);
-        if(element != null && element != undefined){
-                element.insertAdjacentHTML('beforeend',html);
-        }
-    }
-}
-
 
 /******************** api **********************************
 업무일지 상세보기
@@ -556,6 +498,66 @@ function setOneDailylog(dailylog){
 
 
 /******************** api **********************************
+한달 업무일지 가져오기(팀)
+JSON.stringify(obj)
+*************************************************************/
+CommonCalendar.prototype.callMonthTeamDailylogApi = function(){
+    var obj = new Object();
+    //세션으로부터 가져오도록 변경 필요
+    obj.deptcode = "00001";
+
+    var firstday = new Date(this.currentyyyy,this.currentmm, 1 );
+    var lastday = new Date(this.currentyyyy,this.currentmm + 1, 0 );
+
+    obj.startdate = firstday.format("yyyy-MM-dd") ;
+    obj.enddate = lastday.format("yyyy-MM-dd") ;
+
+    $.ajax({
+        url: "/api/search/dailylog/team/month",
+        dataType:"json",
+        method:"POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify( obj ),
+        success : function(data) {
+            console.log(data);
+            markMonthTeamDailylog(data);
+        },
+        fail : function(error){
+          alert("error..");
+      }
+    });
+}
+
+/************** 업무일지 달력에 마킹 *********************/
+function markMonthTeamDailylog(data){
+     var html =
+        "<button class='btn btn-secondary dailylog w3-hover-black' id='{{dailylogno}}' onclick='whenClickTeamDailylog(\"{{workingday}}\",\"{{deptcode}}\");' type='button'>{{username}}</button> ";
+    var teamDailylogList = data.teamDailylogList;
+    var dailylog;
+    var username;
+    var workingday;
+    var dailylogno;
+    var element;
+    var deptcode;
+    for(var i = 0 ; i < teamDailylogList.length ; i++){
+        dailylog = teamDailylogList[i];
+        workingday = dailylog.workingday;
+        username = dailylog.username;
+        dailylogno = dailylog.dailylogno;
+        deptcode = dailylog.deptcode;
+        element = document.querySelector('#date-'+workingday);
+        html = html.replace('{{username}}',username)
+                    .replace('{{workingday}}',workingday)
+                    .replace('{{deptcode}}',deptcode);
+        if(element != null && element != undefined){
+                element.insertAdjacentHTML('beforeend',html);
+        }
+    }
+}
+
+
+
+/******************** api **********************************
 업무일지 상세보기(팀)
 JSON.stringify(obj)
 *************************************************************/
@@ -572,8 +574,9 @@ function callTeamDailylogDetailApi(workingday, deptcode){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(data) {
-            var dailylog = data.dailylog;
-            setOneDailylog(dailylog);
+            console.log(data);
+            var dailylogList = data.dailylogList;
+            setTeamDailylog(dailylogList);
         },
         fail : function(error){
           alert("error..");
@@ -581,73 +584,32 @@ function callTeamDailylogDetailApi(workingday, deptcode){
     });
 }
 
-function setOneDailylog(dailylog){
-    //변경
-    $("#dailylogModal").find("[name=dailylogno]").val(dailylog.dailylogno);
-    $("#dailylogModal").find("[name=content1]").val(dailylog.content1);
-    $("#dailylogModal").find("[name=content2]").val(dailylog.content2);
-    $("#dailylogModal").find("[name=overtimestart]").val(dailylog.overtimestart);
-    $("#dailylogModal").find("[name=overtimeend]").val(dailylog.overtimeend);
-    $("#dailylogModal").find("[name=overtimecontent]").val(dailylog.overtimecontent);
+function setTeamDailylog(dailylogList){
+    var content1Template = $('#content1-tr-template').html();
+    var content2Template = $('#content2-tr-template').html();
+    var overtimeTemplate = $('#overtime-tr-template').html();
+    var content1Html = '';
+    var content2Html = '';
+    var overtimeHtml = '';
 
-    changeModalMode('write');
+    var dailylog;
+    for(var i = 0 ; i < dailylogList.length ; i++){
+        dailylog = dailylogList[i];
+        //content1Html = content1Template.replace("{{content1}}",dailylog.content1)
+        //                            .replace("{{name}}",dailylog.name);
+        $('#content1-tr-template').find("[name=name]").html(dailylog.name);
+        $('#content1-tr-template').find("[name=content1]").html(dailylog.content1);
+        content2Html = content2Template.replace("{{content2}}",dailylog.content2)
+                                     .replace("{{name}}",dailylog.name);
+        overtimeHtml = overtimeTemplate.replace("{{overstarttime}}", dailylog.overstarttime)
+                                       .replace("{{overendtime}}",dailylog.overendtime)
+                                       .replace("{{overtimecontent}}", dailylog.overtimecontent)
+                                       .replace("{{name}}", dailylog.name);
+        $('#content1-table').append(content1Html);
+        $('#content2-table').append(content2Html);
+        $('#overtime-table').append(overtimeHtml);
+
+    }   //변경
+    changeModalMode('view');
     $("#dailylogModal").css('display','block');
-}
-
-
-function setTeamDailylog(data){
-    console.log(data);
-    var name;
-    var content1;
-    var content2Type;
-    var content2;
-    var content3;
-    var starttime;
-    var endtime;
-
-    var template1 = document.querySelector('#content1-template').innerHTML;
-    var template2 = document.querySelector('#content2-template').innerHTML;
-    var template3 = document.querySelector('#content3-template').innerHTML;
-
-    $("#content1-table").innerHTML = "";
-    $("#content2-table").innerHTML = "";
-    $("#content3-table").innerHTML = "";
-    
-    for(var i = 0 ; i< data.arr.length ; i ++){
-        name = data.arr[i].name;
-        content1 = data.arr[i].content1;
-        content2Type = data.arr[i].content2Type;
-        content2 = data.arr[i].content2;
-        content3 = data.arr[i].content3;
-        starttime = data.arr[i].starttime;
-        endtime = data.arr[i].endtime;
-
-        if(content1 != "" && content1 != null){
-            // content1
-            document.querySelector("#content1-table").insertAdjacentHTML('beforeend',
-            template1
-            .replace('{{content1}}',content1)
-            .replace('{{name}}',name)
-            );
-        }
-        
-        if(content2 != "" && content2 != null){
-            // content2
-            document.querySelector("#content2-table").insertAdjacentHTML('beforeend',
-                template2.replace('{{content2}}',content2)
-                .replace('{{content2Type}}',content2Type)
-                .replace('{{name}}',name)
-            );
-        }
-
-        if(content3 != "" && content3 != null){
-            // content3
-            document.querySelector("#content3-table").insertAdjacentHTML('beforeend',
-                template3.replace('{{content3}}',content3)
-                .replace('{{starttime}}',starttime)
-                .replace('{{endtime}}',endtime)
-                .replace('{{name}}',name)
-            );
-        }
-    }
 }

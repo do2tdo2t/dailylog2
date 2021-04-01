@@ -90,4 +90,18 @@ public class DailylogServiceTest {
         assertThat(dailylog1.getUser().getUsername()).isEqualTo("박효정");
     }
 
+    @Test
+    public void 팀업무일지상세가져오기(){
+
+        //Insert
+        DailylogRequestDto requestDto = DailylogRequestDto.builder()
+                .workingday("2021-03-18")
+                .deptcode("00001")
+                .build();
+        DailylogResponseDto responseDto = dailylogService.getTeamDaillogDetail(requestDto);
+
+        responseDto.getDailylogList().forEach(System.out::println);
+
+    }
+
 }

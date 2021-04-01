@@ -12,7 +12,7 @@
                 <input type="text" id="date-picker2" class="date-picker datepicker-style1 w3-light-grey" name="workingday" value="">
             </h4>
             <label>실시사항</label>
-            <table class="w3-table-all w3-card-4">
+            <table class="w3-table-all w3-card-4" id="content1-table">
                 <tr class="w3-row w3-grey">
                     <th class="w3-col l2">
                         이름
@@ -25,7 +25,7 @@
             </table>
             <hr>
             <label>기타사항</label>
-            <table class="w3-table-all w3-card-4">
+            <table class="w3-table-all w3-card-4" id="content2-table">
                 <tr class="w3-row w3-grey">
                     <th class="w3-col l2">
                         이름
@@ -38,7 +38,7 @@
             </table>
             <hr>
             <label>특별근무사항</label>
-            <table class="w3-table-all w3-card-4">
+            <table class="w3-table-all w3-card-4" id="overtime-table">
                 <tr class="w3-row w3-grey">
                     <th class="w3-col l2">
                         이름
@@ -51,6 +51,7 @@
                     </th>
                 </tr>
                 <!-- 동적으로 스크립트 넣기 -->
+
             </table>
             <div class="w3-section">
                 <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소 <i class="fa fa-remove"></i></a>
@@ -62,11 +63,9 @@
 
 <script type="template" id="content1-tr-template">
  <tr class="w3-row">
-  <th class="w3-col l2">
-     {{name}}
+  <th class="w3-col l2" name="name">
   </th>
-  <th class="w3-col l10">
-     {{content1}}
+  <th class="w3-col l10" name="content1">
   </th>
 </tr>
 </script>
