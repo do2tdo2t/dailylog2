@@ -59,17 +59,8 @@
 	}
 
 	function changeCalendar(date){
-		var monthCalendarId = document.querySelector('#month-calendar');
-        var weekCalendarId = document.querySelector('#week-calendar');
-		
+        whenChangeDate(date);
 
-        if(monthCalendarId != null){
-            drawMonthCalendar(date);
-        }
-        
-        if(weekCalendarId != null){
-            drawWeekCalendar(date);
-        }
 	}
 
 	

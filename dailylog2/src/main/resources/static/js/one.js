@@ -121,7 +121,6 @@ function getBeforeMonth(){
 
 /***********************************************************
 네비게이션 효과
-JSON.stringify(obj)
 *************************************************************/
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";

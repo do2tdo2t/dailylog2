@@ -4,7 +4,6 @@
 
 {{>layout/one-form-modal}}
 
-
 <!-- Page content -->
 <div class="w3-main" style="margin-left:320px; height:100%; ">
     <i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top" onclick="w3_open()"></i>
@@ -14,8 +13,8 @@
         <br>
         <h5 class="w3-opacity breadcrumb">업무일지 > 팀</h5>
         <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker1" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
-        <a class="w3-button w3-light-grey" href="/dailylog2/month">월간달력</a>
-        <a class="w3-button w3-light-grey" href="/dailylog2/week">주간달력</a>
+        <a class="w3-button w3-light-grey" href="/dailylog2/team/month">월간달력</a>
+        <a class="w3-button w3-light-grey" href="/dailylog2/team/week">주간달력</a>
         <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeMonth()"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
         <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="nextMonth()">다음<i class="w3-margin-left fa fa-arrow-right"></i></a>
       <!--  <a class="w3-button w3-white w3-border w3-border-red mode" href="javascript:void(0)" onclick="changeWeekCalendarListMode()" style="display:none" >리스트형</a>
@@ -35,7 +34,7 @@
 
 </div>
 
-{{>layout/one-week-script}}
+{{>layout/team-week-script}}
 
 
 </body>

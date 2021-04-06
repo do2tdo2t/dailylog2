@@ -16,8 +16,8 @@ public class TeamController {
     private final DailylogRepository dailylogRepository;
 
     //팀 업무일지 첫화면
-    @GetMapping("/dailylog2/team")
-    public String init(Model model){
+    @GetMapping("/dailylog2/team/month")
+    public String teamMonth(Model model){
 
         String userid = "2020001";
         String workingday = "2020-05-22";
@@ -29,4 +29,20 @@ public class TeamController {
         return "team";
 
     }
+
+    //팀 업무일지 첫화면
+    @GetMapping("/dailylog2/team/week")
+    public String teamWeek(Model model){
+
+        String userid = "2020001";
+        String workingday = "2020-05-22";
+        String deptcode = "00001";
+
+        List<Dailylog> dailylogList = dailylogRepository.findByDeptcodeAndWorkingdayLike(deptcode,workingday);
+        model.addAttribute("dailylogList",dailylogList);
+
+        return "team-week";
+
+    }
+
 }

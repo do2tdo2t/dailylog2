@@ -252,26 +252,16 @@ CommonCalendar.prototype.getBeforeMonth = function(){
     return newdate;
 }
 
-/** 개인 업무일지 캘린더 그리기 */
-function drawMonthCalendar(date){
-    if(commonCalendar === undefined || commonCalendar === null){
-
+/******************** function **********************************
+날짜 변경 시
+Date
+*****************************************************************/
+function whenChangeDate(date){
+    if(commonCalendar == null ){
         commonCalendar = new CommonCalendar();
     }
-    //1. render
-    commonCalendar.render(date,'calendar');
-    commonCalendar.callTeamDailylogApi();
-    calendar.callHoliydayApi();
-}
 
-/** 팀 업무일지 캘린더 그리기 */
-function drawTeamMonthCalendar(date){
-    calendar = new CommonCalendar();
-    //1. render
-    calendar.render(date,'calendar');
-    calendar.markTodate(date.getDate());
-    calendar.markTeamDailylog();
-    calendar.markHoliday();
+    commonCalendar.drawCalendar(date,'calendar');
 }
 
 

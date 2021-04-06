@@ -40,28 +40,9 @@ function getMonthCalendar(){
 }
 
 /******************** api **********************************
-다음달로 이동하기
+다음달 구하기
 JSON.stringify(obj)
 *************************************************************/
-function nextMonth(){
-  var calendarType2 = $('#calendarType2').attr('value'); // month, week
-  var newdate;
-
-  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
-      if(calendarType2 == 'month'){
-
-         newdate = getNextMonth();
-         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
-
-      }else if(calendarType2 == 'week'){
-        newdate = getNextWeek();
-        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
-      }
-      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
-  }
-}
-
-//다음달 구하기
 function getNextMonth(){
     var curdate = $(".date-picker").attr('value');
     //var yyyy = document.getElementById('yyyy').innerHTML;
@@ -76,32 +57,28 @@ function getNextMonth(){
     return newdate;
 }
 
-
 /******************** api **********************************
-이전달로 이동하기
+다음달로 이동하기
 JSON.stringify(obj)
 *************************************************************/
-function beforeMonth(){
-  var calendarType2 = $('#calendarType2').attr('value');
+function nextMonth(){
+  var calendarType2 = $('#calendarType2').attr('value'); // month, week
   var newdate;
+
   if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
-      if(calendarType2 == 'month'){
 
-         newdate = getBeforeMonth();
-         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
+      newdate = getNextMonth();
+      getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
 
-      }else if(calendarType2 == 'week'){
-        newdate = getBeforeWeek();
-
-        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
-      }
       $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
   }
 }
 
 
-
-// 전달 구하기
+/******************** api **********************************
+이전달 구하기
+JSON.stringify(obj)
+*************************************************************/
 function getBeforeMonth(){
     var curdate = $(".date-picker").attr('value');
     //var yyyy = document.getElementById('yyyy').innerHTML;
@@ -117,10 +94,23 @@ function getBeforeMonth(){
     return newdate;
 }
 
+/******************** api **********************************
+이전달로 이동하기
+JSON.stringify(obj)
+*************************************************************/
+function beforeMonth(){
+  var calendarType2 = $('#calendarType2').attr('value');
+  var newdate;
+  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
+      newdate = getBeforeMonth();
+      getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
+
+      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
+  }
+}
 
 /***********************************************************
 네비게이션 효과
-JSON.stringify(obj)
 *************************************************************/
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
