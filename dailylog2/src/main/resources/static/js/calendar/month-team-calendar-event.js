@@ -6,16 +6,42 @@ function CommonCalendar(){
     this.dailylogHtml = "<button class='btn btn-secondary dailylog w3-hover-black' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
 
     //첫번째 주에는 요일을 표기
-    this.firstColHeadHtml =  "<a class='col' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\")' >"
-                                +"<div class='col day {{validation}}'  id='date-{{yyyyMMdd}}'>"
+    this.firstColHeadHtml =  "<div class='col day {{validation}}'  id='date-{{yyyyMMdd}}'>"
                                 +"<div id='yoil'>{{hangulYoil}}</div>"
-                                +"<div class='dd'>{{day}}</div></div>"
-                                +"</a>";
-    this.colHeadHtml = "<a class='col' href='javascript:void(0)' onclick='whenClickDay(\"{{yyyyMMdd}}\" )' >"
-                        +"<div class='col day {{validation}}' id='date-{{yyyyMMdd}}'>"
-                        +"<div class='dd'>{{day}}</div></div>"
-                        +"</a>";
+                                +"<div class='dd'>{{day}}</div></div>";
+
+    this.colHeadHtml = "<div class='col day {{validation}}' id='date-{{yyyyMMdd}}'>"
+                        +"<div class='dd'>{{day}}</div></div>";
+
     this.divEndHtml = "</div>";
+
+    this.content1Template = '<tr class="w3-row">'
+                             + '<th class="w3-col l2" name="name">'
+                             +  '{{name}}'
+                             + '</th>'
+                             + '<th class="w3-col l10" name="content1">'
+                             + '{{content1}}'
+                             + '</th>'
+                             +'</tr>';
+    this.content2Template = '<tr class="w3-row">'
+                                 + '<th class="w3-col l2" name="name">'
+                                 +  '{{name}}'
+                                 + '</th>'
+                                 + '<th class="w3-col l10" name="content2">'
+                                 + '{{content2}}'
+                                 + '</th>'
+                                 +'</tr>';
+     this.overtimeTemplate = '<tr class="w3-row">'
+                                 + '<th class="w3-col l2" name="name">'
+                                 +  '{{name}}'
+                                 + '</th>'
+                                 + '<th class="w3-col l3">'
+                                 + '{{overstarttime}} ~ {{overendtime}}'
+                                 + '</th>'
+                                 + '<th class="w3-col l10">'
+                                 +  '{{overtimecontent}}'
+                                 + '</th>'
+                                 +'</tr>';
 
     this.currentdate ;
     this.currentyyyy ;
@@ -193,23 +219,12 @@ CommonCalendar.prototype.drawCalendar = function(date,id ){
         date = new Date();
     }
 
-    if(this.calendarType1 != null && this.calendarType1 != undefined && this.calendarType1 != ""){
-        if(this.calendarType1 == 'team'){
-            //1. render
-            this.render(date,id);
-            this.callMonthTeamDailylogApi();
-            this.callHolidayApi();
-        }
+     //1. render
+     this.render(date,id);
+     this.callMonthTeamDailylogApi();
+     this.callHolidayApi();
 
-        if(this.calendarType1 == 'one'){
-            //1. render
-            this.render(date, id);
-            this.callMonthDailylogApi();
-            this.callHolidayApi();
-        }
-    }
-
-    $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
+   $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
 }
 
 //다음달의 1일
@@ -257,108 +272,6 @@ function drawTeamMonthCalendar(date){
     calendar.markTodate(date.getDate());
     calendar.markTeamDailylog();
     calendar.markHoliday();
-}
-
-//날짜를 클릭했을 때 -> 수정모드로 모달 띄움
-function whenClickDay(datestr){
-  var date = new Date(datestr);
-
-  //1. 날짜 받아오기 (클릭한 날짜 기준)
-  $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
-
-  //2. modal 내용 초기화
-  $("#dailylogModal").find("[name=dailylogno]").val('');
-  $("#dailylogModal").find("[name=content1]").val('');
-  $("#dailylogModal").find("[name=content2]").val('');
-  $("#dailylogModal").find("[name=overtimestart]").val('');
-  $("#dailylogModal").find("[name=overtimeend]").val('');
-  $("#dailylogModal").find("[name=overtimecontent]").val('');
-
-  //3. modal 보기모드로 변경
-  changeModalMode('write');
-
-  //4.글쓰기 모달 팝업
-  $('#dailylogModal').css('display','block');
-}
-
-/*************************************************
- dailylog 클릭 시
-    1. datepicker update
-    2. ajax 데이터 가져오기
-    3. open side bar - 상세보기바
-**************************************************/
-function whenClickDailylog(event){
-    var target = event.target;
-    var parentId = target.parentElement.getAttribute('id');
-    var dailylogno = target.getAttribute('id');
-
-    var datestr = parentId.replace('date-','').split('-');
-    
-    var date = new Date(datestr[0],datestr[1]-1, datestr[2]);
-
-    changeInputDatePicker(date.format('yyyy-MM-dd'));
-    callOneDailylogDetailApi(dailylogno);
-}
-
-function whenClickTeamDailylog(workingday,deptcode){
-
-    var date = new Date(workingday).format('yyyy-MM-dd')
-    changeInputDatePicker(date);
-    callTeamDailylogDetailApi(date,deptcode);
-}
-
-/******************** api **********************************
-한달 업무일지 가져오기
-JSON.stringify(obj)
-*************************************************************/
-CommonCalendar.prototype.callMonthDailylogApi = function(){
-    var obj = new Object();
-    //세션으로부터 가져오도록 변경 필요
-    obj.userid = "R2020001";
-
-    var firstday = new Date(this.currentyyyy,this.currentmm, 1 );
-    var lastday = new Date(this.currentyyyy,this.currentmm + 1, 0 );
-
-    obj.startdate = firstday.format("yyyy-MM-dd") ;
-    obj.enddate = lastday.format("yyyy-MM-dd") ;
-
-    $.ajax({
-        url: "/api/search/dailylog/one/month",
-        dataType:"json",
-        method:"POST",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify( obj ),
-        success : function(data) {
-            markMonthDailylog(data);
-        },
-        fail : function(error){
-          alert("error..");
-      }
-    });
-}
-
-/************** 업무일지 달력에 마킹 *********************/
-function markMonthDailylog(data){
-     var html =
-        "<button class='btn btn-secondary dailylog w3-hover-black' id='{{dailylogno}}' onclick='whenClickDailylog(event);' type='button'>{{username}}</button> ";
-    var dailylogList = data.dailylogList;
-    var dailylog;
-    var username;
-    var workingday;
-    var dailylogno;
-    var element;
-    for(var i = 0 ; i < dailylogList.length ; i++){
-        dailylog = dailylogList[i];
-        workingday = dailylog.workingday;
-        username = dailylog.user.username;
-        dailylogno = dailylog.dailylogno;
-        element = document.querySelector('#date-'+workingday);
-        html = html.replace('{{username}}',username)
-                    .replace('{{dailylogno}}',dailylogno);
-        if(element != null && element != undefined){
-                element.insertAdjacentHTML('beforeend',html);
-        }
-    }
 }
 
 
@@ -418,84 +331,19 @@ CommonCalendar.prototype.markHoliday = function(holidays){
     }
 }
 
+/*************************************************
+ dailylog 클릭 시
+    1. datepicker update
+    2. ajax 데이터 가져오기
+    3. open side bar - 상세보기바
+**************************************************/
 
-/******************** api **********************************
-업무일지 상세보기
-JSON.stringify(obj)
-*************************************************************/
-function callOneDailylogDetailApi(dailylogno){
+function whenClickTeamDailylog(workingday,deptcode){
 
-    var obj = new Object();
-    obj.dailylogno = dailylogno;
-
-    $.ajax({
-        url: "/api/search/dailylog/one/detail",
-        dataType:"json",
-        method:"POST",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify( obj ),
-        success : function(data) {
-            var dailylog = data.dailylog;
-            setOneDailylog(dailylog);
-        },
-        fail : function(error){
-          alert("error..");
-      }
-    });
+    var date = new Date(workingday).format('yyyy-MM-dd')
+    changeInputDatePicker(date);
+    callTeamDailylogDetailApi(date,deptcode);
 }
-
-function setOneDailylog(dailylog){
-    //변경
-    $("#dailylogModal").find("[name=dailylogno]").val(dailylog.dailylogno);
-    $("#dailylogModal").find("[name=content1]").val(dailylog.content1);
-    $("#dailylogModal").find("[name=content2]").val(dailylog.content2);
-    $("#dailylogModal").find("[name=overtimestart]").val(dailylog.overtimestart);
-    $("#dailylogModal").find("[name=overtimeend]").val(dailylog.overtimeend);
-    $("#dailylogModal").find("[name=overtimecontent]").val(dailylog.overtimecontent);
-
-    changeModalMode('write');
-    $("#dailylogModal").css('display','block');
-}
-
-
-/******************** api **********************************
-업무일지 상세보기
-JSON.stringify(obj)
-*************************************************************/
-function callOneDailylogDetailApi(dailylogno){
-
-    var obj = new Object();
-    obj.dailylogno = dailylogno;
-
-    $.ajax({
-        url: "/api/search/dailylog/one/detail",
-        dataType:"json",
-        method:"POST",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify( obj ),
-        success : function(data) {
-            var dailylog = data.dailylog;
-            setOneDailylog(dailylog);
-        },
-        fail : function(error){
-          alert("error..");
-      }
-    });
-}
-
-function setOneDailylog(dailylog){
-    //변경
-    $("#dailylogModal").find("[name=dailylogno]").val(dailylog.dailylogno);
-    $("#dailylogModal").find("[name=content1]").val(dailylog.content1);
-    $("#dailylogModal").find("[name=content2]").val(dailylog.content2);
-    $("#dailylogModal").find("[name=overtimestart]").val(dailylog.overtimestart);
-    $("#dailylogModal").find("[name=overtimeend]").val(dailylog.overtimeend);
-    $("#dailylogModal").find("[name=overtimecontent]").val(dailylog.overtimecontent);
-
-    changeModalMode('write');
-    $("#dailylogModal").css('display','block');
-}
-
 
 /******************** api **********************************
 한달 업무일지 가져오기(팀)
@@ -555,8 +403,6 @@ function markMonthTeamDailylog(data){
     }
 }
 
-
-
 /******************** api **********************************
 업무일지 상세보기(팀)
 JSON.stringify(obj)
@@ -574,7 +420,6 @@ function callTeamDailylogDetailApi(workingday, deptcode){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(data) {
-
             setTeamDailylog(data.dailylogList);
         },
         fail : function(error){
@@ -588,29 +433,48 @@ function setTeamDailylog(dailylogList){
     var content1Template = commonCalendar.content1Template;
     var content2Template = commonCalendar.content2Template;
     var overtimeTemplate = commonCalendar.overtimeTemplate;
-    console.log(content1Template);
+
     var content1Html = '';
     var content2Html = '';
     var overtimeHtml = '';
 
     var dailylog;
+
+    $('#content1-table').find('tbody').html('');
+    $('#content2-table').find('tbody').html('');
+    $('#overtime-table').find('tbody').html('');
+
     for(var i = 0 ; i < dailylogList.length ; i++){
         dailylog = dailylogList[i];
-        content1Html = content1Template.replace("{{content1}}",dailylog.content1)
-                                   .replace("{{name}}",dailylog.user.username);
+        if(dailylog.content1 != null){
+            content1Html += content1Template.replace("{{content1}}", removeNull(dailylog.content1))
+                                               .replace("{{name}}", removeNull(dailylog.user.username));
+        }
 
-        content2Html = content2Template.replace("{{content2}}",dailylog.content2)
-                                     .replace("{{name}}",dailylog.user.username);
+        if(dailylog.content2 != null){
+            content2Html += content2Template.replace("{{content2}}", removeNull(dailylog.content2))
+                                                     .replace("{{name}}", removeNull(dailylog.user.username));
+        }
 
-        overtimeHtml = overtimeTemplate.replace("{{overstarttime}}", dailylog.overstarttime)
-                                       .replace("{{overendtime}}",dailylog.overendtime)
-                                       .replace("{{overtimecontent}}", dailylog.overtimecontent)
-                                       .replace("{{name}}", dailylog.user.username);
-        $('#content1-table').append(content1Html);
-        $('#content2-table').append(content2Html);
-        $('#overtime-table').append(overtimeHtml);
-
+        if(dailylog.overstarttime != null || dailylog.overendtime != null || dailylog.overtimecontent != null ){
+        overtimeHtml = overtimeTemplate.replace("{{overstarttime}}", removeNull(dailylog.overstarttime))
+                                       .replace("{{overendtime}}", removeNull(dailylog.overendtime))
+                                       .replace("{{overtimecontent}}", removeNull(dailylog.overtimecontent))
+                                       .replace("{{name}}", removeNull(dailylog.user.username));
+        }
     }   //변경
+    $('#content1-table').find('tbody').append(content1Html);
+    $('#content2-table').find('tbody').append(content2Html);
+    $('#overtime-table').find('tbody').append(overtimeHtml);
+
     changeModalMode('view');
     $("#dailylogModal").css('display','block');
+}
+
+function removeNull(value){
+    if(value == null || value == undefined)
+    {
+        return '';
+    }
+    return value;
 }

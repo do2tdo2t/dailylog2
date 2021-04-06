@@ -5,6 +5,7 @@ import com.rc.dailylog2.service.dailylog.DailylogService;
 import com.rc.dailylog2.web.dto.DailylogRequestDto;
 import com.rc.dailylog2.web.dto.DailylogResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -51,6 +52,8 @@ public class DailylogApiController {
     public DailylogResponseDto getSearchDailylogTeamDetailApi(@RequestBody DailylogRequestDto dailylogRequestDto){
 
         DailylogResponseDto responseDto = dailylogService.getTeamDaillogDetail(dailylogRequestDto);
+
+        //model.addAttribute("dailylogList", responseDto.getDailylogList());
 
         return responseDto;
     }

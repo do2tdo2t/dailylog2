@@ -13,6 +13,7 @@
             </h4>
             <label>실시사항</label>
             <table class="w3-table-all w3-card-4" id="content1-table">
+                <thead>
                 <tr class="w3-row w3-grey">
                     <th class="w3-col l2">
                         이름
@@ -21,11 +22,16 @@
                         내용
                     </th>
                 </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
                 <!-- 동적으로 스크립트 넣기 -->
             </table>
             <hr>
             <label>기타사항</label>
             <table class="w3-table-all w3-card-4" id="content2-table">
+                <thead>
                 <tr class="w3-row w3-grey">
                     <th class="w3-col l2">
                         이름
@@ -34,11 +40,16 @@
                         내용
                     </th>
                 </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
                 <!-- 동적으로 스크립트 넣기 -->
             </table>
             <hr>
             <label>특별근무사항</label>
             <table class="w3-table-all w3-card-4" id="overtime-table">
+                <thead>
                 <tr class="w3-row w3-grey">
                     <th class="w3-col l2">
                         이름
@@ -50,8 +61,11 @@
                         내용
                     </th>
                 </tr>
+                </thead>
                 <!-- 동적으로 스크립트 넣기 -->
+                <tbody>
 
+                </tbody>
             </table>
             <div class="w3-section">
                 <a class="w3-button w3-red" onclick="document.getElementById('dailylogModal').style.display='none'">취소 <i class="fa fa-remove"></i></a>
@@ -60,37 +74,3 @@
         </form>
     </div>
 </div>
-
-<script type="template" id="content1-tr-template">
- <tr class="w3-row">
-  <th class="w3-col l2" name="name">
-  </th>
-  <th class="w3-col l10" name="content1">
-  </th>
-</tr>
-</script>
-
-<script type="template" id="content2-tr-template">
- <tr class="w3-row">
-  <th class="w3-col l2">
-     {{name}}
-  </th>
-  <th class="w3-col l10">
-     {{content2}}
-  </th>
-</tr>
-</script>
-
-<script type="template" id="overtime-tr-template">
- <tr class="w3-row">
-  <th class="w3-col l2">
-     {{name}}
-  </th>
-  <th class="w3-col l3">
-     {{overstarttime}} ~ {{overendtime}}
-  </th>
-  <th class="w3-col l10">
-     {{overtimecontent}}
-  </th>
-</tr>
-</script>
