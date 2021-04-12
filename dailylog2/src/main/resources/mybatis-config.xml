@@ -11,12 +11,14 @@
 
     <typeAliases>
         <typeAlias type="com.rc.dailylog2.domain.dailylog.Dailylog" alias="Dailylog"/>
+        <typeAlias type="com.rc.dailylog2.domain.user.User" alias="User"/>
     </typeAliases>
 
 
     <mappers>
         <mapper resource="mapper/DailylogMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/LoginMapper.xml"/>
     </mappers>
-
 
 </configuration>

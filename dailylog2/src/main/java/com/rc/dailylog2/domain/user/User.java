@@ -22,6 +22,8 @@ public class User extends BaseTimeEntity{
     @Column(nullable = false) //PK auto_increment 속성
     private String userid;
 
+    private String encpassword;
+
     @Column(nullable = false )
     private String username;
 
@@ -79,7 +81,7 @@ public class User extends BaseTimeEntity{
     private String updatepgm;
 
     @Builder
-    public User( String userid, String username, String deptcode, String part
+    public User( String userid, String encpassword, String username, String deptcode, String part
                  , String userstatecode, String acceptadminyn, String jumin1
                  , String jumin2, String telnum, String hpnum, String email, String loginip
                  , String logindate, Integer logincount, Integer loginfailcnt, String lockyn
@@ -89,6 +91,7 @@ public class User extends BaseTimeEntity{
         this.userid = userid;
         this.username = username;
         this.deptcode = deptcode;
+        this.encpassword = encpassword;
         this.part = part;
         this.userstatecode = userstatecode;
         this.acceptadminyn = acceptadminyn;

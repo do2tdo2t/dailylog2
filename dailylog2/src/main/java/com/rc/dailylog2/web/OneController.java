@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 @Controller
-public class MainController {
+public class OneController {
 
     private final DailylogService dailylogService;
     private final DailylogRepository dailylogRepository;
@@ -25,7 +25,7 @@ public class MainController {
         Dailylog dailylog = dailylogRepository.findByWorkeridAndWorkingday(userid,workingday);
         model.addAttribute("dailylog",dailylog);
 
-        return "one";
+        return "one-month";
     }
 
     @GetMapping("/dailylog2/week")

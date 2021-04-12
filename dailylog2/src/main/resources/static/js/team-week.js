@@ -1,4 +1,3 @@
-
 this.addEventListener('DOMContentLoaded', function(){
     this.init();
 });
@@ -11,7 +10,7 @@ function init(){
 
   //callWeekDailylogApi(new Date());
   weekCalendar = new WeeklyCalendar();
-  weekCalendar.calendarType1 = "one";
+  weekCalendar.calendarType1 = "team";
   weekCalendar.drawCalendar(new Date(),'calendar');
 
   /* init #date-picker */
@@ -86,80 +85,32 @@ function changeMonthCalendar(){
   $('.mode').css('display','none');
 }
 
-//주 달력으로 변경
-function changeWeekCalendar(){
-
-  var date = $('.date-picker').attr('value');
-
-  $('#calendarType2').attr('value','week');
-
-  getWeekCalendar().drawCalendar(new Date(date),'calendar');
-
-  //mode 버튼 활성화
-  $('.mode').css('display','inline-block');
-}
-
-function changeCalendar(date){
-  var calendarType2 = $('#calendarType2').attr('value'); //month, week
-  if(date != null && typeof(date) == "string"){
-    date = new Date(date);
-  }
-
-  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
-    if(calendarType2 == 'month'){
-        getMonthCalendar().drawCalendar(new Date(date),'calendar');
-
-      }else if(calendarType2 == 'week'){
-
-        getWeekCalendar().drawCalendar(new Date(date),'calendar');
-      }
-  }
-}
-
 // 다음달
 function nextMonth(){
   var calendarType2 = $('#calendarType2').attr('value'); // month, week
   var newdate;
 
-  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
-      if(calendarType2 == 'month'){
+  newdate = getNextWeek();
+  getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
 
-         newdate = getNextMonth();
-         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
-
-      }else if(calendarType2 == 'week'){
-        newdate = getNextWeek();
-        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
-      }
-      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
-
-  }
+  $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
 }
 
 // 전달
 function beforeMonth(){
   var calendarType2 = $('#calendarType2').attr('value');
   var newdate;
-  if(calendarType2 != null && calendarType2 != undefined && calendarType2 != ""){
-      if(calendarType2 == 'month'){
 
-         newdate = getBeforeMonth();
-         getMonthCalendar().drawCalendar(new Date(newdate),'calendar');
+  newdate = getBeforeWeek();
 
-      }else if(calendarType2 == 'week'){
-        newdate = getBeforeWeek();
+  getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
 
-        getWeekCalendar().drawCalendar(new Date(newdate),'calendar');
-      }
-      $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
-  }
+  $('.date-picker').attr('value',newdate.format('yyyy-MM-dd'));
 }
 
 //다음달 구하기
 function getNextMonth(){
     var curdate = $(".date-picker").attr('value');
-    //var yyyy = document.getElementById('yyyy').innerHTML;
-    //var mm = document.getElementById('mm').innerHTML;
     var yyyy = new Date(curdate).getFullYear();
     var month = new Date(curdate).getMonth() + 1;
 
@@ -211,56 +162,4 @@ function getBeforeWeek(){
     return newdate;
 }
 
-//Weekly 캘린더의 리스트형, 카드형 템플릿의 수정아이콘 클릭 이벤트
-function whenClickModifyBtn(yyyyMMdd){
-
-  var date = new Date(yyyyMMdd);
-  if(date == null || date == undefined || date == ""){
-    date = new Date();
-  }
-
-  //1. 날짜 받아오기
-  $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
-
-  //2. ajax 실행 detail 정보 가져오기
-
-  //3. modal 글쓰기 모드로 변경
-  changeModalMode('write');
-
-  //4. modal띄우기
-  $('#dailylogModal').css('display','block');
-}
-
-
-//날짜를 클릭했을 때 -> 수정모드로 모달 띄움
-function whenClickDay(datestr){
-  var date = new Date(datestr);
-
-  //1. 날짜 받아오기 (클릭한 날짜 기준)
-  $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
-
-  //2. ajax 실행 detail
-
-  //3. modal 보기모드로 변경
-  changeModalMode('view');
-
-  //4.글쓰기 모달 팝업
-  //$('#dailylogModal').css('display','block');
-}
-
-//주간 캘린더 리스트모드변경
-function changeWeekCalendarListMode(){
-    var curdate = $(".date-picker").attr('value');
-    getWeekCalendar().mode = "list";
-    getWeekCalendar().render(new Date(curdate),'calendar');
-}
-
-//주간 캘린더 카드모드로 변경
-function changeWeekCalendarCardMode(){
-    var curdate = $(".date-picker").attr('value');
-
-    getWeekCalendar().mode = "card";
-    getWeekCalendar().render(new Date(curdate),'calendar');
-
-}
 
