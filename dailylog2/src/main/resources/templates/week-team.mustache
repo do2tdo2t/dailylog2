@@ -15,6 +15,12 @@
         <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker1" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
         <a class="w3-button w3-light-grey" href="/dailylog2/team/month">월간달력</a>
         <a class="w3-button w3-light-grey" href="/dailylog2/team/week">주간달력</a>
+        <select class="w3-button w3-light-white w3-border" name="deptcode" id="depetcode-select" onchange="whenChageDeptcode()">
+            <option value="00001" name="정보기획팀">정보기획팀</option>
+            <option value="00002" name="혈액정보팀">혈액정보팀</option>
+            <option value="00003" name="경영정보팀">경영정보팀</option>
+            <option value="00004" name="의료정보팀">의료정보팀</option>
+        </select>
         <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeWeek()"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
         <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="nextWeek()">다음<i class="w3-margin-left fa fa-arrow-right"></i></a>
       <!--  <a class="w3-button w3-white w3-border w3-border-red mode" href="javascript:void(0)" onclick="changeWeekCalendarListMode()" style="display:none" >리스트형</a>
@@ -27,7 +33,6 @@
     <!-- 달력 타입-->
     <input id="calendarType1" value='team' hidden>
     <input id="calendarType2" value='week' hidden>
-
 
     <!-- calendar-->
     <ul id ="calendar" class="w3-container common-calendar w3-ul">

@@ -17,7 +17,7 @@ public class TeamController {
 
     //팀 업무일지 첫화면
     @GetMapping("/dailylog2/team/month")
-    public String teamMonth(){
+    public String monthTeam(){
 
         return "month-team";
 
@@ -25,7 +25,7 @@ public class TeamController {
 
     //팀 업무일지 첫화면
     @GetMapping("/dailylog2/team/week")
-    public String teamWeek(){
+    public String weekTeam(){
 
         return "week-team";
 

@@ -9,8 +9,6 @@ function init(){
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
 
-  console.log(window.sessionStorage.getItem("dailylog2_user"));
-
   commonCalendar = new CommonCalendar();
   commonCalendar.calendarType1 = "team";
   commonCalendar.drawCalendar(new Date(),'calendar');
@@ -18,7 +16,11 @@ function init(){
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');
   $('.date-picker').attr('value',date);
-  $("#deptcode-select").val("0001");
+
+  //depetcode-select
+  var deptcode = $("#dailylog2_deptcode").val();
+  console.log(deptcode);
+  $("#deptcode-select > option[value="+deptcode+"]").attr("selected",true);
 }
 
 

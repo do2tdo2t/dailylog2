@@ -21,7 +21,6 @@ function init(){
 function reload(workingday){
 
   var openInbox = document.getElementById("myBtn");
-  openInbox.click();
 
   commonCalendar.drawCalendar(new Date(workingday),'calendar');
 

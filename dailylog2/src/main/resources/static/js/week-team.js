@@ -16,13 +16,16 @@ function init(){
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');
   $('.date-picker').attr('value',date);
-  $("#deptcode-select").val("0001");
+
+  //depetcode-select
+  var deptcode = $("#dailylog2_deptcode").val();
+  $("#deptcode-select").val(deptcode);
+
 }
 
 function reload(workingday){
   var openInbox = document.getElementById("myBtn");
-  openInbox.click();
-;
+
   weekCalendar.drawCalendar(new Date(workingday),'calendar');
 
   /* init #date-picker */

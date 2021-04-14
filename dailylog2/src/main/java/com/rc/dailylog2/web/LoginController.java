@@ -62,6 +62,19 @@ public class LoginController {
 
     }
 
+    @GetMapping(value = "/api/logout")
+    public RedirectView logout(HttpServletRequest request) {
+
+        HttpSession session = request.getSession(true);
+        User sessionUser = (User) session.getAttribute("dailylog2_user");
+
+        if(sessionUser != null){
+            session.removeAttribute("dailylog2_user");
+        }
+
+        return new RedirectView("/dailylog2/login");
+    }
+
     private Boolean checkLogin(LoginRequestDto requestDto){
 
         boolean isExist= loginService.checkLogin(requestDto);

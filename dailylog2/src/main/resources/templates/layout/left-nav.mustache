@@ -6,7 +6,7 @@
         <div class="w3-bar-item w3-container">{{username}}님 안녕하세요 ! </div>
         <input id="dailylog2_userid" value="{{userid}}" hidden/>
         <input id="dailylog2_username" value="{{username}}" hidden/>
-        <input id="dailylog2_deptcode" value="{{deptcode}}" hidden/>
+        <input id="dailylog2_deptcode" value="{{deptcode}}" />
     {{/dailylog2_user}}
     <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="whenClickWriteBtn()"> 글쓰기 <i class="w3-padding fa fa-pencil"></i></a>
@@ -39,7 +39,7 @@
     </div>
     <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>검색</a>
     <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>일정</a>
-    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>로그아웃</a>
+    <a href="/api/logout" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>로그아웃</a>
 </nav>
 
 <!-- Overlay effect when opening the side navigation on small screens -->
