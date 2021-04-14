@@ -50,6 +50,14 @@ public class DailylogRequestDto {
         this.enddate = enddate;
     }
 
+    public void setUserid(String userid){
+        this.userid = userid;
+    }
+
+    public void setWorkerid(String workerid){
+        this.workerid = workerid;
+    }
+
     public Dailylog toEntity(){
         return Dailylog.builder()
                 .dailylogno(dailylogno)

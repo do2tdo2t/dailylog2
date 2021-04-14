@@ -329,7 +329,6 @@ CommonCalendar.prototype.markHoliday = function(holidays){
 **************************************************/
 
 function whenClickTeamDailylog(workingday,deptcode){
-
     var date = new Date(workingday).format('yyyy-MM-dd')
     changeInputDatePicker(date);
     callTeamDailylogDetailApi(date,deptcode);
@@ -341,14 +340,13 @@ JSON.stringify(obj)
 *************************************************************/
 CommonCalendar.prototype.callMonthTeamDailylogApi = function(){
     var obj = new Object();
-    //세션으로부터 가져오도록 변경 필요
-    obj.deptcode = "00001";
 
     var firstday = new Date(this.currentyyyy,this.currentmm, 1 );
     var lastday = new Date(this.currentyyyy,this.currentmm + 1, 0 );
 
     obj.startdate = firstday.format("yyyy-MM-dd") ;
     obj.enddate = lastday.format("yyyy-MM-dd") ;
+    obj.deptcode = $("#deptcode-select:selected").val();
 
     $.ajax({
         url: "/api/search/dailylog/team/month",
@@ -357,7 +355,6 @@ CommonCalendar.prototype.callMonthTeamDailylogApi = function(){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify( obj ),
         success : function(data) {
-            console.log(data);
             markMonthTeamDailylog(data);
         },
         fail : function(error){

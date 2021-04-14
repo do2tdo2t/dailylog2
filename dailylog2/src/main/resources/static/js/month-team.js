@@ -9,6 +9,8 @@ function init(){
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
 
+  console.log(window.sessionStorage.getItem("dailylog2_user"));
+
   commonCalendar = new CommonCalendar();
   commonCalendar.calendarType1 = "team";
   commonCalendar.drawCalendar(new Date(),'calendar');
@@ -16,12 +18,15 @@ function init(){
   /* init #date-picker */
   var date = new Date().format('yyyy-MM-dd');
   $('.date-picker').attr('value',date);
+  $("#deptcode-select").val("0001");
 }
+
+
 
 function reload(workingday){
 
-  var openInbox = document.getElementById("myBtn");
-  openInbox.click();
+  //var openInbox = document.getElementById("myBtn");
+  //openInbox.click();
 
   commonCalendar.drawCalendar(new Date(workingday),'calendar');
 
@@ -75,9 +80,8 @@ function nextMonth(){
 }
 
 
-/******************** api **********************************
+/******************** function ******************************
 이전달 구하기
-JSON.stringify(obj)
 *************************************************************/
 function getBeforeMonth(){
     var curdate = $(".date-picker").attr('value');
@@ -94,9 +98,8 @@ function getBeforeMonth(){
     return newdate;
 }
 
-/******************** api **********************************
+/******************** function ******************************
 이전달로 이동하기
-JSON.stringify(obj)
 *************************************************************/
 function beforeMonth(){
   var calendarType2 = $('#calendarType2').attr('value');
@@ -109,27 +112,12 @@ function beforeMonth(){
   }
 }
 
-/***********************************************************
-네비게이션 효과
+/******************** api **********************************
+deptcode Select 박스 변경 이벤트
+JSON.stringify(obj)
 *************************************************************/
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
+function whenChageDeptcode(){
+    var workingday = $('.date-picker').val();
+    reload(workingday);
 }
 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
-
-//왼편 네비게이션바 부분 소메뉴펼치기
-function showMenuDetail(id) {
-  var x = document.getElementById(id);
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-    x.previousElementSibling.className += " w3-red";
-  } else {
-    x.className = x.className.replace(" w3-show", "");
-    x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-red", "");
-  }
-}

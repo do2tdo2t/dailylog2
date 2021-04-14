@@ -9,14 +9,24 @@ this.addEventListener('DOMContentLoaded', function(){
 
 
 function init(){
-    var loginSuccess = sessionStorage.getItem("dailylog2_loginsuccess");
-
-    console.log("loginSuccess..." + loginSuccess);
-
-    if(loginSuccess == "N"){
-        console.log(loginSuccess);
-        $("#msg-login").css("visibility","visible");
+    var loginSuccessYN = getParameterByName( location.search ,'loginSuccessYN');
+    if(loginSuccessYN == "N"){
+        $("#msg-login").css("display","block");
     }
+}
+
+function getParameterByName(paramString, searchName ){
+   var name;
+   var paramString = paramString.replace('?','');
+   var paramArray = paramString.split('&');
+   for(var i = 0 ; i < paramArray.length ; i++){
+        name = paramArray[i].split("=")[0];
+         console.log(paramArray[i]);
+        if(name == searchName){
+            return paramArray[i].split("=")[1];
+        }
+    }
+    return '';
 }
 
 function checkIdPassword(){
@@ -24,10 +34,10 @@ function checkIdPassword(){
     var password = $("#dailylog2_password").val();
 
     if( userid == null ){
-        $("#msg-id").css("visiblity","visible");
+        $("#msg-id").css("display","block");
         return false;
     }else if(password == null){
-        $("#msg-pw").css("visiblity","visible");
+        $("#msg-pw").css("display","block");
         return false;
     }
     return true;

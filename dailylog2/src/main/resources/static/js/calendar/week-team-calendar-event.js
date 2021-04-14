@@ -162,14 +162,14 @@ WeeklyCalendar.prototype.nextDay = function(year,month,date){
 일주일 업무일지 가져오기
 JSON.stringify(obj)
 *************************************************************/
-WeeklyCalendar.prototype.callWeekTeamDailylogApi = function(curdate){
+WeeklyCalendar.prototype.callWeekTeamDailylogApi = function(){
     var obj = new Object();
     //세션으로부터 가져오도록 변경 필요
 
     var startdate = this.monday.format('yyyy-MM-dd');
     var enddate = this.sunday.format('yyyy-MM-dd');
 
-    obj.deptcode = "00001";
+    obj.deptcode = $("#deptcode-select:selected").val();
     obj.startdate = startdate;
     obj.enddate = enddate;
 
@@ -255,6 +255,7 @@ function whenClickAddButton(yyyyMMdd){
     $("#dailylogModal").find("[name=overtimestart]").val('');
     $("#dailylogModal").find("[name=overtimeend]").val('');
     $("#dailylogModal").find("[name=overtimecontent]").val('');
+    $("#dailylogModal").find("[name=userid]").val($("dailylog2_userid").val());
 
     changeModalMode('write');
     $("#dailylogModal").css('display','block');

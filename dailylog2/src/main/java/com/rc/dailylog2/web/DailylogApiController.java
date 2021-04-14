@@ -1,12 +1,15 @@
 package com.rc.dailylog2.web;
 
 import com.rc.dailylog2.domain.dailylog.Dailylog;
+import com.rc.dailylog2.domain.user.User;
 import com.rc.dailylog2.service.dailylog.DailylogService;
 import com.rc.dailylog2.web.dto.DailylogRequestDto;
 import com.rc.dailylog2.web.dto.DailylogResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
@@ -66,13 +69,17 @@ public class DailylogApiController {
         return responseDto;
     }
 
-    @PutMapping("/api/dailylog")
-    public DailylogResponseDto saveDailyslogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
+    @PutMapping("/api/save/dailylog")
+    public DailylogResponseDto saveDailyslogApi(@RequestBody DailylogRequestDto dailylogRequestDto, HttpSession session){
+
+        User user = (User) session.getAttribute("dailylog2_user");
+        dailylogRequestDto.setWorkerid(user.getUserid());
+
         DailylogResponseDto responseDto = dailylogService.saveDailylog(dailylogRequestDto);
         return responseDto;
     }
 
-    @DeleteMapping("/api/dailylog")
+    @DeleteMapping("/api/delete/dailylog")
     public DailylogResponseDto deleteDailylogApi(@RequestBody DailylogRequestDto dailylogRequestDto){
         DailylogResponseDto responseDto = DailylogResponseDto.builder()
                                             .workingday(dailylogRequestDto.getWorkingday()).build();

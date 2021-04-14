@@ -48,19 +48,20 @@ function callSaveDailylogApi(){
     var overtimestart = $("#dailylogModal").find("[name=overtimestart]").val();
     var overtimeend = $("#dailylogModal").find("[name=overtimeend]").val();
     var overtimecontent = $("#dailylogModal").find("[name=overtimecontent]").val();
-    var workingday = $("#dailylogModal").find("[name=workingday]").val();
+    var workingday = $("#dailylogModal").find(".date-picker").val();
 
     obj.dailylogno = dailylogno;
-    obj.workerid = 'R2020001';
-    obj.workingday = workingday;
     obj.content1 = content1;
     obj.content2 = content2;
     obj.overtimestart = overtimestart;
     obj.overtimeend = overtimeend;
     obj.overtimecontent = overtimecontent;
+    obj.workingday = workingday;
+
+    console.log(obj);
 
     $.ajax({
-        url: "/api/dailylog",
+        url: "/api/save/dailylog",
         dataType:"json",
         method:"PUT",
         contentType: 'application/json; charset=utf-8',
@@ -92,7 +93,7 @@ function callDeleteDailylogApi(dailylogno){
     obj.workingday = $('.date-picker').val();
 
     $.ajax({
-        url: "/api/dailylog",
+        url: "/api/delete/dailylog",
         dataType:"json",
         method:"DELETE",
         contentType: 'application/json; charset=utf-8',

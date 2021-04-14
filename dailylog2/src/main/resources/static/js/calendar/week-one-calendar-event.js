@@ -211,7 +211,7 @@ WeeklyCalendar.prototype.callWeekDailylogApi = function(curdate){
     var startdate = this.monday.format('yyyy-MM-dd');
     var enddate = this.sunday.format('yyyy-MM-dd');
 
-    obj.userid = "R2020001";
+    obj.userid = $("#dailylog2_userid").val();
     obj.startdate = startdate;
     obj.enddate = enddate;
 
@@ -223,6 +223,7 @@ WeeklyCalendar.prototype.callWeekDailylogApi = function(curdate){
         data: JSON.stringify( obj ),
         success : function(data) {
             //weekCalendar: 전역변수
+            console.log(data);
             weekCalendar.renderContent(data);
 
         },
@@ -319,6 +320,7 @@ function callOneDailylogApi(dailylogno){
         data: JSON.stringify( obj ),
         success : function(data) {
             var dailylog = data.dailylog;
+            onsole.log(dailylog);c
             setOneDailylog(dailylog);
 
         },
@@ -336,38 +338,11 @@ function setOneDailylog(dailylog){
     $("#dailylogModal").find("[name=overtimestart]").val(dailylog.overtimestart);
     $("#dailylogModal").find("[name=overtimeend]").val(dailylog.overtimeend);
     $("#dailylogModal").find("[name=overtimecontent]").val(dailylog.overtimecontent);
+    $("#dailylogModal").find("[name=userid]").val(dailylog.user.userid);
 
     changeModalMode('write');
     $("#dailylogModal").css('display','block');
 }
-
-/* unused
-function markWeekDailylog(data){
-    var dailylogList = data.dailylogList;
-    var dailylog;
-    var username;
-    var workingday;
-    var dailylogno;
-    var id;
-    for(var i = 0 ; i < dailylogList.length ; i++){
-        dailylog = dailylogList[i];
-        workingday = dailylog.workingday;
-        username = dailylog.user.username;
-        dailylogno = dailylog.dailylogno;
-        id = '#date-'+workingday;
-    }
-}
-
-
-function drawWeekCalendar(date){
-    calendar = new WeeklyCalendar();
-    //1. render
-    calendar.render(date,'calendar');
-    calendar.callHolidayApi(date);
-
-    $(".date-picker").attr('value',date.format('yyyy-MM-dd'));
-}
-*/
 
 /******************** api **********************************
 공휴일 api 호출

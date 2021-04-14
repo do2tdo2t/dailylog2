@@ -15,8 +15,8 @@
         <h4><i class="fa fa-clock-o"></i><input type="text" id="date-picker1" class="date-picker datepicker-style1 w3-light-grey" value=""></h4>
         <a class="w3-button w3-light-grey" href="/dailylog2/team/month">월간달력</a>
         <a class="w3-button w3-light-grey" href="/dailylog2/team/week">주간달력</a>
-        <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeMonth()"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
-        <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="nextMonth()">다음<i class="w3-margin-left fa fa-arrow-right"></i></a>
+        <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="beforeWeek()"><i class="w3-margin-right fa fa-arrow-left"></i>이전</a>
+        <a class="w3-button w3-light-grey" href="javascript:void(0)" onclick="nextWeek()">다음<i class="w3-margin-left fa fa-arrow-right"></i></a>
       <!--  <a class="w3-button w3-white w3-border w3-border-red mode" href="javascript:void(0)" onclick="changeWeekCalendarListMode()" style="display:none" >리스트형</a>
         <a class="w3-button w3-white w3-border w3-border-red mode" href="javascript:void(0)" onclick="changeWeekCalendarCardMode()" style="display:none">카드형</a> -->
         <a class= "w3-button" href = "javascript:void(0)" id="yyyymm">
@@ -28,13 +28,14 @@
     <input id="calendarType1" value='team' hidden>
     <input id="calendarType2" value='week' hidden>
 
+
     <!-- calendar-->
     <ul id ="calendar" class="w3-container common-calendar w3-ul">
     </ul>
 
 </div>
 
-{{>layout/team-week-script}}
+{{>layout/week-team-script}}
 
 
 </body>

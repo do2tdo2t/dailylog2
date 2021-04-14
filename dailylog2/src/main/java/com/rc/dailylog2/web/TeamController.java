@@ -17,31 +17,17 @@ public class TeamController {
 
     //팀 업무일지 첫화면
     @GetMapping("/dailylog2/team/month")
-    public String teamMonth(Model model){
+    public String teamMonth(){
 
-        String userid = "2020001";
-        String workingday = "2020-05-22";
-        String deptcode = "00001";
-
-        List<Dailylog> dailylogList = dailylogRepository.findByDeptcodeAndWorkingdayLike(deptcode,workingday);
-        model.addAttribute("dailylogList",dailylogList);
-
-        return "team";
+        return "month-team";
 
     }
 
     //팀 업무일지 첫화면
     @GetMapping("/dailylog2/team/week")
-    public String teamWeek(Model model){
+    public String teamWeek(){
 
-        String userid = "2020001";
-        String workingday = "2020-05-22";
-        String deptcode = "00001";
-
-        List<Dailylog> dailylogList = dailylogRepository.findByDeptcodeAndWorkingdayLike(deptcode,workingday);
-        model.addAttribute("dailylogList",dailylogList);
-
-        return "team-week";
+        return "week-team";
 
     }
 

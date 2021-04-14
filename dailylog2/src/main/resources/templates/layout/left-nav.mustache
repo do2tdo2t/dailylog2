@@ -2,17 +2,23 @@
 <!-- Side Navigation -->
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><img src="/static/img/logo.jpg" style="width:60%;"></a>
+    {{#dailylog2_user}}
+        <div class="w3-bar-item w3-container">{{username}}님 안녕하세요 ! </div>
+        <input id="dailylog2_userid" value="{{userid}}" hidden/>
+        <input id="dailylog2_username" value="{{username}}" hidden/>
+        <input id="dailylog2_deptcode" value="{{deptcode}}" hidden/>
+    {{/dailylog2_user}}
     <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="whenClickWriteBtn()"> 글쓰기 <i class="w3-padding fa fa-pencil"></i></a>
     <!-- menue tree strat -->
     <a id="myBtn" onclick="showMenuDetail('Menu1')" href="javascript:void(0)" class="w3-bar-item w3-button">업무일지<i class="fa fa-caret-down w3-margin-left"></i></a>
     <div id="Menu1" class="w3-hide w3-animate-left">
-        <a href="/dailylog2/month" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-firstTab">
+        <a href="/dailylog2/one/month" class="w3-bar-item w3-button w3-border-bottom w3-hover-light-grey" id="Menu1-firstTab">
             <div class="w3-container">
                 <span class="w3-opacity w3-large">개인</span>
             </div>
         </a>
-        <a href="/dailylog2/team/month" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" id="Menu1-secondTab">
+        <a href="/dailylog2/team/month" class="w3-bar-item w3-button w3-border-bottom w3-hover-light-grey" id="Menu1-firstTab">
             <div class="w3-container">
                 <span class="w3-opacity w3-large">팀</span>
             </div>
@@ -38,3 +44,44 @@
 
 <!-- Overlay effect when opening the side navigation on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Close Sidemenu" id="myOverlay"></div>
+
+<script>
+
+/***********************************************************
+네비게이션 효과
+*************************************************************/
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+//왼편 네비게이션바 부분 소메뉴펼치기
+function showMenuDetail(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-red";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-red", "");
+  }
+}
+
+//왼편 네비게이션바 부분 소메뉴펼치기
+function showMenuDetail2(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-grey";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-grey", "");
+  }
+}
+
+</script>

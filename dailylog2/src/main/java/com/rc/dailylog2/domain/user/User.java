@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name="T_USER")
-public class User extends BaseTimeEntity{
+public class User extends BaseTimeEntity implements Serializable {
 
     @Id
     @Column(nullable = false) //PK auto_increment 속성
