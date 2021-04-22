@@ -1,6 +1,7 @@
 package com.rc.dailylog2.web;
 
 
+import com.rc.dailylog2.config.auth.dto.SessionUser;
 import com.rc.dailylog2.domain.user.User;
 import com.rc.dailylog2.service.login.LoginService;
 import com.rc.dailylog2.service.user.UserService;
@@ -45,15 +46,16 @@ public class LoginController {
     public RedirectView loginForFormRequest(@ModelAttribute LoginRequestDto requestDto,HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         HttpSession session = request.getSession(true);
-        User sessionUser = (User) session.getAttribute("dailylog2_user");
-        if(sessionUser != null){
+        SessionUser loginUser = (SessionUser) session.getAttribute("dailylog2_user");
+        if(loginUser != null){
             session.removeAttribute("dailylog2_user");
         }
 
         if(checkLogin(requestDto)){
             User user = userService.selectUser(requestDto);
+            SessionUser sessionUser = new SessionUser(user);
             session.setMaxInactiveInterval(3600);
-            session.setAttribute("dailylog2_user", user);
+            session.setAttribute("dailylog2_user", sessionUser);
             return new RedirectView("/dailylog2/one/month");
         }
 

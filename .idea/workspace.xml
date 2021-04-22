@@ -23,17 +23,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4df83288-81df-426e-a9d3-0b8d38290566" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/GoogleOAuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/dto/OAuthAttributes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/tokens/credentials.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/dailylog/Dailylog.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/dailylog/Dailylog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/service/dailylog/DailylogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/service/dailylog/DailylogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/DailylogApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/DailylogApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/dto/DailylogRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/dto/DailylogRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/modal-event.js" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/modal-event.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/week-calendar-event.js" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/calendar/week-calendar-event.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/one.js" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/static/js/one.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-modal.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-modal.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-week-script.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/one-week-script.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/Dailylog2Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/Dailylog2Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/interceptor/LoginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/interceptor/LoginInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/web/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/application-default.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/application-default.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/header.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/header.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/left-nav.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout/left-nav.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/month-one.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/month-one.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/month-team.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/month-team.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/month-one-script.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/month-one-script.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/month-team-script.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/month-team-script.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/week-one-script.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/week-one-script.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/week-team-script.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script/week-team-script.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +57,37 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/dailylog2">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dailylog2" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dailylog2" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="dailylog2" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="compileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -58,15 +98,24 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dailylog2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/user" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/user" />
+      <recent name="$PROJECT_DIR$/dailylog2" />
+      <recent name="$PROJECT_DIR$/dailylog2/src/main/resources" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dailylog2/src/main/resources/templates/script" />
+      <recent name="$PROJECT_DIR$/dailylog2/src/main/resources/templates" />
+      <recent name="$PROJECT_DIR$/dailylog2/src/main/resources/templates/layout" />
       <recent name="$PROJECT_DIR$/dailylog2/src/main/resources/static/js" />
+      <recent name="$PROJECT_DIR$/dailylog2/src/main/java/com/rc/dailylog2/domain/user" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Dailylog2Application">
@@ -117,9 +166,27 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="dailylog2" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/dailylog2" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Dailylog2Application" />
+        <item itemvalue="Gradle.dailylog2" />
         <item itemvalue="Gradle.D:/ws/springboot/dailylog2/dailylog2/build.gradle (1)" />
         <item itemvalue="Gradle.D:/ws/springboot/dailylog2/dailylog2/build.gradle" />
       </list>
@@ -152,10 +219,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="159" y="23" width="1024" height="821" key="#Project_Structure" timestamp="1616724841522">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state x="159" y="23" width="1024" height="823" key="#Project_Structure" timestamp="1619068244620">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="159" y="23" width="1024" height="821" key="#Project_Structure/0.23.1440.821@0.23.1440.821" timestamp="1616724841522" />
+    <state x="159" y="23" width="1024" height="823" key="#Project_Structure/0.23.1440.823@0.23.1440.823" timestamp="1619068244620" />
     <state x="81" y="184" width="1195" height="560" key="DiffContextDialog" timestamp="1616733468397">
       <screen x="0" y="23" width="1440" height="822" />
     </state>
@@ -164,30 +232,30 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="519" y="336" key="Github.CreateGistDialog/0.23.1440.822@0.23.1440.822" timestamp="1615879125251" />
-    <state width="985" height="222" key="GridCell.Tab.0.bottom" timestamp="1616741790233">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="1173" height="249" key="GridCell.Tab.0.bottom" timestamp="1619080761188">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="985" height="222" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
-    <state width="985" height="203" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1616740086905" />
-    <state width="914" height="103" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1616731941006" />
-    <state width="985" height="222" key="GridCell.Tab.0.center" timestamp="1616741790233">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="923" height="249" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1619077060958" />
+    <state width="1173" height="249" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1619080761188" />
+    <state width="1173" height="249" key="GridCell.Tab.0.center" timestamp="1619080761187">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="985" height="222" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
-    <state width="985" height="203" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1616740086904" />
-    <state width="914" height="103" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1616731941005" />
-    <state width="985" height="222" key="GridCell.Tab.0.left" timestamp="1616741790233">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="923" height="249" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1619077060958" />
+    <state width="1173" height="249" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1619080761187" />
+    <state width="1173" height="249" key="GridCell.Tab.0.left" timestamp="1619080761187">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="985" height="222" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
-    <state width="985" height="203" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1616740086904" />
-    <state width="914" height="103" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1616731941005" />
-    <state width="985" height="222" key="GridCell.Tab.0.right" timestamp="1616741790233">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="923" height="249" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1619077060957" />
+    <state width="1173" height="249" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1619080761187" />
+    <state width="1173" height="249" key="GridCell.Tab.0.right" timestamp="1619080761187">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="985" height="222" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1616741790233" />
-    <state width="985" height="203" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1616740086905" />
-    <state width="914" height="103" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1616731941005" />
+    <state width="923" height="249" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1619077060958" />
+    <state width="1173" height="249" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1619080761187" />
     <state x="289" y="185" key="IDE.errors.dialog" timestamp="1616725782636">
       <screen x="0" y="23" width="1440" height="821" />
     </state>

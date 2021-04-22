@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RequiredArgsConstructor
 @Controller
@@ -15,8 +16,8 @@ public class MainController {
     private final DailylogRepository dailylogRepository;
 
     @GetMapping("/dailylog2")
-    public String main(Model model){
+    public RedirectView main(Model model){
 
-        return "month-one";
+        return new RedirectView("/dailylog2/login");
     }
 }

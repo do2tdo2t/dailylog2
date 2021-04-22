@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @ToString
@@ -16,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name="T_USER")
-public class User extends BaseTimeEntity implements Serializable {
+public class User extends BaseTimeEntity{
 
     @Id
     @Column(nullable = false) //PK auto_increment 속성
@@ -36,6 +35,8 @@ public class User extends BaseTimeEntity implements Serializable {
     private String userstatecode;
 
     private String acceptadminyn;
+
+    private String gmail;
 
     private String jumin1;
 
@@ -73,7 +74,6 @@ public class User extends BaseTimeEntity implements Serializable {
 
     private String enterpgm;
 
-
     private String updateid;
 
     private String updatename;
@@ -84,7 +84,7 @@ public class User extends BaseTimeEntity implements Serializable {
     public User( String userid, String encpassword, String username, String deptcode, String part
                  , String userstatecode, String acceptadminyn, String jumin1
                  , String jumin2, String telnum, String hpnum, String email, String loginip
-                 , String logindate, Integer logincount, Integer loginfailcnt, String lockyn
+                 , String logindate, Integer logincount, Integer loginfailcnt, String lockyn, String gmail
                  , String positioncode, Date enterdate, Date updatedate
                  , String enterid, String entername, String enterpgm
                  , String updateid, String updatename, String updatepgm) {
@@ -97,6 +97,7 @@ public class User extends BaseTimeEntity implements Serializable {
         this.acceptadminyn = acceptadminyn;
         this.jumin1 = jumin1;
         this.jumin2 = jumin2;
+        this.gmail = gmail;
         this.telnum = telnum;
         this.hpnum = hpnum;
         this.email = email;
@@ -115,6 +116,48 @@ public class User extends BaseTimeEntity implements Serializable {
         this.enterdate = enterdate;
         this.updatedate = updatedate;
 
+    }
+
+    public void update(String userid, String encpassword, String username, String deptcode, String part
+            , String userstatecode, String acceptadminyn, String jumin1
+            , String jumin2, String telnum, String hpnum, String email, String loginip
+            , String logindate, Integer logincount, Integer loginfailcnt, String lockyn, String gmail
+            , String positioncode, Date enterdate, Date updatedate
+            , String enterid, String entername, String enterpgm
+            , String updateid, String updatename, String updatepgm){
+        this.userid = userid;
+        this.username = username;
+        this.deptcode = deptcode;
+        this.encpassword = encpassword;
+        this.part = part;
+        this.userstatecode = userstatecode;
+        this.acceptadminyn = acceptadminyn;
+        this.jumin1 = jumin1;
+        this.jumin2 = jumin2;
+        this.gmail = gmail;
+        this.telnum = telnum;
+        this.hpnum = hpnum;
+        this.email = email;
+        this.logindate = logindate;
+        this.logincount = logincount;
+        this.loginfailcnt = loginfailcnt;
+        this.loginip = loginip;
+        this.lockyn = lockyn;
+        this.positioncode = positioncode;
+        this.enterid = enterid;
+        this.entername = entername;
+        this.enterpgm = enterpgm;
+        this.updateid = updateid;
+        this.updatename = updatename;
+        this.updatepgm = updatepgm;
+        this.enterdate = enterdate;
+        this.updatedate = updatedate;
+    }
+
+    public User update(String username){
+        this.username = username;
+
+        return this;
     }
 
     public void setUserid(String workerid) {

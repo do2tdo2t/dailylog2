@@ -5,10 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mustache.MustacheEnvironmentCollector;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude= {SecurityAutoConfiguration.class})
 @SpringBootApplication
 public class Dailylog2Application {
 

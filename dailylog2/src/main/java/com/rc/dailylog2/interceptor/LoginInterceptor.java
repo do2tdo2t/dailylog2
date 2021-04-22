@@ -1,5 +1,6 @@
 package com.rc.dailylog2.interceptor;
 
+import com.rc.dailylog2.config.auth.dto.SessionUser;
 import com.rc.dailylog2.domain.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +18,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        User user = (User) request.getSession().getAttribute("dailylog2_user");
+        SessionUser sessionUser = (SessionUser) request.getSession().getAttribute("dailylog2_user");
 
-
-        if(user == null){
+        if(sessionUser == null){
             response.sendRedirect("/dailylog2/login");
             return false;
         }
-        logger.info(user.toString());
+        logger.info(sessionUser.toString());
         return true;
     }
 
