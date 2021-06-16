@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.5.RELEASE'
+	id 'org.springframework.boot' version '2.3.10.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 	id 'eclipse'
@@ -30,13 +30,13 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
 	implementation 'org.springframework.session:spring-session-jdbc'
 	implementation 'log4j:log4j:1.2.17' //추가
-	compile("com.h2database:h2")
-	compile 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.oracle.ojdbc:ojdbc8'
+	compileOnly 'com.oracle.ojdbc:ojdbc8'
 	runtimeOnly 'com.oracle.ojdbc:orai18n'
 	annotationProcessor 'org.projectlombok:lombok'
-	compile fileTree(dir: 'lib', include: ['*.jar'])
+	implementation fileTree(dir: 'lib', include: ['*.jar'])
 	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client', version: '2.4.2'
 	testImplementation'org.springframework.boot:spring-boot-starter-test'
 	//implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.9.RELEASE'
@@ -45,13 +45,15 @@ dependencies {
 	implementation group: 'org.springframework.security', name: 'spring-security-oauth2-jose', version: '5.3.9.RELEASE'
 	//implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.9.RELEASE'
 	implementation group: 'org.springframework.security', name: 'spring-security-oauth2-core', version: '5.3.9.RELEASE'
+
+	implementation 'com.google.api-client:google-api-client:1.23.0'
+	implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+	implementation 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
+
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	
 	// testImplementation 'org.springframework.security:spring-security-test'
 	//compile 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	//compile 'com.google.api-client:google-api-client:1.23.0'
-	//compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
-	//compile 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
 }
 
 test {
